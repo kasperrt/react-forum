@@ -48,11 +48,28 @@
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(34);
 
+	var Comment = React.createClass({
+	  displayName: 'Comment',
+
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      { className: 'comment' },
+	      React.createElement(
+	        'h2',
+	        { className: 'commentAuthor' },
+	        this.props.author
+	      ),
+	      this.props.children
+	    );
+	  }
+	});
+
 	ReactDOM.render(React.createElement(
-	  'h1',
-	  null,
-	  'Dick'
-	), document.getElementById('example'));
+	  Comment,
+	  { author: 'Kasper' },
+	  'This is a poop'
+	), document.getElementById('container'));
 
 /***/ },
 /* 1 */
