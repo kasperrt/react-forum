@@ -49,7 +49,7 @@
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(34);
 	var ReactRouter = __webpack_require__(172);
-	var Home = __webpack_require__(235);
+	var Navbar = __webpack_require__(235);
 
 	var App = React.createClass({
 	  displayName: 'App',
@@ -58,6 +58,7 @@
 	    return React.createElement(
 	      'div',
 	      null,
+	      React.createElement(Navbar, null),
 	      this.props.children
 	    );
 	  }
@@ -27387,36 +27388,63 @@
 /* 235 */
 /***/ function(module, exports, __webpack_require__) {
 
+	
+
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(34);
+	var ReactRouter = __webpack_require__(172);
 
-	var Home = React.createClass({
-	  displayName: 'Home',
+	var Navbar = React.createClass({
+		displayName: 'Navbar',
 
-	  render: function () {
-	    return React.createElement(
-	      'div',
-	      null,
-	      React.createElement(
-	        'h2',
-	        null,
-	        'HELLO'
-	      ),
-	      React.createElement(
-	        'p',
-	        null,
-	        'Cras facilisis urna ornare ex volutpat, et convallis erat elementum. Ut aliquam, ipsum vitae gravida suscipit, metus dui bibendum est, eget rhoncus nibh metus nec massa. Maecenas hendrerit laoreet augue nec molestie. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.'
-	      ),
-	      React.createElement(
-	        'p',
-	        null,
-	        'Duis a turpis sed lacus dapibus elementum sed eu lectus.'
-	      )
-	    );
-	  }
+		render: function () {
+			return React.createElement(
+				'div',
+				null,
+				React.createElement(
+					'div',
+					{ id: 'navbar' },
+					React.createElement(
+						'div',
+						{ id: 'content' },
+						React.createElement(
+							'ul',
+							{ id: 'navbarLeft' },
+							React.createElement(
+								'li',
+								null,
+								React.createElement(
+									ReactRouter.Link,
+									{ to: '/test' },
+									'HOW TO: ADULT'
+								)
+							)
+						),
+						React.createElement(
+							'ul',
+							{ id: 'navbarRight' },
+							React.createElement(
+								'li',
+								null,
+								React.createElement('input', { type: 'text' })
+							),
+							React.createElement(
+								'li',
+								null,
+								React.createElement(
+									ReactRouter.Link,
+									{ to: '/test' },
+									'Min side'
+								)
+							)
+						)
+					)
+				)
+			);
+		}
 	});
 
-	module.exports = Home;
+	module.exports = Navbar;
 
 /***/ }
 /******/ ]);

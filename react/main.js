@@ -3,12 +3,13 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 var ReactRouter = require('react-router');
-var Home = require('./other.js');
+var Navbar = require('./navbar.js');
 
 var App = React.createClass({
   render: function() {
     return (
       <div>
+        <Navbar />
         {this.props.children}
       </div>
     )
@@ -42,6 +43,7 @@ ReactDOM.render(
     <ReactRouter.Route path="/" component={App}>
       <ReactRouter.IndexRoute component={Home} />
       <ReactRouter.Route path="test" component={Stuff} />
+      
     </ReactRouter.Route>
   </ReactRouter.Router>,
   document.getElementById('container')
