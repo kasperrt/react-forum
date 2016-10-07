@@ -1,0 +1,29 @@
+.post{
+  background-color: lightgray;
+  margin: 20px 0 20px 0;
+  padding: 10px;
+}
+
+.postTitle{
+  text-decoration: none;
+  font-size: 1.3rem;
+  text-transform: uppercase;
+  color: black;
+}
+
+.postAuthorContainer, .postPosted, .postComments{
+  text-align: right;
+}
+
+.new_post_button{
+  background: green;
+  text-transform: uppercase;
+  color: white;
+  width: 200px;
+  text-align: center;
+  padding: 30px;
+  line-height: 90px;
+  margin-top: 30px;
+  font-size: 1.3rem;
+  text-decoration: none;
+}

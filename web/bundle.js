@@ -49,7 +49,7 @@
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(34);
 	var ReactRouter = __webpack_require__(172);
-	var Home = __webpack_require__(235);
+	var Frontpage = __webpack_require__(235);
 
 	var App = React.createClass({
 	  displayName: 'App',
@@ -58,57 +58,8 @@
 	    return React.createElement(
 	      'div',
 	      null,
+	      'nav shit',
 	      this.props.children
-	    );
-	  }
-	});
-
-	var Home = React.createClass({
-	  displayName: 'Home',
-
-	  render: function () {
-	    return React.createElement(
-	      'div',
-	      null,
-	      React.createElement(
-	        'h1',
-	        null,
-	        'Home Site'
-	      ),
-	      React.createElement(
-	        'li',
-	        null,
-	        React.createElement(
-	          ReactRouter.Link,
-	          { to: '/test' },
-	          'test'
-	        )
-	      )
-	    );
-	  }
-	});
-
-	var Stuff = React.createClass({
-	  displayName: 'Stuff',
-
-	  render: function () {
-	    return React.createElement(
-	      'div',
-	      null,
-	      React.createElement(
-	        'h1',
-	        null,
-	        'Test Site'
-	      ),
-	      React.createElement(
-	        'li',
-	        null,
-	        React.createElement(
-	          ReactRouter.Link,
-	          { to: '/' },
-	          'Home'
-	        )
-	      )
 	    );
 	  }
 	});
@@ -119,8 +70,7 @@
 	  React.createElement(
 	    ReactRouter.Route,
 	    { path: '/', component: App },
-	    React.createElement(ReactRouter.IndexRoute, { component: Home }),
-	    React.createElement(ReactRouter.Route, { path: 'test', component: Stuff })
+	    React.createElement(ReactRouter.IndexRoute, { component: Frontpage })
 	  )
 	), document.getElementById('container'));
 
@@ -27388,35 +27338,86 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var ReactDOM = __webpack_require__(34);
+	var ReactRouter = __webpack_require__(172);
 
-	var Home = React.createClass({
-	  displayName: 'Home',
+	var posts = [{ id: "post_hash1", title: "post1", description: "post1 description poop", time_posted: "11. jan", author: "bob poopmaster", comments: 1 }, { id: "post_hash2", title: "post2", description: "post2 description ass", time_posted: "12. jan", author: "mongo", comments: 20 }];
+
+	var Frontpage = React.createClass({
+	  displayName: 'Frontpage',
 
 	  render: function () {
 	    return React.createElement(
 	      'div',
 	      null,
 	      React.createElement(
-	        'h2',
-	        null,
-	        'HELLO'
+	        ReactRouter.Link,
+	        { className: 'new_post_button', to: "new_post" },
+	        'Nytt Innlegg'
 	      ),
 	      React.createElement(
-	        'p',
-	        null,
-	        'Cras facilisis urna ornare ex volutpat, et convallis erat elementum. Ut aliquam, ipsum vitae gravida suscipit, metus dui bibendum est, eget rhoncus nibh metus nec massa. Maecenas hendrerit laoreet augue nec molestie. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.'
-	      ),
-	      React.createElement(
-	        'p',
-	        null,
-	        'Duis a turpis sed lacus dapibus elementum sed eu lectus.'
+	        'div',
+	        { className: 'frontpage_posts' },
+	        React.createElement(
+	          Posts,
+	          { posts: posts },
+	          this.props.children
+	        )
 	      )
 	    );
 	  }
 	});
 
-	module.exports = Home;
+	var Posts = React.createClass({
+	  displayName: 'Posts',
+
+	  render: function () {
+	    var postsComponents = this.props.posts.map(function (post) {
+	      return React.createElement(
+	        'div',
+	        { id: post.id, key: post.id, className: 'post' },
+	        React.createElement(
+	          ReactRouter.Link,
+	          { className: 'postTitle', to: "posts/" + post.id },
+	          post.title
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'postDescription' },
+	          post.description
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'postAuthorContainer' },
+	          'Skrevet av \xA0',
+	          React.createElement(
+	            ReactRouter.Link,
+	            { className: 'postAuthor', to: "user/" + post.author },
+	            post.author
+	          )
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'postComments' },
+	          post.comments,
+	          ' kommentarer'
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'postPosted' },
+	          'Publisert ',
+	          post.time_posted
+	        )
+	      );
+	    });
+	    return React.createElement(
+	      'div',
+	      null,
+	      postsComponents
+	    );
+	  }
+	});
+
+	module.exports = Frontpage;
 
 /***/ }
 /******/ ]);
