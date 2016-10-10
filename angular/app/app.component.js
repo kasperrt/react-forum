@@ -17,10 +17,10 @@ var Hero = (function () {
 exports.Hero = Hero;
 var AppComponent = (function () {
     function AppComponent() {
-        this.title = 'How to adult';
+        this.title = 'How to: adult';
         this.hero = Hero = {
             id: 1,
-            name: 'Windstorm'
+            name: 'Windstorm',
         };
     }
     AppComponent = __decorate([

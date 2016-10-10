@@ -18,9 +18,9 @@ export class Hero {
 
 })
 export class AppComponent {
-    title = 'How to adult';
+    title = 'How to: adult';
     hero = Hero = {
         id: 1,
-        name: 'Windstorm'
+        name: 'Windstorm',
     }
 }
