@@ -1,6 +1,8 @@
 h1 {
-  color: #369;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Roboto', Arial, Helvetica, sans-serif;
+  font-weight: lighter;
+  text-transform: uppercase;
+  font-style: italic;
   font-size: 250%;
 }
 h2, h3 {
