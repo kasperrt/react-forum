@@ -7,17 +7,15 @@ export class Hero {
 @Component({
     selector: 'my-app',
     template: `
-      
+
       <router-outlet></router-outlet>
 
       <div class="header">
-      <a routerLink="/home"><h1>{{title}}</h1></a>
-      <input class="search"/>
-      <a routerLink="/profile"><button class="profileButton" >Min Profil</button></a>
-
-
-
-
+        <a routerLink="/home"><h1>{{title}}</h1></a>
+        <div class="top-left">
+          <input class="search"/>
+          <a routerLink="/profile" class="profileButton">Min Profil</a>
+        </div>
        </div>
 
       `
