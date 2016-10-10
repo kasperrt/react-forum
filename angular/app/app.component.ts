@@ -7,6 +7,9 @@ export class Hero {
 @Component({
     selector: 'my-app',
     template: `
+      <a routerLink="/home">Home</a>
+      <a routerLink="/profile">Profile</a>
+      <router-outlet></router-outlet>
       <h1>{{title}}</h1>
       <h2>{{hero.name}} details!</h2>
       <div><label>id: </label>{{hero.id}}</div>
@@ -18,9 +21,9 @@ export class Hero {
 
 })
 export class AppComponent {
-    title = 'How to: adult';
+    title = 'How to: Adult';
     hero = Hero = {
         id: 1,
-        name: 'Windstorm',
+        name: 'Windstorm'
     }
 }

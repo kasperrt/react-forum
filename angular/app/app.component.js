@@ -17,16 +17,16 @@ var Hero = (function () {
 exports.Hero = Hero;
 var AppComponent = (function () {
     function AppComponent() {
-        this.title = 'How to: adult';
+        this.title = 'How to: Adult';
         this.hero = Hero = {
             id: 1,
-            name: 'Windstorm',
+            name: 'Windstorm'
         };
     }
     AppComponent = __decorate([
         core_1.Component({
             selector: 'my-app',
-            template: "\n      <h1>{{title}}</h1>\n      <h2>{{hero.name}} details!</h2>\n      <div><label>id: </label>{{hero.id}}</div>\n      <div>\n        <label>name: </label>\n        <input value=\"{{hero.name}}\" placeholder=\"name\">\n      </div>\n      "
+            template: "\n      <a routerLink=\"/home\">Home</a>\n      <a routerLink=\"/profile\">Profile</a>\n      <router-outlet></router-outlet>\n      <h1>{{title}}</h1>\n      <h2>{{hero.name}} details!</h2>\n      <div><label>id: </label>{{hero.id}}</div>\n      <div>\n        <label>name: </label>\n        <input value=\"{{hero.name}}\" placeholder=\"name\">\n      </div>\n      "
         }), 
         __metadata('design:paramtypes', [])
     ], AppComponent);
