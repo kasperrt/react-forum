@@ -4,7 +4,7 @@
   "description": "React Oppgave 3 Proposition",
   "main": "index.js",
   "scripts": {
-    "test": "webpack react/main.js web/bundle.js --module-bind 'js=babel-loader'",
+    "test": "webpack react/main.js web/bundle.js --module-bind \"js=babel-loader\"",
     "start": "node server.js"
   },
   "repository": {

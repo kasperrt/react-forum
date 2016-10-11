@@ -49,7 +49,8 @@
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(34);
 	var ReactRouter = __webpack_require__(172);
-	var Frontpage = __webpack_require__(235);
+	var Navbar = __webpack_require__(235);
+	var Frontpage = __webpack_require__(236);
 
 	var App = React.createClass({
 	  displayName: 'App',
@@ -58,7 +59,7 @@
 	    return React.createElement(
 	      'div',
 	      null,
-	      'nav shit',
+	      React.createElement(Navbar, null),
 	      this.props.children
 	    );
 	  }
@@ -27335,6 +27336,62 @@
 
 /***/ },
 /* 235 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var ReactDOM = __webpack_require__(34);
+	var ReactRouter = __webpack_require__(172);
+
+	var Navbar = React.createClass({
+		displayName: 'Navbar',
+
+		render: function () {
+			return React.createElement(
+				'div',
+				{ id: 'navbar' },
+				React.createElement(
+					'div',
+					{ id: 'content' },
+					React.createElement(
+						'ul',
+						{ className: 'navbarElement', id: 'navbarLeft' },
+						React.createElement(
+							'li',
+							null,
+							React.createElement(
+								ReactRouter.Link,
+								{ to: '/Frontpage' },
+								'HOW TO: ADULT'
+							)
+						)
+					),
+					React.createElement(
+						'ul',
+						{ className: 'navbarElement' },
+						React.createElement(
+							'li',
+							null,
+							React.createElement('input', { type: 'text', placeholder: 'S\xF8k...' })
+						),
+						React.createElement(
+							'li',
+							null,
+							React.createElement(
+								ReactRouter.Link,
+								{ to: '/Frontpage', className: 'btn' },
+								'Min side'
+							)
+						)
+					)
+				)
+			);
+		}
+	});
+
+	module.exports = Navbar;
+
+/***/ },
+/* 236 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);

@@ -3,13 +3,15 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 var ReactRouter = require('react-router');
+var Navbar = require('./navbar.js');
 var Frontpage = require('./frontpage.js');
+
 
 var App = React.createClass({
   render: function() {
     return (
       <div>
-        nav shit
+        <Navbar />
         {this.props.children}
       </div>
     )
