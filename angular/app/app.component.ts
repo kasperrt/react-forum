@@ -8,7 +8,6 @@ export class Hero {
     selector: 'my-app',
     template: `
 
-      <router-outlet></router-outlet>
 
       <div class="header">
         <a routerLink="/home"><h1>{{title}}</h1></a>
@@ -18,10 +17,12 @@ export class Hero {
         </div>
        </div>
 
+
+      <router-outlet></router-outlet>
+
       `
 
 })
 export class AppComponent {
     title = 'How to: Adult';
-
 }

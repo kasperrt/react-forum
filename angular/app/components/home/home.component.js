@@ -15,7 +15,7 @@ var HomeComponent = (function () {
     HomeComponent = __decorate([
         core_1.Component({
             selector: 'home',
-            template: "\n  \n  \t\t<div>Suck</div>\n    \n  "
+            template: "\n \n  \t\t<div>Suck</div>\n\n  "
         }), 
         __metadata('design:paramtypes', [])
     ], HomeComponent);
