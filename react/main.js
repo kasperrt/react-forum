@@ -22,8 +22,6 @@ var App = React.createClass({
 ReactDOM.render(
   <ReactRouter.Router history={ReactRouter.hashHistory}>
     <ReactRouter.Route path="/" component={App}>
-      <ReactRouter.IndexRoute component={Home} />
-      <ReactRouter.Route path="test" component={Stuff} />
       <ReactRouter.IndexRoute component={Frontpage} />
     </ReactRouter.Route>
   </ReactRouter.Router>,

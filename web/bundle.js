@@ -49,11 +49,8 @@
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(34);
 	var ReactRouter = __webpack_require__(172);
-
 	var Navbar = __webpack_require__(235);
-
-	var Frontpage = __webpack_require__(235);
-
+	var Frontpage = __webpack_require__(236);
 
 	var App = React.createClass({
 	  displayName: 'App',
@@ -62,7 +59,6 @@
 	    return React.createElement(
 	      'div',
 	      null,
-
 	      React.createElement(Navbar, null),
 	      this.props.children
 	    );
@@ -27342,10 +27338,7 @@
 /* 235 */
 /***/ function(module, exports, __webpack_require__) {
 
-	
-
 	var React = __webpack_require__(1);
-<<<<<<< HEAD
 	var ReactDOM = __webpack_require__(34);
 	var ReactRouter = __webpack_require__(172);
 
@@ -27355,42 +27348,38 @@
 		render: function () {
 			return React.createElement(
 				'div',
-				null,
+				{ id: 'navbar' },
 				React.createElement(
 					'div',
-					{ id: 'navbar' },
+					{ id: 'content' },
 					React.createElement(
-						'div',
-						{ id: 'content' },
+						'ul',
+						{ className: 'navbarElement', id: 'navbarLeft' },
 						React.createElement(
-							'ul',
-							{ id: 'navbarLeft' },
+							'li',
+							null,
 							React.createElement(
-								'li',
-								null,
-								React.createElement(
-									ReactRouter.Link,
-									{ to: '/test' },
-									'HOW TO: ADULT'
-								)
+								ReactRouter.Link,
+								{ to: '/Frontpage' },
+								'HOW TO: ADULT'
 							)
+						)
+					),
+					React.createElement(
+						'ul',
+						{ className: 'navbarElement' },
+						React.createElement(
+							'li',
+							null,
+							React.createElement('input', { type: 'text', placeholder: 'S\xF8k...' })
 						),
 						React.createElement(
-							'ul',
-							{ id: 'navbarRight' },
+							'li',
+							null,
 							React.createElement(
-								'li',
-								null,
-								React.createElement('input', { type: 'text' })
-							),
-							React.createElement(
-								'li',
-								null,
-								React.createElement(
-									ReactRouter.Link,
-									{ to: '/test' },
-									'Min side'
-								)
+								ReactRouter.Link,
+								{ to: '/Frontpage', className: 'btn' },
+								'Min side'
 							)
 						)
 					)
@@ -27400,7 +27389,12 @@
 	});
 
 	module.exports = Navbar;
-=======
+
+/***/ },
+/* 236 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(172);
 
 	var posts = [{ id: "post_hash1", title: "post1", description: "post1 description poop", time_posted: "11. jan", author: "bob poopmaster", comments: 1 }, { id: "post_hash2", title: "post2", description: "post2 description ass", time_posted: "12. jan", author: "mongo", comments: 20 }];
@@ -27481,7 +27475,6 @@
 	});
 
 	module.exports = Frontpage;
->>>>>>> 9bad08b607195cb263960fbd9c664549c9b43d26
 
 /***/ }
 /******/ ]);
