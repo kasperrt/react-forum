@@ -27362,7 +27362,7 @@
 							null,
 							React.createElement(
 								ReactRouter.Link,
-								{ to: '/Frontpage' },
+								{ to: '/' },
 								'HOW TO: ADULT'
 							)
 						)
@@ -27380,7 +27380,7 @@
 							null,
 							React.createElement(
 								ReactRouter.Link,
-								{ to: '/MyPage', className: 'btn' },
+								{ to: '/profile', className: 'btn' },
 								'Min side'
 							)
 						)
