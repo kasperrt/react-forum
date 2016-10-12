@@ -15,7 +15,20 @@ var Thread = React.createClass({
       <div>
         <div className="postContainer">
           <h1>{post.title}</h1>
-          <p>{post.description}</p>
+          <div className="postDescriptionContainer">
+            {post.description}
+          </div>
+          <div className="postInformation">
+            <span>
+              Skrevet av <ReactRouter.Link to={"user/"+post.author}>
+                {post.author}
+              </ReactRouter.Link><br/>
+            </span>
+            <span>
+              {post.comments} kommentarer<br/>
+            </span>
+            Publisert {post.time_posted}
+          </div>
         </div>
         <hr/>
         <div className="commentSorter">
@@ -27,7 +40,7 @@ var Thread = React.createClass({
         </div>
         <div className="newCommentContainer">
           <div>
-            <textarea rows="10" cols="80" placeholder="Skriv inn kommentar her">
+            <textarea rows="10" cols="80" placeholder="Skriv inn kommentar her" className="newCommentTextArea">
             </textarea>
           </div>
           <ReactRouter.Link className="newCommentButton" to={"createComment"}>

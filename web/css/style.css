@@ -11,7 +11,7 @@
   color: black;
 }
 
-.postAuthorContainer, .postPosted, .postComments, .commentPosted{
+.postAuthorContainer, .postPosted, .postComments, .commentPosted, .postInformation{
   text-align: right;
 }
 
@@ -28,17 +28,9 @@
   text-decoration: none;
 }
 
- /*.newCommentButton{
-   background: green;
-   text-transform: uppercase;
-   color: white;
-   text-align: center;
-   padding: 10px;
-   line-height: 90px;
-   font-size: 1.3rem;
-   text-decoration: none;
- }*/
-
+.postDescriptionContainer{
+  width: 75%;
+}
  .newCommentContainer{
    margin-top: 30px;
  }
