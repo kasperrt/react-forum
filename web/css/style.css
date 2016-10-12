@@ -11,11 +11,7 @@
   color: black;
 }
 
-.postAuthorContainer, .postPosted, .postComments{
-  text-align: right;
-}
-
-.postAuthorContainer, .postPosted, .postComments, .commentPosted{
+.postAuthorContainer, .postPosted, .postComments, .commentPosted, .postInformation{
   text-align: right;
 }
 
@@ -30,6 +26,10 @@
   margin-top: 30px;
   font-size: 1.3rem;
   text-decoration: none;
+}
+
+.postDescriptionContainer{
+  width: 75%;
 }
 
  .newCommentContainer{
