@@ -1,12 +1,10 @@
-// main.js
-
 var React = require('react');
 var ReactDOM = require('react-dom');
 var ReactRouter = require('react-router');
 var Navbar = require('./navbar.js');
 var Frontpage = require('./frontpage.js');
 var Profile = require('./profile.js');
-
+var Thread = require('./thread.js');
 
 var App = React.createClass({
   render: function() {
