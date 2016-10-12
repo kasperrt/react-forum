@@ -4,18 +4,18 @@
   padding: 10px;
 }
 
-.postTitle{
+.postTitle, .commentAuthor{
   text-decoration: none;
   font-size: 1.3rem;
   text-transform: uppercase;
   color: black;
 }
 
-.postAuthorContainer, .postPosted, .postComments{
+.postAuthorContainer, .postPosted, .postComments, .commentPosted, .postInformation{
   text-align: right;
 }
 
-.new_post_button{
+.new_post_button, .newCommentButton{
   background: green;
   text-transform: uppercase;
   color: white;
@@ -27,3 +27,17 @@
   font-size: 1.3rem;
   text-decoration: none;
 }
+
+.postDescriptionContainer{
+  width: 75%;
+}
+
+ .newCommentContainer{
+   margin-top: 30px;
+ }
+
+ .comment{
+   background-color: lightgray;
+   margin: 20px 0 20px 0;
+   padding: 10px;
+ }
