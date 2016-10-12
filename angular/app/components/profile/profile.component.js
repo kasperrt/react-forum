@@ -9,27 +9,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var profile_service_1 = require('../../services/profile/profile.service');
 var ProfileComponent = (function () {
-    function ProfileComponent() {
-        // Typescript can't read this object, so it has to be rewritten somehow
-        this.userprofile = [
-            "name", "Brukernavn",
-            "image_src", "http://i.imgur.com/izzpeRb.jpg",
-            "created_date", "01.10.2016",
-            "num_posts", "10",
-            "num_comments", "15",
-            "posts", {
-                "heading": "Randompost",
-                "content": "randompost content",
-            }
-        ];
+    function ProfileComponent(_profileService) {
+        this._profileService = _profileService;
     }
+    ProfileComponent.prototype.ngOnInit = function () {
+        userprofiles: Profile[] = this._profileService.getProfile();
+        userprofile = userprofiles[0];
+    };
     ProfileComponent = __decorate([
         core_1.Component({
             selector: 'profile',
             templateUrl: './app/components/profile/profile.component.html'
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [profile_service_1.ProfileService])
     ], ProfileComponent);
     return ProfileComponent;
 }());
