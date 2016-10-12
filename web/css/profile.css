@@ -1,0 +1,47 @@
+.layers{
+	width: 80%;
+	margin: auto;
+	display: flex;
+	justify-content: space-around;
+}
+
+#layer1 ul{
+	width: 97%;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	height: 56px;
+}
+
+#layer1 li{
+	float: left;
+
+}
+
+#layer1 h2{
+	padding: 0;
+	margin: 0;
+}
+
+.btnRed{
+	padding: 10px 16px;
+	background-color: red;
+	color: white;
+	text-decoration: none;
+	font-size: 24px;
+	text-transform: uppercase;
+}
+
+#layer2 img{
+	float: left;
+}
+
+#layer3 img{
+	width: 550px;
+	height: 350px;
+}
+
+.layerDiv{
+	float: left;
+	width: 50%;
+}

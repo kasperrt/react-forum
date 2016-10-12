@@ -51,7 +51,7 @@
 	var ReactRouter = __webpack_require__(172);
 	var Navbar = __webpack_require__(235);
 	var Frontpage = __webpack_require__(236);
-	var MyPage = __webpack_require__(237);
+	var Profile = __webpack_require__(237);
 
 	var App = React.createClass({
 	  displayName: 'App',
@@ -72,8 +72,12 @@
 	  React.createElement(
 	    ReactRouter.Route,
 	    { path: '/', component: App },
-	    React.createElement(ReactRouter.IndexRoute, { component: Frontpage }),
-	    React.createElement(ReactRouter.IndexRoute, { component: MyPage })
+	    React.createElement(ReactRouter.IndexRoute, { component: Frontpage })
+	  ),
+	  React.createElement(
+	    ReactRouter.Route,
+	    { path: '/profile', component: App },
+	    React.createElement(ReactRouter.IndexRoute, { component: Profile })
 	  )
 	), document.getElementById('container'));
 
@@ -27485,33 +27489,97 @@
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(172);
 
-	var MyPage = React.createClass({
-		displayName: 'MyPage',
+	var Profile = React.createClass({
+		displayName: 'Profile',
 
 		render: function () {
 			return React.createElement(
 				'div',
-				{ id: 'content' },
+				{ className: 'content' },
 				React.createElement(
 					'div',
-					null,
-					'Hei'
+					{ id: 'layer1', className: 'layers' },
+					React.createElement(
+						'ul',
+						null,
+						React.createElement(
+							'li',
+							null,
+							React.createElement(
+								'h2',
+								null,
+								'Min side'
+							)
+						),
+						React.createElement(
+							'li',
+							{ id: 'rightLi', style: { float: "right" } },
+							React.createElement(
+								ReactRouter.Link,
+								{ to: '/', className: 'btnRed' },
+								'Logg ut'
+							)
+						)
+					)
 				),
 				React.createElement(
 					'div',
-					null,
-					'p\xE5'
+					{ id: 'layer2', className: 'layers' },
+					React.createElement('img', { src: 'http://madmobilenews.com/wp-content/uploads/2013/01/generic_user_image.jpg', alt: 'Profile' }),
+					React.createElement(
+						'div',
+						{ className: 'layerDiv' },
+						React.createElement(
+							'p',
+							null,
+							'Navn: '
+						),
+						React.createElement(
+							'p',
+							null,
+							'Bruker opprettet: '
+						),
+						React.createElement('br', null),
+						React.createElement(
+							'p',
+							null,
+							'Antall innlegg skrevet: '
+						),
+						React.createElement(
+							'p',
+							null,
+							'Antall kommentarer skrevet: '
+						)
+					)
 				),
 				React.createElement(
 					'div',
-					null,
-					'meg'
+					{ id: 'layer3', className: 'layers' },
+					React.createElement(
+						'div',
+						{ className: 'layerDiv' },
+						React.createElement(
+							'h2',
+							null,
+							'Sist bes\xF8kte innlegg'
+						)
+					),
+					React.createElement(
+						'div',
+						{ className: 'layerDiv' },
+						React.createElement(
+							'h2',
+							null,
+							'Bidrag per m\xE5ned'
+						),
+						React.createElement('img', { src: 'http://www.datavizcatalogue.com/methods/images/top_images/line_graph.png', alt: 'graph' })
+					)
 				)
 			);
 		}
 	});
 
-	module.exports = MyPage;
+	module.exports = Profile;
 
 /***/ }
 /******/ ]);
