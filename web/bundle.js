@@ -51,6 +51,7 @@
 	var ReactRouter = __webpack_require__(172);
 	var Navbar = __webpack_require__(235);
 	var Frontpage = __webpack_require__(236);
+	var MyPage = __webpack_require__(237);
 
 	var App = React.createClass({
 	  displayName: 'App',
@@ -71,7 +72,8 @@
 	  React.createElement(
 	    ReactRouter.Route,
 	    { path: '/', component: App },
-	    React.createElement(ReactRouter.IndexRoute, { component: Frontpage })
+	    React.createElement(ReactRouter.IndexRoute, { component: Frontpage }),
+	    React.createElement(ReactRouter.IndexRoute, { component: MyPage })
 	  )
 	), document.getElementById('container'));
 
@@ -27378,7 +27380,7 @@
 							null,
 							React.createElement(
 								ReactRouter.Link,
-								{ to: '/Frontpage', className: 'btn' },
+								{ to: '/MyPage', className: 'btn' },
 								'Min side'
 							)
 						)
@@ -27475,6 +27477,41 @@
 	});
 
 	module.exports = Frontpage;
+
+/***/ },
+/* 237 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var ReactRouter = __webpack_require__(172);
+
+	var MyPage = React.createClass({
+		displayName: 'MyPage',
+
+		render: function () {
+			return React.createElement(
+				'div',
+				{ id: 'content' },
+				React.createElement(
+					'div',
+					null,
+					'Hei'
+				),
+				React.createElement(
+					'div',
+					null,
+					'p\xE5'
+				),
+				React.createElement(
+					'div',
+					null,
+					'meg'
+				)
+			);
+		}
+	});
+
+	module.exports = MyPage;
 
 /***/ }
 /******/ ]);

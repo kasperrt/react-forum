@@ -9,12 +9,12 @@ var Navbar = React.createClass({
 			<div id="navbar">
 				<div id="content">
 					<ul className="navbarElement" id="navbarLeft">
-						<li><ReactRouter.Link to="/Frontpage">HOW TO: ADULT</ReactRouter.Link></li>
+						<li><ReactRouter.Link to="/">HOW TO: ADULT</ReactRouter.Link></li>
 					</ul>
 				
 					<ul className="navbarElement">
 						<li><input type="text" placeholder="Søk..."/></li>
-						<li><ReactRouter.Link to="/Frontpage" className="btn">Min side</ReactRouter.Link></li>
+						<li><ReactRouter.Link to="/profile" className="btn">Min side</ReactRouter.Link></li>
 					</ul>
 				</div>
 			</div>
