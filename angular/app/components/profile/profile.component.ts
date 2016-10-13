@@ -5,14 +5,18 @@ import { Profile } from '../../profile';
 
 @Component({
   selector: 'profile',
-  templateUrl: './app/components/profile/profile.component.html'
+  templateUrl: './app/components/profile/profile.component.html',
+  providers: [ProfileService]
 })
 export class ProfileComponent implements OnInit{
-  constructor(private _profileService : ProfileService){ }
+  constructor(private _profileService : ProfileService){ 
+  	this.profileService = _profileService;
 
-  ngOnInit(){
-    userprofiles: Profile[] = this._profileService.getProfile();
-    userprofile = userprofiles[0];
+    userprofile = _profileService.getProfiles();
   }
+
+  /*ngOnInit(){
+    userprofile = this.profileService.getProfiles();
+  }*/
 
 }
