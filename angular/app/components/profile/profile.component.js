@@ -13,14 +13,16 @@ var profile_service_1 = require('../../services/profile/profile.service');
 var ProfileComponent = (function () {
     function ProfileComponent(_profileService) {
         this._profileService = _profileService;
-        this.profileService = _profileService;
-        userprofile = _profileService.getProfiles();
+        this.userprofile = {};
     }
+    ProfileComponent.prototype.ngOnInit = function () {
+        this.userprofile = this._profileService.getProfiles();
+        console.log(this.userprofile);
+    };
     ProfileComponent = __decorate([
         core_1.Component({
             selector: 'profile',
-            templateUrl: './app/components/profile/profile.component.html',
-            providers: [profile_service_1.ProfileService]
+            templateUrl: './app/components/profile/profile.component.html'
         }), 
         __metadata('design:paramtypes', [profile_service_1.ProfileService])
     ], ProfileComponent);
