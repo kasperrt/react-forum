@@ -27395,7 +27395,6 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var ReactDOM = __webpack_require__(34);
 	var ReactRouter = __webpack_require__(172);
 
 	var showPost = false;
