@@ -1,6 +1,6 @@
 import { Post } from 'post';
 
-export interface Profile{ 
+export interface Profile { 
     name: string;
     image_src: string;
     created_date: string;

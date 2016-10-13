@@ -9,6 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var posts_service_1 = require('./services/posts/posts.service');
 var profile_service_1 = require('./services/profile/profile.service');
 var Hero = (function () {
     function Hero() {
@@ -24,7 +25,7 @@ var AppComponent = (function () {
         core_1.Component({
             selector: 'my-app',
             templateUrl: './app/app.component.html',
-            providers: [profile_service_1.ProfileService]
+            providers: [profile_service_1.ProfileService, posts_service_1.PostsService]
         }), 
         __metadata('design:paramtypes', [])
     ], AppComponent);

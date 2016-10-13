@@ -13,10 +13,11 @@ var profile_service_1 = require('../../services/profile/profile.service');
 var ProfileComponent = (function () {
     function ProfileComponent(_profileService) {
         this._profileService = _profileService;
+        this.userprofile = {};
     }
     ProfileComponent.prototype.ngOnInit = function () {
-        userprofiles: Profile[] = this._profileService.getProfile();
-        userprofile = userprofiles[0];
+        this.userprofile = this._profileService.getProfiles();
+        console.log(this.userprofile);
     };
     ProfileComponent = __decorate([
         core_1.Component({

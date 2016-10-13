@@ -7,12 +7,13 @@ import { Profile } from '../../profile';
   selector: 'profile',
   templateUrl: './app/components/profile/profile.component.html'
 })
-export class ProfileComponent implements OnInit{
-  constructor(private _profileService : ProfileService){ }
-
-  ngOnInit(){
-    userprofiles: Profile[] = this._profileService.getProfile();
-    userprofile = userprofiles[0];
+export class ProfileComponent implements OnInit {
+  userprofile = {};
+  constructor(private _profileService : ProfileService){ 
   }
 
+  ngOnInit() {
+    this.userprofile = this._profileService.getProfiles();
+    console.log(this.userprofile);
+  }
 }

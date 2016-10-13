@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { ProfileService } from './services/profile/profile.service'
+import { PostsService } from './services/posts/posts.service';
+import { ProfileService } from './services/profile/profile.service';
 
 export class Hero {
     id: number;
@@ -9,7 +10,7 @@ export class Hero {
 @Component({
     selector: 'my-app',
     templateUrl: './app/app.component.html'
-    providers: [ProfileService]
+    providers: [ProfileService, PostsService]
 })
 export class AppComponent {
     title = 'How to: Adult';
