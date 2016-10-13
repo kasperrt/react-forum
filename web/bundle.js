@@ -27561,10 +27561,12 @@
 	  render: function () {
 	    var id = this.props.hash;
 	    var posts = this.props.posts;
-	    var post = {};
+	    var post;
 
 	    for (p in posts) {
-	      post[posts[p].id] = posts[p];
+	      if (posts[p].id == id) {
+	        post = posts[p];
+	      }
 	    }
 
 	    return React.createElement(
@@ -27576,12 +27578,12 @@
 	        React.createElement(
 	          'h1',
 	          null,
-	          post[id].title
+	          post.title
 	        ),
 	        React.createElement(
 	          'div',
 	          { className: 'postDescriptionContainer' },
-	          post[id].description
+	          post.description
 	        ),
 	        React.createElement(
 	          'div',
@@ -27592,20 +27594,20 @@
 	            'Skrevet av ',
 	            React.createElement(
 	              ReactRouter.Link,
-	              { to: "user/" + post[id].author },
-	              post[id].author
+	              { to: "user/" + post.author },
+	              post.author
 	            ),
 	            React.createElement('br', null)
 	          ),
 	          React.createElement(
 	            'span',
 	            null,
-	            post[id].comments,
+	            post.comments,
 	            ' kommentarer',
 	            React.createElement('br', null)
 	          ),
 	          'Publisert ',
-	          post[id].time_posted
+	          post.time_posted
 	        )
 	      ),
 	      React.createElement('hr', null),

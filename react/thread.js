@@ -11,29 +11,31 @@ var Thread = React.createClass({
   render: function() {
     var id = this.props.hash;
     var posts = this.props.posts;
-    var post = {};
+    var post;
 
     for(p in posts){
-      post[posts[p].id] = posts[p];
+      if(posts[p].id == id){
+        post = posts[p];
+      }
     }
 
     return (
       <div>
         <div className="postContainer">
-          <h1>{post[id].title}</h1>
+          <h1>{post.title}</h1>
           <div className="postDescriptionContainer">
-            {post[id].description}
+            {post.description}
           </div>
           <div className="postInformation">
             <span>
-              Skrevet av <ReactRouter.Link to={"user/"+post[id].author}>
-                {post[id].author}
+              Skrevet av <ReactRouter.Link to={"user/"+post.author}>
+                {post.author}
               </ReactRouter.Link><br/>
             </span>
             <span>
-              {post[id].comments} kommentarer<br/>
+              {post.comments} kommentarer<br/>
             </span>
-            Publisert {post[id].time_posted}
+            Publisert {post.time_posted}
           </div>
         </div>
         <hr/>
