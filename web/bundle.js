@@ -49,8 +49,9 @@
 	var ReactRouter = __webpack_require__(172);
 	var Navbar = __webpack_require__(235);
 	var Frontpage = __webpack_require__(236);
-	var Thread = __webpack_require__(237);
-	var all_posts = __webpack_require__(238);
+	var Profile = __webpack_require__(237);
+	var Thread = __webpack_require__(238);
+	var all_posts = __webpack_require__(239);
 
 	var PostsHandler = React.createClass({
 	  displayName: 'PostsHandler',
@@ -89,6 +90,11 @@
 	    { path: '/', component: App },
 	    React.createElement(ReactRouter.IndexRoute, { component: PostsHandler }),
 	    React.createElement(ReactRouter.Route, { path: '/posts/:post_hash', component: ThreadHandler })
+	  ),
+	  React.createElement(
+	    ReactRouter.Route,
+	    { path: '/profile', component: App },
+	    React.createElement(ReactRouter.IndexRoute, { component: Profile })
 	  )
 	), document.getElementById('container'));
 
@@ -27553,6 +27559,133 @@
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(172);
 
+	var Profile = React.createClass({
+		displayName: 'Profile',
+
+		render: function () {
+			var name = "Ola Nordman";
+			var date = "08.10.2013";
+			var posts = "12";
+			var comments = "42";
+
+			return React.createElement(
+				'div',
+				{ className: 'content' },
+				React.createElement(
+					'div',
+					{ id: 'layer1', className: 'layers' },
+					React.createElement(
+						'ul',
+						null,
+						React.createElement(
+							'li',
+							null,
+							React.createElement(
+								'h2',
+								null,
+								'Min side'
+							)
+						),
+						React.createElement(
+							'li',
+							{ id: 'rightLi', style: { float: "right" } },
+							React.createElement(
+								ReactRouter.Link,
+								{ to: '/', className: 'btnRed' },
+								'Logg ut'
+							)
+						)
+					)
+				),
+				React.createElement(
+					'div',
+					{ id: 'layer2', className: 'layers' },
+					React.createElement('img', { src: 'http://madmobilenews.com/wp-content/uploads/2013/01/generic_user_image.jpg', alt: 'Profile' }),
+					React.createElement(
+						'div',
+						{ className: 'layerDiv' },
+						React.createElement(
+							'p',
+							null,
+							'Navn: ',
+							name
+						),
+						React.createElement(
+							'p',
+							null,
+							'Bruker opprettet: ',
+							date
+						),
+						React.createElement('br', null),
+						React.createElement(
+							'p',
+							null,
+							'Antall innlegg skrevet: ',
+							posts
+						),
+						React.createElement(
+							'p',
+							null,
+							'Antall kommentarer skrevet: ',
+							comments
+						)
+					)
+				),
+				React.createElement(
+					'div',
+					{ id: 'layer3', className: 'layers' },
+					React.createElement(
+						'div',
+						{ className: 'layerDiv' },
+						React.createElement(
+							'h2',
+							null,
+							'Sist bes\xF8kte innlegg'
+						),
+						React.createElement(
+							'ul',
+							{ className: 'lastUl' },
+							React.createElement(
+								'li',
+								null,
+								'IRONING'
+							),
+							React.createElement(
+								'li',
+								null,
+								'PARENTING'
+							),
+							React.createElement(
+								'li',
+								null,
+								'MAINTENANCE OF RICE COOKER'
+							)
+						)
+					),
+					React.createElement(
+						'div',
+						{ className: 'layerDiv' },
+						React.createElement(
+							'h2',
+							null,
+							'Bidrag per m\xE5ned'
+						),
+						React.createElement('img', { src: 'http://www.datavizcatalogue.com/methods/images/top_images/line_graph.png', alt: 'graph' })
+					)
+				)
+			);
+		}
+	});
+
+	module.exports = Profile;
+
+/***/ },
+/* 238 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var ReactRouter = __webpack_require__(172);
+
 	var comments = [{ id: "comment_hash1", comment_text: "This is a comment", time_posted: "11. jan", author: "bob poopmaster" }, { id: "comment_hash2", comment_text: "This is also a comment", time_posted: "11. jan", author: "travis scott" }, { id: "comment_hash3", comment_text: "This is not a comment", time_posted: "12. jan", author: "bob poopmaster" }];
 
 	var Thread = React.createClass({
@@ -27692,7 +27825,7 @@
 	module.exports = Thread;
 
 /***/ },
-/* 238 */
+/* 239 */
 /***/ function(module, exports) {
 
 	var posts = [{ id: "post_hash1", title: "Ironing", description: "I can't for the life of me find out how to iron a shirt?", time_posted: "11. jan", author: "bob poopmaster", comments: 1 }, { id: "post_hash2", title: "Parenting", description: "How to I wipe my kids snot, and how do I parent?", time_posted: "12. jan", author: "mongo", comments: 20 }];

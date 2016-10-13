@@ -3,6 +3,7 @@ var ReactDOM = require('react-dom');
 var ReactRouter = require('react-router');
 var Navbar = require('./navbar.js');
 var Frontpage = require('./frontpage.js');
+var Profile = require('./profile.js');
 var Thread = require('./thread.js');
 var all_posts = require('./posts.js');
 
@@ -36,6 +37,9 @@ ReactDOM.render(
       <ReactRouter.IndexRoute component={PostsHandler} />
       <ReactRouter.Route path="/posts/:post_hash" component={ThreadHandler}>
       </ReactRouter.Route>
+    </ReactRouter.Route>
+    <ReactRouter.Route path="/profile" component={App}>
+      <ReactRouter.IndexRoute component={Profile} />
     </ReactRouter.Route>
   </ReactRouter.Router>,
   document.getElementById('container')
