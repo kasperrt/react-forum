@@ -51,6 +51,23 @@
 	var Frontpage = __webpack_require__(236);
 	var Profile = __webpack_require__(237);
 	var Thread = __webpack_require__(238);
+	var all_posts = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./posts.js\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+
+	var PostsHandler = React.createClass({
+	  displayName: 'PostsHandler',
+
+	  render: function () {
+	    return React.createElement(Frontpage, { posts: all_posts });
+	  }
+	});
+
+	var ThreadHandler = React.createClass({
+	  displayName: 'ThreadHandler',
+
+	  render: function () {
+	    return React.createElement(Thread, { posts: all_posts, hash: this.props.params.post_hash });
+	  }
+	});
 
 	var App = React.createClass({
 	  displayName: 'App',
@@ -71,7 +88,8 @@
 	  React.createElement(
 	    ReactRouter.Route,
 	    { path: '/', component: App },
-	    React.createElement(ReactRouter.IndexRoute, { component: Frontpage })
+	    React.createElement(ReactRouter.IndexRoute, { component: PostsHandler }),
+	    React.createElement(ReactRouter.Route, { path: '/posts/:post_hash', component: ThreadHandler })
 	  ),
 	  React.createElement(
 	    ReactRouter.Route,
@@ -27402,7 +27420,9 @@
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(172);
 
-	var posts = [{ id: "post_hash1", title: "post1", description: "post1 description poop", time_posted: "11. jan", author: "bob poopmaster", comments: 1 }, { id: "post_hash2", title: "post2", description: "post2 description ass", time_posted: "12. jan", author: "mongo", comments: 20 }];
+	var showPost = false;
+	var posted = false;
+	var curr_number = 3;
 
 	var Frontpage = React.createClass({
 	  displayName: 'Frontpage',
@@ -27411,20 +27431,71 @@
 	    return React.createElement(
 	      'div',
 	      null,
-	      React.createElement(
-	        ReactRouter.Link,
-	        { className: 'new_post_button', to: "new_post" },
-	        'Nytt Innlegg'
-	      ),
+	      React.createElement(NewPost, { posts: this.props.posts }),
 	      React.createElement(
 	        'div',
 	        { className: 'frontpage_posts' },
 	        React.createElement(
 	          Posts,
-	          { posts: posts },
+	          { posts: this.props.posts },
 	          this.props.children
 	        )
 	      )
+	    );
+	  }
+	});
+
+	var NewPost = React.createClass({
+	  displayName: 'NewPost',
+
+	  newPost: function () {
+	    if (!showPost) {
+	      showPost = true;
+	    } else {
+	      posted = true;
+	    }
+	  },
+
+	  handleTitleChange: function (e) {
+	    this.setState({ title: e.target.value });
+	  },
+
+	  handleDescriptionChange: function (e) {
+	    this.setState({ description: e.target.value });
+	  },
+
+	  render: function () {
+	    var to_add;
+	    var button = React.createElement(
+	      'a',
+	      { href: '#', className: 'new_post_button', onClick: this.newPost },
+	      'Nytt Innlegg'
+	    );
+
+	    if (showPost && !posted) {
+	      to_add = React.createElement(
+	        'div',
+	        { className: 'new_post before_posted' },
+	        React.createElement('input', { type: 'text', name: 'title', placeholder: 'Title of post', onChange: this.handleTitleChange }),
+	        React.createElement('textarea', { className: 'new_post_text', placeholder: 'Description..', onChange: this.handleDescriptionChange })
+	      );
+	    } else if (posted) {
+	      button = "";
+	      to_add = React.createElement(
+	        'div',
+	        { className: 'success' },
+	        'Posted'
+	      );
+	      this.props.posts.unshift({ id: "post_hash" + curr_number, title: this.state.title, description: this.state.description, time_posted: new Date().toString(), author: "UNDEFINED", comments: 0 });
+	      curr_number = curr_number + 1;
+	      posted = false;
+	      showPost = false;
+	    }
+	    return React.createElement(
+	      'div',
+	      { id: 'new_post' },
+	      to_add,
+	      button
 	    );
 	  }
 	});
@@ -27587,14 +27658,18 @@
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(172);
 
-	var post = { id: "post_hash1", title: "post1", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", time_posted: "11. jan", author: "bob poopmaster", comments: 3 };
-
 	var comments = [{ id: "comment_hash1", comment_text: "This is a comment", time_posted: "11. jan", author: "bob poopmaster" }, { id: "comment_hash2", comment_text: "This is also a comment", time_posted: "11. jan", author: "travis scott" }, { id: "comment_hash3", comment_text: "This is not a comment", time_posted: "12. jan", author: "bob poopmaster" }];
 
 	var Thread = React.createClass({
 	  displayName: 'Thread',
 
 	  render: function () {
+	    var id = this.props.hash;
+	    var posts = this.props.posts;
+	    var post = posts.filter(function (obj) {
+	      return obj.id == id;
+	    });
+	    post = post[0];
 	    return React.createElement(
 	      'div',
 	      null,
