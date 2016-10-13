@@ -51,7 +51,7 @@
 	var Frontpage = __webpack_require__(236);
 	var Profile = __webpack_require__(237);
 	var Thread = __webpack_require__(238);
-	var all_posts = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./posts.js\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var all_posts = __webpack_require__(239);
 
 	var PostsHandler = React.createClass({
 	  displayName: 'PostsHandler',
@@ -27563,6 +27563,11 @@
 		displayName: 'Profile',
 
 		render: function () {
+			var name = "Ola Nordman";
+			var date = "08.10.2013";
+			var posts = "12";
+			var comments = "42";
+
 			return React.createElement(
 				'div',
 				{ className: 'content' },
@@ -27602,23 +27607,27 @@
 						React.createElement(
 							'p',
 							null,
-							'Navn: '
+							'Navn: ',
+							name
 						),
 						React.createElement(
 							'p',
 							null,
-							'Bruker opprettet: '
+							'Bruker opprettet: ',
+							date
 						),
 						React.createElement('br', null),
 						React.createElement(
 							'p',
 							null,
-							'Antall innlegg skrevet: '
+							'Antall innlegg skrevet: ',
+							posts
 						),
 						React.createElement(
 							'p',
 							null,
-							'Antall kommentarer skrevet: '
+							'Antall kommentarer skrevet: ',
+							comments
 						)
 					)
 				),
@@ -27632,6 +27641,25 @@
 							'h2',
 							null,
 							'Sist bes\xF8kte innlegg'
+						),
+						React.createElement(
+							'ul',
+							{ className: 'lastUl' },
+							React.createElement(
+								'li',
+								null,
+								'IRONING'
+							),
+							React.createElement(
+								'li',
+								null,
+								'PARENTING'
+							),
+							React.createElement(
+								'li',
+								null,
+								'MAINTENANCE OF RICE COOKER'
+							)
 						)
 					),
 					React.createElement(
@@ -27795,6 +27823,14 @@
 	});
 
 	module.exports = Thread;
+
+/***/ },
+/* 239 */
+/***/ function(module, exports) {
+
+	var posts = [{ id: "post_hash1", title: "Ironing", description: "I can't for the life of me find out how to iron a shirt?", time_posted: "11. jan", author: "bob poopmaster", comments: 1 }, { id: "post_hash2", title: "Parenting", description: "How to I wipe my kids snot, and how do I parent?", time_posted: "12. jan", author: "mongo", comments: 20 }];
+
+	module.exports = posts;
 
 /***/ }
 /******/ ]);
