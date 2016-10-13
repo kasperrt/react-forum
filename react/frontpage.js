@@ -1,21 +1,18 @@
 var React = require('react');
 var ReactRouter = require('react-router');
 
+
 var showPost = false;
 var posted = false;
-
-var posts = [
-  {id: "post_hash1", title: "post1", description: "post1 description poop", time_posted: "11. jan", author: "bob poopmaster", comments: 1},
-  {id: "post_hash2", title: "post2", description: "post2 description ass", time_posted: "12. jan", author: "mongo", comments: 20}
-];
+var curr_number = 3;
 
 var Frontpage = React.createClass({
   render: function() {
     return(
       <div>
-        <NewPost />
+        <NewPost posts={this.props.posts} />
         <div className="frontpage_posts">
-          <Posts posts={posts}>
+          <Posts posts={this.props.posts}>
             {this.props.children}
           </Posts>
         </div>
@@ -54,7 +51,10 @@ var NewPost = React.createClass({
     } else if(posted) {
       button = "";
       to_add = <div className="success">Posted</div>
-      posts.unshift({id: "post_hash3", title: this.state.title, description: this.state.description, time_posted: (new Date()).toString(), author: "UNDEFINED", comments: 0});
+      this.props.posts.unshift({id: "post_hash" + curr_number, title: this.state.title, description: this.state.description, time_posted: (new Date()).toString(), author: "UNDEFINED", comments: 0});
+      curr_number = curr_number + 1;
+      posted = false;
+      showPost = false;
     }
     return (
       <div id="new_post">

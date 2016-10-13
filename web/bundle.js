@@ -50,6 +50,23 @@
 	var Navbar = __webpack_require__(235);
 	var Frontpage = __webpack_require__(236);
 	var Thread = __webpack_require__(237);
+	var all_posts = __webpack_require__(238);
+
+	var PostsHandler = React.createClass({
+	  displayName: 'PostsHandler',
+
+	  render: function () {
+	    return React.createElement(Frontpage, { posts: all_posts });
+	  }
+	});
+
+	var ThreadHandler = React.createClass({
+	  displayName: 'ThreadHandler',
+
+	  render: function () {
+	    return React.createElement(Thread, { posts: all_posts, hash: this.props.params.post_hash });
+	  }
+	});
 
 	var App = React.createClass({
 	  displayName: 'App',
@@ -70,8 +87,8 @@
 	  React.createElement(
 	    ReactRouter.Route,
 	    { path: '/', component: App },
-	    React.createElement(ReactRouter.IndexRoute, { component: Frontpage }),
-	    React.createElement(ReactRouter.Route, { path: '/posts/:post_hash', component: Thread })
+	    React.createElement(ReactRouter.IndexRoute, { component: PostsHandler }),
+	    React.createElement(ReactRouter.Route, { path: '/posts/:post_hash', component: ThreadHandler })
 	  )
 	), document.getElementById('container'));
 
@@ -27399,8 +27416,7 @@
 
 	var showPost = false;
 	var posted = false;
-
-	var posts = [{ id: "post_hash1", title: "post1", description: "post1 description poop", time_posted: "11. jan", author: "bob poopmaster", comments: 1 }, { id: "post_hash2", title: "post2", description: "post2 description ass", time_posted: "12. jan", author: "mongo", comments: 20 }];
+	var curr_number = 3;
 
 	var Frontpage = React.createClass({
 	  displayName: 'Frontpage',
@@ -27409,13 +27425,13 @@
 	    return React.createElement(
 	      'div',
 	      null,
-	      React.createElement(NewPost, null),
+	      React.createElement(NewPost, { posts: this.props.posts }),
 	      React.createElement(
 	        'div',
 	        { className: 'frontpage_posts' },
 	        React.createElement(
 	          Posts,
-	          { posts: posts },
+	          { posts: this.props.posts },
 	          this.props.children
 	        )
 	      )
@@ -27464,7 +27480,10 @@
 	        { className: 'success' },
 	        'Posted'
 	      );
-	      posts.unshift({ id: "post_hash3", title: this.state.title, description: this.state.description, time_posted: new Date().toString(), author: "UNDEFINED", comments: 0 });
+	      this.props.posts.unshift({ id: "post_hash" + curr_number, title: this.state.title, description: this.state.description, time_posted: new Date().toString(), author: "UNDEFINED", comments: 0 });
+	      curr_number = curr_number + 1;
+	      posted = false;
+	      showPost = false;
 	    }
 	    return React.createElement(
 	      'div',
@@ -27534,18 +27553,18 @@
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(172);
 
-	var post = {
-	  post_hash1: { id: "post_hash1", title: "post1", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", time_posted: "11. jan", author: "bob poopmaster", comments: 1 },
-	  post_hash2: { id: "post_hash2", title: "post2", description: "post2 description ass", time_posted: "12. jan", author: "mongo", comments: 20 }
-	};
-
 	var comments = [{ id: "comment_hash1", comment_text: "This is a comment", time_posted: "11. jan", author: "bob poopmaster" }, { id: "comment_hash2", comment_text: "This is also a comment", time_posted: "11. jan", author: "travis scott" }, { id: "comment_hash3", comment_text: "This is not a comment", time_posted: "12. jan", author: "bob poopmaster" }];
 
 	var Thread = React.createClass({
 	  displayName: 'Thread',
 
 	  render: function () {
-	    var id = this.props.params.post_hash;
+	    var id = this.props.hash;
+	    var posts = this.props.posts;
+	    var post = posts.filter(function (obj) {
+	      return obj.id == id;
+	    });
+	    post = post[0];
 	    return React.createElement(
 	      'div',
 	      null,
@@ -27555,12 +27574,12 @@
 	        React.createElement(
 	          'h1',
 	          null,
-	          post[id].title
+	          post.title
 	        ),
 	        React.createElement(
 	          'div',
 	          { className: 'postDescriptionContainer' },
-	          post[id].description
+	          post.description
 	        ),
 	        React.createElement(
 	          'div',
@@ -27571,20 +27590,20 @@
 	            'Skrevet av ',
 	            React.createElement(
 	              ReactRouter.Link,
-	              { to: "user/" + post[id].author },
-	              post[id].author
+	              { to: "user/" + post.author },
+	              post.author
 	            ),
 	            React.createElement('br', null)
 	          ),
 	          React.createElement(
 	            'span',
 	            null,
-	            post[id].comments,
+	            post.comments,
 	            ' kommentarer',
 	            React.createElement('br', null)
 	          ),
 	          'Publisert ',
-	          post[id].time_posted
+	          post.time_posted
 	        )
 	      ),
 	      React.createElement('hr', null),
@@ -27671,6 +27690,14 @@
 	});
 
 	module.exports = Thread;
+
+/***/ },
+/* 238 */
+/***/ function(module, exports) {
+
+	var posts = [{ id: "post_hash1", title: "Ironing", description: "I can't for the life of me find out how to iron a shirt?", time_posted: "11. jan", author: "bob poopmaster", comments: 1 }, { id: "post_hash2", title: "Parenting", description: "How to I wipe my kids snot, and how do I parent?", time_posted: "12. jan", author: "mongo", comments: 20 }];
+
+	module.exports = posts;
 
 /***/ }
 /******/ ]);
