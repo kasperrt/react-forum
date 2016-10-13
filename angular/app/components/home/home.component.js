@@ -14,9 +14,11 @@ var HomeComponent = (function () {
     function HomeComponent(_postsService) {
         this._postsService = _postsService;
     }
+    ;
     HomeComponent.prototype.ngOnInit = function () {
         this.posts = this._postsService.getPosts();
     };
+    ;
     HomeComponent = __decorate([
         core_1.Component({
             selector: 'home',
