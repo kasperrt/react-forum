@@ -24,9 +24,6 @@ ReactDOM.render(
       <ReactRouter.Route path="/posts/:post_hash" component={Thread}>
       </ReactRouter.Route>
     </ReactRouter.Route>
-    <ReactRouter.Route path="posts/post_hash1" component={App}>
-      <ReactRouter.IndexRoute component={Thread} />
-    </ReactRouter.Route>
   </ReactRouter.Router>,
   document.getElementById('container')
 );
