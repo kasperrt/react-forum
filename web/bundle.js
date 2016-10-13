@@ -27395,7 +27395,11 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
+	var ReactDOM = __webpack_require__(34);
 	var ReactRouter = __webpack_require__(172);
+
+	var showPost = false;
+	var posted = false;
 
 	var posts = [{ id: "post_hash1", title: "post1", description: "post1 description poop", time_posted: "11. jan", author: "bob poopmaster", comments: 1 }, { id: "post_hash2", title: "post2", description: "post2 description ass", time_posted: "12. jan", author: "mongo", comments: 20 }];
 
@@ -27406,11 +27410,7 @@
 	    return React.createElement(
 	      'div',
 	      null,
-	      React.createElement(
-	        ReactRouter.Link,
-	        { className: 'new_post_button', to: "new_post" },
-	        'Nytt Innlegg'
-	      ),
+	      React.createElement(NewPost, null),
 	      React.createElement(
 	        'div',
 	        { className: 'frontpage_posts' },
@@ -27420,6 +27420,58 @@
 	          this.props.children
 	        )
 	      )
+	    );
+	  }
+	});
+
+	var NewPost = React.createClass({
+	  displayName: 'NewPost',
+
+	  newPost: function () {
+	    if (!showPost) {
+	      showPost = true;
+	    } else {
+	      posted = true;
+	    }
+	  },
+
+	  handleTitleChange: function (e) {
+	    this.setState({ title: e.target.value });
+	  },
+
+	  handleDescriptionChange: function (e) {
+	    this.setState({ description: e.target.value });
+	  },
+
+	  render: function () {
+	    var to_add;
+	    var button = React.createElement(
+	      'a',
+	      { href: '#', className: 'new_post_button', onClick: this.newPost },
+	      'Nytt Innlegg'
+	    );
+
+	    if (showPost && !posted) {
+	      to_add = React.createElement(
+	        'div',
+	        { className: 'new_post before_posted' },
+	        React.createElement('input', { type: 'text', name: 'title', placeholder: 'Title of post', onChange: this.handleTitleChange }),
+	        React.createElement('textarea', { className: 'new_post_text', placeholder: 'Description..', onChange: this.handleDescriptionChange })
+	      );
+	    } else if (posted) {
+	      button = "";
+	      to_add = React.createElement(
+	        'div',
+	        { className: 'success' },
+	        'Posted'
+	      );
+	      posts.unshift({ id: "post_hash3", title: this.state.title, description: this.state.description, time_posted: new Date().toString(), author: "UNDEFINED", comments: 0 });
+	    }
+	    return React.createElement(
+	      'div',
+	      { id: 'new_post' },
+	      to_add,
+	      button
 	    );
 	  }
 	});
