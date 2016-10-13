@@ -51,8 +51,6 @@
 	var Frontpage = __webpack_require__(236);
 	var Thread = __webpack_require__(237);
 
-	var posts = ["post_hash1", "post_hash2"];
-
 	var App = React.createClass({
 	  displayName: 'App',
 
@@ -27497,7 +27495,6 @@
 
 	  render: function () {
 	    var id = this.props.params.post_hash;
-	    console.log(id);
 	    return React.createElement(
 	      'div',
 	      null,
