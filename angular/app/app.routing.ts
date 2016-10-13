@@ -5,7 +5,7 @@ import { ProfileComponent }  from './components/profile/profile.component';
 import { HomeComponent }    from './components/home/home.component';
 
 const appRoutes: Routes = [
-  { path: '', component: HomeComponent }
+  { path: '', component: HomeComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'home', component: HomeComponent }
 ];
