@@ -4,7 +4,7 @@ var ReactRouter = require('react-router');
 var posts = [
   {id: "post_hash1", title: "post1", description: "post1 description poop", time_posted: "11. jan", author: "bob poopmaster", comments: 1},
   {id: "post_hash2", title: "post2", description: "post2 description ass", time_posted: "12. jan", author: "mongo", comments: 20}
-]
+];
 
 var Frontpage = React.createClass({
   render: function() {

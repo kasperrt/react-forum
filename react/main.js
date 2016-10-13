@@ -21,6 +21,8 @@ ReactDOM.render(
   <ReactRouter.Router history={ReactRouter.hashHistory}>
     <ReactRouter.Route path="/" component={App}>
       <ReactRouter.IndexRoute component={Frontpage} />
+      <ReactRouter.Route path="/posts/:post_hash" component={Thread}>
+      </ReactRouter.Route>
     </ReactRouter.Route>
     <ReactRouter.Route path="posts/post_hash1" component={App}>
       <ReactRouter.IndexRoute component={Thread} />

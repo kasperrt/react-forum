@@ -44,13 +44,12 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	// main.js
-
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(34);
 	var ReactRouter = __webpack_require__(172);
 	var Navbar = __webpack_require__(235);
 	var Frontpage = __webpack_require__(236);
+	var Thread = __webpack_require__(237);
 
 	var App = React.createClass({
 	  displayName: 'App',
@@ -71,7 +70,8 @@
 	  React.createElement(
 	    ReactRouter.Route,
 	    { path: '/', component: App },
-	    React.createElement(ReactRouter.IndexRoute, { component: Frontpage })
+	    React.createElement(ReactRouter.IndexRoute, { component: Frontpage }),
+	    React.createElement(ReactRouter.Route, { path: '/posts/:post_hash', component: Thread })
 	  )
 	), document.getElementById('container'));
 
@@ -27475,6 +27475,151 @@
 	});
 
 	module.exports = Frontpage;
+
+/***/ },
+/* 237 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var ReactRouter = __webpack_require__(172);
+
+	var post = {
+	  post_hash1: { id: "post_hash1", title: "post1", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", time_posted: "11. jan", author: "bob poopmaster", comments: 1 },
+	  post_hash2: { id: "post_hash2", title: "post2", description: "post2 description ass", time_posted: "12. jan", author: "mongo", comments: 20 }
+	};
+
+	var comments = [{ id: "comment_hash1", comment_text: "This is a comment", time_posted: "11. jan", author: "bob poopmaster" }, { id: "comment_hash2", comment_text: "This is also a comment", time_posted: "11. jan", author: "travis scott" }, { id: "comment_hash3", comment_text: "This is not a comment", time_posted: "12. jan", author: "bob poopmaster" }];
+
+	var Thread = React.createClass({
+	  displayName: 'Thread',
+
+	  render: function () {
+	    var id = this.props.params.post_hash;
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'div',
+	        { className: 'postContainer' },
+	        React.createElement(
+	          'h1',
+	          null,
+	          post[id].title
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'postDescriptionContainer' },
+	          post[id].description
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'postInformation' },
+	          React.createElement(
+	            'span',
+	            null,
+	            'Skrevet av ',
+	            React.createElement(
+	              ReactRouter.Link,
+	              { to: "user/" + post[id].author },
+	              post[id].author
+	            ),
+	            React.createElement('br', null)
+	          ),
+	          React.createElement(
+	            'span',
+	            null,
+	            post[id].comments,
+	            ' kommentarer',
+	            React.createElement('br', null)
+	          ),
+	          'Publisert ',
+	          post[id].time_posted
+	        )
+	      ),
+	      React.createElement('hr', null),
+	      React.createElement(
+	        'div',
+	        { className: 'commentSorter' },
+	        'Sorter p\xE5',
+	        React.createElement(
+	          'select',
+	          null,
+	          React.createElement(
+	            'option',
+	            { value: 'nyeste' },
+	            'nyeste f\xF8rst'
+	          ),
+	          React.createElement(
+	            'option',
+	            { value: 'eldste' },
+	            'eldste f\xF8rst'
+	          )
+	        )
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'newCommentContainer' },
+	        React.createElement(
+	          'div',
+	          null,
+	          React.createElement('textarea', { rows: '10', cols: '80', placeholder: 'Skriv inn kommentar her', className: 'newCommentTextArea' })
+	        ),
+	        React.createElement(
+	          ReactRouter.Link,
+	          { className: 'newCommentButton', to: "createComment" },
+	          'Publiser'
+	        )
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'thread_comments' },
+	        React.createElement(
+	          Comments,
+	          { comments: comments },
+	          this.props.children
+	        )
+	      )
+	    );
+	  }
+	});
+
+	var Comments = React.createClass({
+	  displayName: 'Comments',
+
+	  render: function () {
+	    var commentComponents = this.props.comments.map(function (comment) {
+	      return React.createElement(
+	        'div',
+	        { id: comment.id, key: comment.id, className: 'comment' },
+	        React.createElement(
+	          ReactRouter.Link,
+	          { className: 'commentAuthor', to: "user/" + comment.author },
+	          comment.author
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: comment.comment_text },
+	          comment.comment_text
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'commentPosted' },
+	          'Publisert ',
+	          comment.time_posted
+	        )
+	      );
+	    });
+	    return React.createElement(
+	      'div',
+	      null,
+	      ' ',
+	      commentComponents,
+	      ' '
+	    );
+	  }
+	});
+
+	module.exports = Thread;
 
 /***/ }
 /******/ ]);
