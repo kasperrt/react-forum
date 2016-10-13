@@ -11,14 +11,10 @@ var Thread = React.createClass({
   render: function() {
     var id = this.props.hash;
     var posts = this.props.posts;
-    var post;
-
-    for(p in posts){
-      if(posts[p].id == id){
-        post = posts[p];
-      }
-    }
-
+    var post = posts.filter(function( obj ) {
+      return obj.id == id;
+    });
+    post = post[0];
     return (
       <div>
         <div className="postContainer">
