@@ -27648,17 +27648,20 @@
 							React.createElement(
 								'li',
 								null,
-								'IRONING'
+								React.createElement(
+									ReactRouter.Link,
+									{ to: '/posts/post_hash1' },
+									'IRONING'
+								)
 							),
 							React.createElement(
 								'li',
 								null,
-								'PARENTING'
-							),
-							React.createElement(
-								'li',
-								null,
-								'MAINTENANCE OF RICE COOKER'
+								React.createElement(
+									ReactRouter.Link,
+									{ to: '/posts/post_hash2' },
+									'PARENTING'
+								)
 							)
 						)
 					),

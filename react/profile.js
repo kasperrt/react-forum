@@ -30,9 +30,8 @@ var Profile = React.createClass({
 					<div className="layerDiv">
 						<h2>Sist besøkte innlegg</h2>
 						<ul className="lastUl">
-							<li>IRONING</li>
-							<li>PARENTING</li>
-							<li>MAINTENANCE OF RICE COOKER</li>
+							<li><ReactRouter.Link to="/posts/post_hash1">IRONING</ReactRouter.Link></li>
+							<li><ReactRouter.Link to="/posts/post_hash2">PARENTING</ReactRouter.Link></li>
 						</ul>
 					</div>
 					<div className="layerDiv">

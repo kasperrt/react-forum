@@ -48,9 +48,14 @@
 }
 
 .lastUl li{
-	margin-top: 10px;
+	margin-top: 50px;
 	list-style-type: none;
-	padding: 20px 1px;
+}
+
+.lastUl li a{
+	text-decoration: none;
+	color: black;
+	padding: 20px 100%;
 	padding-left: 5px;
 	background-color: lightgray;
 	cursor: pointer;
