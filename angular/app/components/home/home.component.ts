@@ -6,9 +6,9 @@ import { PostsService } from '../../services/posts/posts.service';
 @Component({
   selector: 'home',
   template: `
-    <div>
+    <div id="posts">
       <h2> Posts </h2>
-      <div *ngFor='let post of posts'>
+      <div class ="homePosts" *ngFor='let post of posts'>
         {{ post.heading }} - {{ post.content }}
       </div>
     </div>

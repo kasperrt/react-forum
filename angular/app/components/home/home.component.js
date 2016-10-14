@@ -22,7 +22,7 @@ var HomeComponent = (function () {
     HomeComponent = __decorate([
         core_1.Component({
             selector: 'home',
-            template: "\n    <div>\n      <h2> Posts </h2>\n      <div *ngFor='let post of posts'>\n        {{ post.heading }} - {{ post.content }}\n      </div>\n    </div>\n  "
+            template: "\n    <div id=\"posts\">\n      <h2> Posts </h2>\n      <div class =\"homePosts\" *ngFor='let post of posts'>\n        {{ post.heading }} - {{ post.content }}\n      </div>\n    </div>\n  "
         }), 
         __metadata('design:paramtypes', [posts_service_1.PostsService])
     ], HomeComponent);
