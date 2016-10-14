@@ -1,6 +1,6 @@
 var React = require('react');
 var ReactRouter = require('react-router');
-
+var all_users = require('./users.js');
 
 var showPost = false;
 var posted = false;
@@ -51,7 +51,7 @@ var NewPost = React.createClass({
     } else if(posted) {
       button = "";
       to_add = <div className="success">Posted</div>
-      this.props.posts.unshift({id: "post_hash" + curr_number, title: this.state.title, description: this.state.description, time_posted: (new Date()).toString(), author: "UNDEFINED", comments: 0});
+      this.props.posts.unshift({id: "post_hash" + curr_number, title: this.state.title, description: this.state.description, time_posted: (new Date()).toString(), author_id: "u1", comments: []});
       curr_number = curr_number + 1;
       posted = false;
       showPost = false;
@@ -68,6 +68,10 @@ var NewPost = React.createClass({
 var Posts = React.createClass({
   render: function() {
     var postsComponents = this.props.posts.map(function(post){
+      var author_name = all_users.filter(function( obj ) {
+        return obj.userid == post.author_id;
+      });
+      author_name = author_name[0].name;
       return (
         <div id={post.id} key={post.id} className="post">
           <ReactRouter.Link className="postTitle" to={"posts/" + post.id}>
@@ -76,12 +80,12 @@ var Posts = React.createClass({
           <div className="postDescription">{post.description}</div>
           <div className="postAuthorContainer">
             Skrevet av &nbsp;
-            <ReactRouter.Link className="postAuthor" to={"user/" + post.author}>
-              {post.author}
+            <ReactRouter.Link className="postAuthor" to={"user/" + post.author_id}>
+              {author_name}
             </ReactRouter.Link>
           </div>
           <div className="postComments">
-            {post.comments} kommentarer
+            {post.comments.length} kommentarer
           </div>
           <div className="postPosted">Publisert {post.time_posted}</div>
         </div>

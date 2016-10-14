@@ -1,5 +1,4 @@
 var React = require('react');
-var ReactDOM = require('react-dom');
 var ReactRouter = require('react-router');
 
 
@@ -14,7 +13,7 @@ var Navbar = React.createClass({
 
 					<ul className="navbarElement">
 						<li><input type="text" placeholder="Søk..."/></li>
-						<li><ReactRouter.Link to="/profile" className="btn">Min side</ReactRouter.Link></li>
+						<li><ReactRouter.Link to="/user/u1" className="btn">Min side</ReactRouter.Link></li>
 					</ul>
 				</div>
 			</div>
