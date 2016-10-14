@@ -1,12 +1,6 @@
 var React = require('react');
 var ReactRouter = require('react-router');
 
-var comments = [
-  {id: "comment_hash1", comment_text: "This is a comment", time_posted: "11. jan", author: "bob poopmaster"},
-  {id: "comment_hash2", comment_text: "This is also a comment", time_posted: "11. jan", author: "travis scott"},
-  {id: "comment_hash3", comment_text: "This is not a comment", time_posted: "12. jan", author: "bob poopmaster"}
-];
-
 var Thread = React.createClass({
   render: function() {
     var id = this.props.hash;
@@ -29,7 +23,7 @@ var Thread = React.createClass({
               </ReactRouter.Link><br/>
             </span>
             <span>
-              {post.comments} kommentarer<br/>
+              {post.comments.length} kommentarer<br/>
             </span>
             Publisert {post.time_posted}
           </div>
@@ -52,7 +46,7 @@ var Thread = React.createClass({
           </ReactRouter.Link>
         </div>
         <div className="thread_comments">
-          <Comments comments={comments}>
+          <Comments comments={post.comments}>
             {this.props.children}
           </Comments>
         </div>

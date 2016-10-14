@@ -49,9 +49,9 @@
 	var ReactRouter = __webpack_require__(172);
 	var Navbar = __webpack_require__(235);
 	var Frontpage = __webpack_require__(236);
-	var Profile = __webpack_require__(237);
-	var Thread = __webpack_require__(238);
-	var all_posts = __webpack_require__(239);
+	var Profile = __webpack_require__(238);
+	var Thread = __webpack_require__(239);
+	var all_posts = __webpack_require__(240);
 
 	var PostsHandler = React.createClass({
 	  displayName: 'PostsHandler',
@@ -66,6 +66,14 @@
 
 	  render: function () {
 	    return React.createElement(Thread, { posts: all_posts, hash: this.props.params.post_hash });
+	  }
+	});
+
+	var ProfileHandler = React.createClass({
+	  displayName: 'ProfileHandler',
+
+	  render: function () {
+	    return React.createElement(Profile, { hash: this.props.params.userId });
 	  }
 	});
 
@@ -93,8 +101,8 @@
 	  ),
 	  React.createElement(
 	    ReactRouter.Route,
-	    { path: '/profile', component: App },
-	    React.createElement(ReactRouter.IndexRoute, { component: Profile })
+	    { path: '/user/:userId', component: App },
+	    React.createElement(ReactRouter.IndexRoute, { component: ProfileHandler })
 	  )
 	), document.getElementById('container'));
 
@@ -27401,7 +27409,7 @@
 							null,
 							React.createElement(
 								ReactRouter.Link,
-								{ to: '/profile', className: 'btn' },
+								{ to: '/user/u1', className: 'btn' },
 								'Min side'
 							)
 						)
@@ -27419,6 +27427,7 @@
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(172);
+	var all_users = __webpack_require__(237);
 
 	var showPost = false;
 	var posted = false;
@@ -27505,6 +27514,10 @@
 
 	  render: function () {
 	    var postsComponents = this.props.posts.map(function (post) {
+	      var author_name = all_users.filter(function (obj) {
+	        return obj.userid == post.author_id;
+	      });
+	      author_name = author_name[0].name;
 	      return React.createElement(
 	        'div',
 	        { id: post.id, key: post.id, className: 'post' },
@@ -27524,14 +27537,14 @@
 	          'Skrevet av \xA0',
 	          React.createElement(
 	            ReactRouter.Link,
-	            { className: 'postAuthor', to: "user/" + post.author },
-	            post.author
+	            { className: 'postAuthor', to: "user/" + post.author_id },
+	            author_name
 	          )
 	        ),
 	        React.createElement(
 	          'div',
 	          { className: 'postComments' },
-	          post.comments,
+	          post.comments.length,
 	          ' kommentarer'
 	        ),
 	        React.createElement(
@@ -27554,19 +27567,66 @@
 
 /***/ },
 /* 237 */
+/***/ function(module, exports) {
+
+	var users = [{
+	  userid: "u1",
+	  name: "Ola Nordmann",
+	  date: "08.10.2013",
+	  posts: 1,
+	  comments: 3
+	}, {
+	  userid: "u2",
+	  name: "Travis Scott",
+	  date: "01.10.2010",
+	  comments: 1,
+	  posts: 0
+	}, {
+	  userid: "u3",
+	  name: "bob poopmaster",
+	  date: "01.10.2010",
+	  comments: 3,
+	  posts: 1
+	}];
+
+	module.exports = users;
+
+/***/ },
+/* 238 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(172);
+	var users = __webpack_require__(237);
 
 	var Profile = React.createClass({
 		displayName: 'Profile',
 
 		render: function () {
-			var name = "Ola Nordman";
-			var date = "08.10.2013";
-			var posts = "12";
-			var comments = "42";
+			var hash = this.props.hash;
+			var user = users.filter(function (obj) {
+				return obj.userid == hash;
+			});
+			user = user[0];
+
+			var name = user.name;
+			var date = user.date;
+			var posts = user.posts;
+			var comments = user.comments;
+
+			var loggOutButton;
+
+			if (hash == "u1") {
+				loggOutButton = React.createElement(
+					'li',
+					{ id: 'rightLi', style: { float: "right" } },
+					React.createElement(
+						ReactRouter.Link,
+						{ to: '/', className: 'btnRed' },
+						'Logg ut'
+					)
+				);
+			}
 
 			return React.createElement(
 				'div',
@@ -27586,15 +27646,7 @@
 								'Min side'
 							)
 						),
-						React.createElement(
-							'li',
-							{ id: 'rightLi', style: { float: "right" } },
-							React.createElement(
-								ReactRouter.Link,
-								{ to: '/', className: 'btnRed' },
-								'Logg ut'
-							)
-						)
+						loggOutButton
 					)
 				),
 				React.createElement(
@@ -27680,13 +27732,11 @@
 	module.exports = Profile;
 
 /***/ },
-/* 238 */
+/* 239 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(172);
-
-	var comments = [{ id: "comment_hash1", comment_text: "This is a comment", time_posted: "11. jan", author: "bob poopmaster" }, { id: "comment_hash2", comment_text: "This is also a comment", time_posted: "11. jan", author: "travis scott" }, { id: "comment_hash3", comment_text: "This is not a comment", time_posted: "12. jan", author: "bob poopmaster" }];
 
 	var Thread = React.createClass({
 	  displayName: 'Thread',
@@ -27731,7 +27781,7 @@
 	          React.createElement(
 	            'span',
 	            null,
-	            post.comments,
+	            post.comments.length,
 	            ' kommentarer',
 	            React.createElement('br', null)
 	          ),
@@ -27778,7 +27828,7 @@
 	        { className: 'thread_comments' },
 	        React.createElement(
 	          Comments,
-	          { comments: comments },
+	          { comments: post.comments },
 	          this.props.children
 	        )
 	      )
@@ -27825,10 +27875,24 @@
 	module.exports = Thread;
 
 /***/ },
-/* 239 */
+/* 240 */
 /***/ function(module, exports) {
 
-	var posts = [{ id: "post_hash1", title: "Ironing", description: "I can't for the life of me find out how to iron a shirt?", time_posted: "11. jan", author: "bob poopmaster", comments: 1 }, { id: "post_hash2", title: "Parenting", description: "How to I wipe my kids snot, and how do I parent?", time_posted: "12. jan", author: "mongo", comments: 20 }];
+	var posts = [{
+	  id: "post_hash1",
+	  title: "Ironing",
+	  description: "I can't for the life of me find out how to iron a shirt?",
+	  time_posted: "11. jan",
+	  author_id: "u3",
+	  comments: [{ id: "comment_hash1", comment_text: "This is a comment", time_posted: "11. jan", author: "bob poopmaster" }, { id: "comment_hash2", comment_text: "This is also a comment", time_posted: "11. jan", author: "travis scott" }, { id: "comment_hash3", comment_text: "This is not a comment", time_posted: "12. jan", author: "bob poopmaster" }]
+	}, {
+	  id: "post_hash2",
+	  title: "Parenting",
+	  description: "How to I wipe my kids snot, and how do I parent?",
+	  time_posted: "12. jan",
+	  author_id: "u2",
+	  comments: [{ id: "comment_hash1", comment_text: "This is a comment", time_posted: "11. jan", author: "bob poopmaster" }]
+	}];
 
 	module.exports = posts;
 

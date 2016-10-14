@@ -17,7 +17,13 @@ var ThreadHandler = React.createClass({
   render: function() {
     return(<Thread posts={all_posts} hash={this.props.params.post_hash} />);
   }
-})
+});
+
+var ProfileHandler = React.createClass({
+  render: function() {
+    return(<Profile hash={this.props.params.userId} />);
+  }
+});
 
 var App = React.createClass({
   render: function() {
@@ -38,8 +44,8 @@ ReactDOM.render(
       <ReactRouter.Route path="/posts/:post_hash" component={ThreadHandler}>
       </ReactRouter.Route>
     </ReactRouter.Route>
-    <ReactRouter.Route path="/profile" component={App}>
-      <ReactRouter.IndexRoute component={Profile} />
+    <ReactRouter.Route path="/user/:userId" component={App}>
+      <ReactRouter.IndexRoute component={ProfileHandler} />
     </ReactRouter.Route>
   </ReactRouter.Router>,
   document.getElementById('container')
