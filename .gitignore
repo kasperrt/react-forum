@@ -1,3 +1,4 @@
 node_modules/
 web/bundle.js
 .DS_Store
+npm-debug.log
