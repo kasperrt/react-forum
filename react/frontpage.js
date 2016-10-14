@@ -51,7 +51,7 @@ var NewPost = React.createClass({
     } else if(posted) {
       button = "";
       to_add = <div className="success">Posted</div>
-      this.props.posts.unshift({id: "post_hash" + curr_number, title: this.state.title, description: this.state.description, time_posted: (new Date()).toString(), author: "UNDEFINED", comments: 0});
+      this.props.posts.unshift({id: "post_hash" + curr_number, title: this.state.title, description: this.state.description, time_posted: (new Date()).toString(), author_id: "u1", comments: []});
       curr_number = curr_number + 1;
       posted = false;
       showPost = false;

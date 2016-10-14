@@ -27370,7 +27370,6 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var ReactDOM = __webpack_require__(34);
 	var ReactRouter = __webpack_require__(172);
 
 	var Navbar = React.createClass({
@@ -27495,7 +27494,7 @@
 	        { className: 'success' },
 	        'Posted'
 	      );
-	      this.props.posts.unshift({ id: "post_hash" + curr_number, title: this.state.title, description: this.state.description, time_posted: new Date().toString(), author: "UNDEFINED", comments: 0 });
+	      this.props.posts.unshift({ id: "post_hash" + curr_number, title: this.state.title, description: this.state.description, time_posted: new Date().toString(), author_id: "u1", comments: [] });
 	      curr_number = curr_number + 1;
 	      posted = false;
 	      showPost = false;
