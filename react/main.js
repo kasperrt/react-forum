@@ -43,9 +43,8 @@ ReactDOM.render(
       <ReactRouter.IndexRoute component={PostsHandler} />
       <ReactRouter.Route path="/posts/:post_hash" component={ThreadHandler}>
       </ReactRouter.Route>
-    </ReactRouter.Route>
-    <ReactRouter.Route path="/user/:userId" component={App}>
-      <ReactRouter.IndexRoute component={ProfileHandler} />
+      <ReactRouter.Route path="/user/:userId" component={ProfileHandler}>
+      </ReactRouter.Route>
     </ReactRouter.Route>
   </ReactRouter.Router>,
   document.getElementById('container')
