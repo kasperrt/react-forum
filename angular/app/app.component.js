@@ -19,7 +19,7 @@ var AppComponent = (function () {
         core_1.Component({
             selector: 'my-app',
             templateUrl: './app/app.component.html',
-            providers: [profile_service_1.ProfileService, posts_service_1.PostsService]
+            providers: [profile_service_1.ProfileService, posts_service_1.PostsService],
         }), 
         __metadata('design:paramtypes', [])
     ], AppComponent);
