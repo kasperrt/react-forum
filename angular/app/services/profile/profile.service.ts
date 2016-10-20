@@ -1,11 +1,19 @@
 import { Profile } from '../../profile';
 import { Post } from '../../post';
 
-
+/*
+ * Class ProfileService creates a userprofile
+ * and returns it with the getProfiles-function. 
+ * In the proper code this would be fetched from 
+ * an API. 
+ */
 export class ProfileService {
   constructor() {
   }
 
+  /*
+   * Returns a user-profile as a Profile-object
+   */
   getProfiles() {
     return {
       name: "Brukernavn",
