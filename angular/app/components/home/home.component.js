@@ -8,8 +8,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var posts_service_1 = require('../../services/posts/posts.service');
+var core_1 = require("@angular/core");
+var posts_service_1 = require("../../services/posts/posts.service");
 var HomeComponent = (function () {
     function HomeComponent(_postsService) {
         this._postsService = _postsService;
@@ -19,14 +19,14 @@ var HomeComponent = (function () {
         this.posts = this._postsService.getPosts();
     };
     ;
-    HomeComponent = __decorate([
-        core_1.Component({
-            selector: 'home',
-            template: "\n    <div id=\"posts\">\n      <h2> Posts </h2>\n      <div class =\"homePosts\" *ngFor='let post of posts'>\n        {{ post.heading }} - {{ post.content }}\n      </div>\n    </div>\n  "
-        }), 
-        __metadata('design:paramtypes', [posts_service_1.PostsService])
-    ], HomeComponent);
     return HomeComponent;
 }());
+HomeComponent = __decorate([
+    core_1.Component({
+        selector: 'home',
+        template: "\n    <div id=\"posts\">\n      <h2> Posts </h2>\n      <div class =\"homePosts\" *ngFor='let post of posts'>\n        {{ post.heading }} - {{ post.content }}\n      </div>\n    </div>\n  "
+    }),
+    __metadata("design:paramtypes", [posts_service_1.PostsService])
+], HomeComponent);
 exports.HomeComponent = HomeComponent;
 //# sourceMappingURL=home.component.js.map
