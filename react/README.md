@@ -9,7 +9,7 @@
 - Posts.js and users.js is two files that works sort of like a database, but they can’t be changed by the user. This makes it easier to further develop the site, since we’re already using “dynamic” variables.
 
 - It’s three event-handlers in main.js, one for posts, one for thread and one for profile. These are used for easier sending in variables to the wanted class. This is done with having a handler as the component attribute in the ReactRouter.Router, and send in the variables and attributes in with the declaration of the elements. One example is:
-	
+
         render: function() {
             return(<Profile hash={this.props.params.userId} />);
   	    }
@@ -38,10 +38,22 @@
 
 - The posts-class gets all the posts from a attribute in main, which it loops through:
 
-        this.props.posts.map(function(post){ .. }; 
+        this.props.posts.map(function(post){ .. };
 
     And returns all the posts as html code.
 
 - In main.js we defined /user/:userId as a route, we can use /user/:userId as router links to the different posts. The same can be done with /posts/:post_hash
 
 - Then Posts returns {postsComponents} inside a div (this because a react element must have a super-container), ready for rendering.
+
+#### Thread
+
+- Thread includes react og react-router just like the other files.
+
+- Posts.js is used to get any data about the post and its comments.
+
+- Comments is a react class which is used to get the comments of the chosen thread. This is done almost exactly like in the Posts class in Frontpage, by using the map function.
+
+- Thread is the react class used to render everything that is shown on the page and uses the Comments class to display the comments.
+
+- There is currently no functionality to create any new comments yet on the thread page.
