@@ -57,3 +57,23 @@
 - Thread is the react class used to render everything that is shown on the page and uses the Comments class to display the comments.
 
 - There is currently no functionality to create any new comments yet on the thread page.
+
+#### “Min side” (profile.js):
+
+- Like the other files profile.js includes react og react-router. It also includes user.js which is used to display the profile of the author of a post.
+
+- To distinguish between the display of the author of a post and the user’s profile the profile.js takes in the prop hash. This is used to show the right information of the user and display/hide the logout button. 
+
+- "Last visited posts" is an overview of the user’s last visited and commented posts. With “<ReactRouter.Link to="/posts/the_post_to_rout_to">” the user is router to post. As right now they are two hard-coded posts from posts.js (post_hash1 and post_hash2).
+
+- The “graph over activity” is currently an image. Later on this will show a dynamic graph over the user’s activity (writing and commenting posts) 
+
+#### Navbar
+
+- Includes react og react-router just like the other files. 
+
+- The navbar is displayed on all pages do to the App class render function in main.js.
+
+- It routs between frontpage.js and profile.js with “ReactRouter.Link” with the path defined in ReactDOM.render in main.js.
+
+- The navbar also contains a search box, which in this prototype does not have any functionality.
