@@ -15,7 +15,7 @@ var Navbar = React.createClass({	// Creates a new class containing all the navba
 
 					//Search bar and "Min side" button
 					<ul className="navbarElement">  
-						<li><input type="text" placeholder="Søk..."/></li>	//For this prototype the search bar is includet but does't have any functionality implemented
+						<li><input type="text" placeholder="Søk..."/></li>	//For this prototype the search bar is included but does not have any functionality implemented
 						<li><ReactRouter.Link to="/user/u1" className="btn">Min side</ReactRouter.Link></li>  //"Min side" button will, as the home button rout the user to there profile (profile.js)
 					</ul>
 				</div>

@@ -3,9 +3,9 @@ var ReactRouter = require('react-router');
 var users = require('./users.js');
 
 var Profile = React.createClass({		// Creates a new class containing all the elements of profile
-	render : function (){				// Render function, return the JSX (HTML) to be displayed
-		var hash = this.props.hash;		// Profil.js takes in the props hash, tells which user to show
-		var user = users.filter(function( obj ) {		// Finds the right user
+	render : function (){				// Render function, return the JSX ("HTML") to be displayed
+		var hash = this.props.hash;		// Profil.js takes in the props (parameter) hash, tells which user to show
+		var user = users.filter(function( obj ) {		// Finds the right user matching hash
       return obj.userid == hash;
     });
     user = user[0];
