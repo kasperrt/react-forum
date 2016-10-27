@@ -1,7 +1,7 @@
 import React from 'react';
 import NewPost from '../components/newPost';
 
-class NewPostContainer extends Component { 
+class NewPostContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -25,25 +25,25 @@ class NewPostContainer extends Component {
   handleTitleChange(e) {              //Handler for when title is being changed
     this.setState({
       title: e.target.value                     //updates title state-variable
-    });     
+    });
   },
 
   handleDescriptionChange(e) {          //Handler for when description is being changed
     this.setState({
       description: e.target.value                 //Updates description variable
-    }); 
+    });
   },
 
   render() {
     return (              //return part of render function, for what to be returned on rendering
-      <NewPost 
-          posted={this.posted} 
-          showPost={this.showPost} 
+      <NewPost
+          posted={this.posted}
+          showPost={this.showPost}
           curr_number={this.curr_number}
-          addNewPost={this.newPost.bind(this)
+          addNewPost={this.newPost.bind(this)}
           handleTitleChange={this.handleTitleChange.bind.(this)}
           handleDescriptionChange={this.handleDescriptionChange.bind(this)}
-          }>
+          >
     )
   }
 };
