@@ -3,9 +3,10 @@ var ReactDOM = require('react-dom');
 var ReactRouter = require('react-router');
 var Navbar = require('./navbar.js');
 var Frontpage = require('./components/frontpage.js');    //includes the different classes to be used.
-var Profile = require('./profile.js');
+var Profile = require('./components/profile.js');
 var Thread = require('./thread.js');
 var all_posts = require('./posts.js');
+import users from './users';
 
 var PostsHandler = React.createClass({    //Posthandler, to make it possible to add posts as input to frontpage
   render: function() {
@@ -20,8 +21,11 @@ var ThreadHandler = React.createClass({   //Threadhandler, to make it possible t
 });
 
 var ProfileHandler = React.createClass({    //Profilehandler, to make it possible to send current hash as parameter
+  var user = users.filter(function( obj ) {   // Finds the right user matching hash
+      return obj.userid == this.props.params.userId;
+    })[0];
   render: function() {
-    return(<Profile hash={this.props.params.userId} />);
+    return(<Profile hash={this.props.params.userId} user={user} />);
   }
 });
 
