@@ -3,6 +3,11 @@ var app = express();
 var port = 80;
 var default_port = 3000;
 
+//database stuff
+var mongo = require('mongodb');
+var monk = require('monk');
+var db = monk('localhost:27017/users');
+
 app.use(express.static('web/'));
 
 process.on('uncaughtException', function(error){
@@ -35,3 +40,12 @@ MongoClient.connect(url, function(err, db) {
 
   db.close();
 });
+
+app.use(function(req,res,next){
+    req.db = db;
+    next();
+});
+app.use('/', routes);
+app.use('/users', users);
+
+module.exports = server;
