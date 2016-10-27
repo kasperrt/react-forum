@@ -14,7 +14,7 @@ var posts = [
   {
     id: "post_hash2",
     title: "Parenting",
-    description: "How to I wipe my kids snot, and how do I parent?",
+    description: "How to I wipe my kids' snot, and how do I parent?",
     time_posted: "12. jan",
     author_id: "u2",
     comments: [
