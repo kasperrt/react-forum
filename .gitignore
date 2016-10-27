@@ -3,4 +3,4 @@ web/
 .DS_Store
 npm-debug.log
 data/
-build/
+build/main.js
