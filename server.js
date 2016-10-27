@@ -1,9 +1,8 @@
 var express = require('express');
 var app = express();
-var port = 80;
 var default_port = 3000;
 
-app.use(express.static('web/'));
+app.use(express.static('build/'));
 
 var MongoClient = require('mongodb').MongoClient
   , assert = require('assert');
@@ -35,4 +34,4 @@ function start_listening(port){
   });
 }
 
-start_listening(port);
+start_listening(default_port);
