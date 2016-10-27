@@ -48,22 +48,22 @@
 	var ReactDOM = __webpack_require__(34);
 	var ReactRouter = __webpack_require__(172);
 	var Navbar = __webpack_require__(235);
-	var Frontpage = __webpack_require__(236);
-	var Profile = __webpack_require__(238);
+	var Frontpage = __webpack_require__(236); //includes the different classes to be used.
+	var Profile = __webpack_require__(237);
 	var Thread = __webpack_require__(239);
 	var all_posts = __webpack_require__(240);
 
 	var PostsHandler = React.createClass({
 	  displayName: 'PostsHandler',
-
+	  //Posthandler, to make it possible to add posts as input to frontpage
 	  render: function () {
-	    return React.createElement(Frontpage, { posts: all_posts });
+	    return React.createElement(Frontpage, { posts: all_posts }); //Frontpage being rendered, with all posts as parameter
 	  }
 	});
 
 	var ThreadHandler = React.createClass({
 	  displayName: 'ThreadHandler',
-
+	  //Threadhandler, to make it possible to add posts as input to threads, and the current hash
 	  render: function () {
 	    return React.createElement(Thread, { posts: all_posts, hash: this.props.params.post_hash });
 	  }
@@ -71,7 +71,7 @@
 
 	var ProfileHandler = React.createClass({
 	  displayName: 'ProfileHandler',
-
+	  //Profilehandler, to make it possible to send current hash as parameter
 	  render: function () {
 	    return React.createElement(Profile, { hash: this.props.params.userId });
 	  }
@@ -79,7 +79,7 @@
 
 	var App = React.createClass({
 	  displayName: 'App',
-
+	  //"Top-level" class, contains Navbar and every element being sent into it
 	  render: function () {
 	    return React.createElement(
 	      'div',
@@ -90,21 +90,30 @@
 	  }
 	});
 
-	ReactDOM.render(React.createElement(
+	ReactDOM.render( //Function for rendering everything to the DOM
+	React.createElement(
 	  ReactRouter.Router,
 	  { history: ReactRouter.hashHistory },
+	  '    //Setting up the ReactRouter for link handling.',
 	  React.createElement(
 	    ReactRouter.Route,
 	    { path: '/', component: App },
+	    '            //Router for path /, and adds App as the handler for that path',
 	    React.createElement(ReactRouter.IndexRoute, { component: PostsHandler }),
-	    React.createElement(ReactRouter.Route, { path: '/posts/:post_hash', component: ThreadHandler })
-	  ),
-	  React.createElement(
-	    ReactRouter.Route,
-	    { path: '/user/:userId', component: App },
-	    React.createElement(ReactRouter.IndexRoute, { component: ProfileHandler })
+	    '   //Setting PostHandler as component for the index of path /',
+	    React.createElement(
+	      ReactRouter.Route,
+	      { path: '/posts/:post_hash', component: ThreadHandler },
+	      '    //Defines that the path /posts/:post_hash with parameter being sent in with URL'
+	    ),
+	    React.createElement(
+	      ReactRouter.Route,
+	      { path: '/user/:userId', component: ProfileHandler },
+	      '       //Defines that the path /user/:userId with parameter being sent in with URL'
+	    )
 	  )
-	), document.getElementById('container'));
+	), document.getElementById('container') //Element to add everything to be rendered into
+	);
 
 /***/ },
 /* 1 */
@@ -27422,200 +27431,64 @@
 
 /***/ },
 /* 236 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
-	var React = __webpack_require__(1);
-	var ReactRouter = __webpack_require__(172);
-	var all_users = __webpack_require__(237);
+	import React from 'react';
+	import Posts from './Posts';
+	import NewPostContainer from './containers/newPostContainer';
 
-	var showPost = false;
-	var posted = false;
-	var curr_number = 3;
+	const Frontpage = ({ posts, users }) => React.createElement(
+	  'div',
+	  null,
+	  React.createElement(NewPostContainer, { posts: posts }),
+	  '                 //Using a NewPost class element, with all posts as attribute and value',
+	  React.createElement(
+	    'div',
+	    { className: 'frontpage_posts' },
+	    React.createElement(
+	      Posts,
+	      { posts: (posts, users) },
+	      '           //Renders the children sent in with Posts class.'
+	    )
+	  )
+	);
 
-	var Frontpage = React.createClass({
-	  displayName: 'Frontpage',
-
-	  render: function () {
-	    return React.createElement(
-	      'div',
-	      null,
-	      React.createElement(NewPost, { posts: this.props.posts }),
-	      React.createElement(
-	        'div',
-	        { className: 'frontpage_posts' },
-	        React.createElement(
-	          Posts,
-	          { posts: this.props.posts },
-	          this.props.children
-	        )
-	      )
-	    );
-	  }
-	});
-
-	var NewPost = React.createClass({
-	  displayName: 'NewPost',
-
-	  newPost: function () {
-	    if (!showPost) {
-	      showPost = true;
-	    } else {
-	      posted = true;
-	    }
-	  },
-
-	  handleTitleChange: function (e) {
-	    this.setState({ title: e.target.value });
-	  },
-
-	  handleDescriptionChange: function (e) {
-	    this.setState({ description: e.target.value });
-	  },
-
-	  render: function () {
-	    var to_add;
-	    var button = React.createElement(
-	      'a',
-	      { href: '#', className: 'new_post_button', onClick: this.newPost },
-	      'Nytt Innlegg'
-	    );
-
-	    if (showPost && !posted) {
-	      to_add = React.createElement(
-	        'div',
-	        { className: 'new_post before_posted' },
-	        React.createElement('input', { type: 'text', name: 'title', placeholder: 'Title of post', onChange: this.handleTitleChange }),
-	        React.createElement('textarea', { className: 'new_post_text', placeholder: 'Description..', onChange: this.handleDescriptionChange })
-	      );
-	    } else if (posted) {
-	      button = "";
-	      to_add = React.createElement(
-	        'div',
-	        { className: 'success' },
-	        'Posted'
-	      );
-	      this.props.posts.unshift({ id: "post_hash" + curr_number, title: this.state.title, description: this.state.description, time_posted: new Date().toString(), author_id: "u1", comments: [] });
-	      curr_number = curr_number + 1;
-	      posted = false;
-	      showPost = false;
-	    }
-	    return React.createElement(
-	      'div',
-	      { id: 'new_post' },
-	      to_add,
-	      button
-	    );
-	  }
-	});
-
-	var Posts = React.createClass({
-	  displayName: 'Posts',
-
-	  render: function () {
-	    var postsComponents = this.props.posts.map(function (post) {
-	      var author_name = all_users.filter(function (obj) {
-	        return obj.userid == post.author_id;
-	      });
-	      author_name = author_name[0].name;
-	      return React.createElement(
-	        'div',
-	        { id: post.id, key: post.id, className: 'post' },
-	        React.createElement(
-	          ReactRouter.Link,
-	          { className: 'postTitle', to: "posts/" + post.id },
-	          post.title
-	        ),
-	        React.createElement(
-	          'div',
-	          { className: 'postDescription' },
-	          post.description
-	        ),
-	        React.createElement(
-	          'div',
-	          { className: 'postAuthorContainer' },
-	          'Skrevet av \xA0',
-	          React.createElement(
-	            ReactRouter.Link,
-	            { className: 'postAuthor', to: "user/" + post.author_id },
-	            author_name
-	          )
-	        ),
-	        React.createElement(
-	          'div',
-	          { className: 'postComments' },
-	          post.comments.length,
-	          ' kommentarer'
-	        ),
-	        React.createElement(
-	          'div',
-	          { className: 'postPosted' },
-	          'Publisert ',
-	          post.time_posted
-	        )
-	      );
-	    });
-	    return React.createElement(
-	      'div',
-	      null,
-	      postsComponents
-	    );
-	  }
-	});
-
-	module.exports = Frontpage;
+	export default Frontpage;
 
 /***/ },
 /* 237 */
-/***/ function(module, exports) {
-
-	var users = [{
-	  userid: "u1",
-	  name: "Ola Nordmann",
-	  date: "08.10.2013",
-	  posts: 1,
-	  comments: 3
-	}, {
-	  userid: "u2",
-	  name: "Travis Scott",
-	  date: "01.10.2010",
-	  comments: 1,
-	  posts: 0
-	}, {
-	  userid: "u3",
-	  name: "bob poopmaster",
-	  date: "01.10.2010",
-	  comments: 3,
-	  posts: 1
-	}];
-
-	module.exports = users;
-
-/***/ },
-/* 238 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(172);
-	var users = __webpack_require__(237);
+	var users = __webpack_require__(238);
 
 	var Profile = React.createClass({
 		displayName: 'Profile',
-
+		// Creates a new class containing all the elements of profile
 		render: function () {
-			var hash = this.props.hash;
+			// Render function, return the JSX ("HTML") to be displayed
+			var hash = this.props.hash; // Profil.js takes in the props (parameter) hash, tells which user to show
 			var user = users.filter(function (obj) {
+				// Finds the right user matching hash
 				return obj.userid == hash;
 			});
 			user = user[0];
 
-			var name = user.name;
-			var date = user.date;
-			var posts = user.posts;
-			var comments = user.comments;
+			var name = user.name; // variable for the user/authors name
+			var date = user.date; // variable for the date the user created the account 
+			var posts = user.posts; // variable for how many posts the user has posted
+			var comments = user.comments; // variable for how many comments the user has written 
 
-			var loggOutButton;
+			var loggOutButton; // variable conteining the logg out button
 
+			/* 
+	  	Check if profil.js shows the user's profile or an author
+	  	If the hash is "u1" it's shows the user's profile with loggOutButton
+	  	Else the loggOutButton variable will be null
+	  */
 			if (hash == "u1") {
+				// On click will rout to frontapage with the ReactRouter path defined in main.js (ReactDOM.render)
 				loggOutButton = React.createElement(
 					'li',
 					{ id: 'rightLi', style: { float: "right" } },
@@ -27645,13 +27518,16 @@
 								'Min side'
 							)
 						),
-						loggOutButton
+						loggOutButton,
+						'              // Will only be displayed if profile.js shows the user\'s profile'
 					)
 				),
 				React.createElement(
 					'div',
 					{ id: 'layer2', className: 'layers' },
+					'// Profile picture',
 					React.createElement('img', { src: 'http://madmobilenews.com/wp-content/uploads/2013/01/generic_user_image.jpg', alt: 'Profile' }),
+					'// User information',
 					React.createElement(
 						'div',
 						{ className: 'layerDiv' },
@@ -27685,6 +27561,7 @@
 				React.createElement(
 					'div',
 					{ id: 'layer3', className: 'layers' },
+					'// Last viewed posts',
 					React.createElement(
 						'div',
 						{ className: 'layerDiv' },
@@ -27696,6 +27573,7 @@
 						React.createElement(
 							'ul',
 							{ className: 'lastUl' },
+							'// Routs to the posts, post_hash1 and post_hash2 from posts.js',
 							React.createElement(
 								'li',
 								null,
@@ -27716,6 +27594,7 @@
 							)
 						)
 					),
+					'// Graph over activity',
 					React.createElement(
 						'div',
 						{ className: 'layerDiv' },
@@ -27734,6 +27613,32 @@
 	module.exports = Profile;
 
 /***/ },
+/* 238 */
+/***/ function(module, exports) {
+
+	var users = [{
+	  userid: "u1",
+	  name: "Ola Nordmann",
+	  date: "08.10.2013",
+	  posts: 1,
+	  comments: 3
+	}, {
+	  userid: "u2",
+	  name: "Travis Scott",
+	  date: "01.10.2010",
+	  comments: 1,
+	  posts: 0
+	}, {
+	  userid: "u3",
+	  name: "bob poopmaster",
+	  date: "01.10.2010",
+	  comments: 3,
+	  posts: 1
+	}];
+
+	module.exports = users;
+
+/***/ },
 /* 239 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -27742,8 +27647,9 @@
 
 	var Thread = React.createClass({
 	  displayName: 'Thread',
-
+	  //Creates a new class, which contains the post, comments, and the new comment button and textarea
 	  render: function () {
+	    //rendering function, returns what to be displayed
 	    var id = this.props.hash;
 	    var posts = this.props.posts;
 	    var post = posts.filter(function (obj) {
@@ -27761,10 +27667,12 @@
 	          null,
 	          post.title
 	        ),
+	        ' //gets the title value for the post',
 	        React.createElement(
 	          'div',
 	          { className: 'postDescriptionContainer' },
-	          post.description
+	          post.description,
+	          ' //gets the description value for the post'
 	        ),
 	        React.createElement(
 	          'div',
@@ -27776,7 +27684,9 @@
 	            React.createElement(
 	              ReactRouter.Link,
 	              { to: "user/" + post.author },
-	              post.author
+	              ' //links to the author\'s profile page',
+	              post.author,
+	              ' //gets the author value for the post'
 	            ),
 	            React.createElement('br', null)
 	          ),
@@ -27785,10 +27695,12 @@
 	            null,
 	            post.comments.length,
 	            ' kommentarer',
-	            React.createElement('br', null)
+	            React.createElement('br', null),
+	            ' //gets the amount of commetns a post has'
 	          ),
 	          'Publisert ',
-	          post.time_posted
+	          post.time_posted,
+	          ' //gets the time_posted value for the post'
 	        )
 	      ),
 	      React.createElement('hr', null),
@@ -27799,6 +27711,7 @@
 	        React.createElement(
 	          'select',
 	          null,
+	          ' //selecter to decide how the comments should be sorted, no functionality yet',
 	          React.createElement(
 	            'option',
 	            { value: 'nyeste' },
@@ -27822,7 +27735,7 @@
 	        React.createElement(
 	          ReactRouter.Link,
 	          { className: 'newCommentButton', to: "createComment" },
-	          'Publiser'
+	          ' //Links to a create comment page, no functionality yet Publiser'
 	        )
 	      ),
 	      React.createElement(
@@ -27831,36 +27744,43 @@
 	        React.createElement(
 	          Comments,
 	          { comments: post.comments },
-	          this.props.children
+	          this.props.children,
+	          ' //Renders the children sent from the Comments class'
 	        )
 	      )
 	    );
 	  }
 	});
 
+	//Comments class
 	var Comments = React.createClass({
 	  displayName: 'Comments',
 
 	  render: function () {
 	    var commentComponents = this.props.comments.map(function (comment) {
+	      //Loops through comments and applies design for every comment on the page
 	      return React.createElement(
 	        'div',
 	        { id: comment.id, key: comment.id, className: 'comment' },
 	        React.createElement(
 	          ReactRouter.Link,
 	          { className: 'commentAuthor', to: "user/" + comment.author },
-	          comment.author
+	          '  //links to the author\'s profile page',
+	          comment.author,
+	          '  //gets the author value for the comment'
 	        ),
 	        React.createElement(
 	          'div',
 	          { className: comment.comment_text },
-	          comment.comment_text
+	          comment.comment_text,
+	          ' //gets the comment_text value for the comment'
 	        ),
 	        React.createElement(
 	          'div',
 	          { className: 'commentPosted' },
 	          'Publisert ',
-	          comment.time_posted
+	          comment.time_posted,
+	          ' //gets the time_posted value for the comment'
 	        )
 	      );
 	    });
@@ -27870,11 +27790,11 @@
 	      ' ',
 	      commentComponents,
 	      ' '
-	    );
+	    ); //returns all of the comments for a post
 	  }
 	});
 
-	module.exports = Thread;
+	module.exports = Thread; //exports Thread variable to any other class/file that use require('./thread.js');
 
 /***/ },
 /* 240 */
