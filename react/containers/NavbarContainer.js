@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import Navbar from '../components/Navbar.js';
 
 class NavbarContainer extends Component {
@@ -10,7 +10,7 @@ class NavbarContainer extends Component {
     return (
       <Navbar
         currentUserId = {this.props.currentUserId}
-      >
+      />
     )
   }
 };

@@ -1,29 +1,29 @@
 import React from 'react';
-import ReactRouter from 'react-router';
+import ReactRouter, { Link } from 'react-router';
 import all_users from '../users';
 
-const Posts({posts}) => (  
+const Posts = ({posts}) => (
   <div>
     {posts.map((post)=>(
       <div id={post.id} key={post.id} className="post">
-        <ReactRouter.Link className="postTitle" to={"posts/" + post.id}> //Link for view of the post
-          {post.title}              //Printing post title
-        </ReactRouter.Link>
-        <div className="postDescription">{post.description}</div>   //printing post description
+        <Link className="postTitle" to={"posts/" + post.id}>
+          {post.title}
+        </Link>
+        <div className="postDescription">{post.description}</div>
         <div className="postAuthorContainer">
           Skrevet av &nbsp;
-          <ReactRouter.Link className="postAuthor" to={"user/" + post.author_id}>   //link to user that posted the psot
+          <Link className="postAuthor" to={"user/" + post.author_id}>
             {
-              all_users.filter(( obj ) => (       //Applies author_name that goes with the author_id
+              all_users.filter(( obj ) => (
                 obj.userid == post.author_id
-              ))[0].name 
-            }     //printing author name
-          </ReactRouter.Link>
+              ))[0].name
+            }
+          </Link>
         </div>
         <div className="postComments">
-          {post.comments.length} kommentarer    //Prints number of comments
+          {post.comments.length} kommentarer
         </div>
-        <div className="postPosted">Publisert {post.time_posted}</div>    //prints time posted.
+        <div className="postPosted">Publisert {post.time_posted}</div>
       </div>
       )
     )}

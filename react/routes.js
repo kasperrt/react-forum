@@ -1,16 +1,17 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
-var Navbar = require('./navbar.js');
-var Frontpage = require('./frontpage.js');    //includes the different classes to be used.
-var Profile = require('./profile.js');
-var Thread = require('./thread.js');
+import NavbarContainer from './containers/NavbarContainer.js';
+//var Frontpage = require('./frontpage.js');    //includes the different classes to be used.
+import FrontpageContainer from './components/frontpage.js';
+import ProfileContainer from './containers/ProfileContainer.js';
+import ThreadContainer from './containers/ThreadContainer.js';
 var all_posts = require('./posts.js');
 
 var App = React.createClass({         //"Top-level" class, contains Navbar and every element being sent into it
   render: function() {
     return (
       <div>
-        <Navbar />
+        <NavbarContainer currentUserId="u1" />
         {this.props.children}
       </div>
     )
@@ -19,26 +20,32 @@ var App = React.createClass({         //"Top-level" class, contains Navbar and e
 
 var PostsHandler = React.createClass({    //Posthandler, to make it possible to add posts as input to frontpage
   render: function() {
-    return(<Frontpage posts={all_posts} />);    //Frontpage being rendered, with all posts as parameter
+    return(<FrontpageContainer posts={all_posts} />);    //Frontpage being rendered, with all posts as parameter
   }
 });
 
 var ThreadHandler = React.createClass({   //Threadhandler, to make it possible to add posts as input to threads, and the current hash
   render: function() {
-    return(<Thread posts={all_posts} hash={this.props.params.post_hash} />);
+    return(<ThreadContainer posts={all_posts} hash={this.props.params.post_hash} />);
   }
 });
 
 var ProfileHandler = React.createClass({    //Profilehandler, to make it possible to send current hash as parameter
   render: function() {
-    return(<Profile hash={this.props.params.userId} />);
+    return(<ProfileContainer hash={this.props.params.userId} />);
   }
 });
 
 module.exports = (
-    <Route path="/" component={App}>            //Router for path /, and adds App as the handler for that path
-      <IndexRoute component={PostsHandler} />   //Setting PostHandler as component for the index of path /
-      <Route path="/posts/:post_hash" component={ThreadHandler} />    //Defines that the path /posts/:post_hash with parameter being sent in with URL
-      <Route path="/user/:userId" component={ProfileHandler} />       //Defines that the path /user/:userId with parameter being sent in with URL
+    <Route>
+      <Route path="/" component={App}>
+        <IndexRoute component={PostsHandler} />
+      </Route>
+      <Route path="/posts/:post_hash" component={App} >
+        <IndexRoute component={ThreadHandler} />
+      </Route>
+      <Route path="/user/:userId" component={App} >
+        <IndexRoute component={ProfileHandler} />
+      </Route>
     </Route>
 );
