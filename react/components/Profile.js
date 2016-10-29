@@ -6,7 +6,7 @@ const Profile = ({loggOutButton, name, date, posts, comments}) => (
     <div id="layer1" className="layers">
       <ul>
         <li><h2>Min side</h2></li>
-        {loggOutButton ? <li id="rightLi" style={{float: "right"}}><Link to="/" className="btnRed">Logg ut</Link></li> : null}
+        {loggOutButton ? <li id="rightLi" style={{float: "right"}}><Link to="/" className="btnRed"><span>Logg ut</span></Link></li> : null}
       </ul>
     </div>
     <div id="layer2" className="layers">
@@ -24,8 +24,8 @@ const Profile = ({loggOutButton, name, date, posts, comments}) => (
       <div className="layerDiv">
         <h2>Sist besøkte innlegg</h2>
         <ul className="lastUl">
-          <li><Link to="/posts/post_hash1">IRONING</Link></li>
-          <li><Link to="/posts/post_hash2">PARENTING</Link></li>
+          <li><Link to="/posts/post_hash1"><span>IRONING</span></Link></li>
+          <li><Link to="/posts/post_hash2"><span>PARENTING</span></Link></li>
         </ul>
       </div>
 

@@ -16,7 +16,7 @@ const Comments = ({changeSorting, comments}) => (
         </textarea>
       </div>
       <Link className="newCommentButton" to={"createComment"}>
-          Publiser
+          <span>Publiser</span>
       </Link>
     </div>
     {comments.map((comment) => (
