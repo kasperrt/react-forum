@@ -8,7 +8,7 @@ class ProfileContainer extends Component {
     super(props);
     this.hash = this.props.hash;
     this.user = users.filter(( obj ) => (
-      obj.userid = this.hash
+      this.hash == obj.userid
     ))[0];
     this.name = this.user.name;
     this.date = this.user.date;

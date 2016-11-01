@@ -7,7 +7,7 @@ class ThreadContainer extends Component {
   constructor(props) {
     super(props);
     this.post = this.props.posts.filter(( obj ) => (
-                  obj.id = this.props.hash
+                   this.props.hash == obj.id
                 ))[0];
 
   };

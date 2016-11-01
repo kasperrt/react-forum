@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactRouter, { Link } from 'react-router';
-import all_users from '../users';
 
-const Posts = ({posts}) => (
+const Posts = ({posts, all_users}) => (
   <div>
+    {console.log(posts)}
     {posts.map((post)=>(
-      <div id={post.id} key={post.id} className="post">
+      <div key={post.id} className="post">
         <Link className="postTitle" to={"posts/" + post.id}>
           {post.title}
         </Link>
@@ -14,8 +14,9 @@ const Posts = ({posts}) => (
           Skrevet av &nbsp;
           <Link className="postAuthor" to={"user/" + post.author_id}>
             {
+              
               all_users.filter(( obj ) => (
-                obj.userid == post.author_id
+                 post.author_id == obj.userid
               ))[0].name
             }
           </Link>
