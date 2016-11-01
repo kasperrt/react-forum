@@ -14,7 +14,6 @@ const Posts = ({posts, all_users}) => (
           Skrevet av &nbsp;
           <Link className="postAuthor" to={"user/" + post.author_id}>
             {
-              
               all_users.filter(( obj ) => (
                  post.author_id == obj.userid
               ))[0].name
