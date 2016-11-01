@@ -6,6 +6,7 @@ import FrontpageContainer from './components/frontpage.js';
 import ProfileContainer from './containers/ProfileContainer.js';
 import ThreadContainer from './containers/ThreadContainer.js';
 var all_posts = require('./posts.js');
+var all_users = require('./users.js');
 
 var App = React.createClass({         //"Top-level" class, contains Navbar and every element being sent into it
   render: function() {
@@ -20,7 +21,7 @@ var App = React.createClass({         //"Top-level" class, contains Navbar and e
 
 var PostsHandler = React.createClass({    //Posthandler, to make it possible to add posts as input to frontpage
   render: function() {
-    return(<FrontpageContainer posts={all_posts} />);    //Frontpage being rendered, with all posts as parameter
+    return(<FrontpageContainer posts={all_posts} all_users={all_users} />);    //Frontpage being rendered, with all posts as parameter
   }
 });
 
