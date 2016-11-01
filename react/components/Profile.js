@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactRouter, {Link} from 'react-router';
+import GraphContainer from '../containers/GraphContainer'
 
 const Profile = ({loggOutButton, name, date, posts, comments}) => (
   <div className="content">
@@ -31,7 +32,7 @@ const Profile = ({loggOutButton, name, date, posts, comments}) => (
 
       <div className="layerDiv">
         <h2>Bidrag per måned</h2>
-        <img src="http://www.datavizcatalogue.com/methods/images/top_images/line_graph.png" alt="graph" />
+        <GraphContainer />
       </div>
     </div>
   </div>
