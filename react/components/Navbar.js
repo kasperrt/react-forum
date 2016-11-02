@@ -5,7 +5,7 @@ const Navbar = ({currentUserId}) => (
   <div id="navbar">
 
     <div className="navbarLeft">
-      <Link to="/"><div id="logo">HOW TO: ADULT</div></Link>
+      <Link to="/"><div id="logo">How to: adult</div></Link>
     </div>
 
     <div className="navbarRight">
