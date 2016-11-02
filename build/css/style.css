@@ -1,10 +1,11 @@
-/* Posts view */
+/* Style posts */
 * {
   font-family: 'Roboto', Helvetica, Arial, sans-serif;
 }
+
 .post {
-  background-color: lightgray;
-  margin: 10px 0 10px 0;
+  margin: 10px 0;
+  border-bottom: 1px solid black;
 }
 .postTitle, .commentAuthor{
   text-decoration: none;
@@ -15,7 +16,8 @@
 
 .new_post{
   min-height:100px;
-  display:grid;
+  display: flex;
+  flex-direction: column;
 }
 
 .new_post textarea{
@@ -29,25 +31,22 @@
   padding-top:100px;
 }
 
-#new_post .success{
-  padding-top:100px;
-}
-
 .postAuthorContainer, .postPosted, .postComments, .commentPosted, .postInformation{
   text-align: right;
 }
 
 .new_post_button, .newCommentButton{
   background: green;
+  padding: 10px 16px;
+  margin-top: 16px;
+  width: 115px;
+
   text-transform: uppercase;
   color: white;
-  width: 200px;
-  text-align: center;
-  padding: 30px;
-  line-height: 90px;
-  margin-top: 30px;
-  font-size: 1.3rem;
+  font-weight: lighter;
   text-decoration: none;
+
+  display: flex;
 }
 
 .postDescriptionContainer{
