@@ -3,69 +3,28 @@ var app = express();
 var default_port = 3000;
 var mongoose = require('mongoose');
 var mpromise = require('mpromise');
+var Comment = require('./models/comment.js');
+var User = require('./models/user.js');
+var Post = require('./models/post.js');
+var router = require('./router/router.js');
+
 const assert = require('assert');
+
 mongoose.Promise = global.Promise;
 app.use(express.static('build/'));
+
+app.use('/api', router);
+
 
 var url = 'mongodb://localhost/howto';
 mongoose.connect(url);
 
-var PostSchema = mongoose.Schema({
-  title: String,
-  description: String,
-  _author: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
-  },
-  comments: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Comment'
-  }],
-  posted_date: Date
-});
-
-var CommentSchema = mongoose.Schema({
-  _author: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
-  },
-  _post: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Post'
-  },
-  posted_date: Date,
-  description: String
-})
-
-var UserSchema = mongoose.Schema({
-  name: String,
-  created: Date,
-  last_visited: [{
-    type: Number,
-    ref: 'Post'
-  }],
-  image: String,
-  posts: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Post'
-  }],
-  comments: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Comment'
-  }],
-  facebook_id: String
-})
-
-var Comment = mongoose.model('Comment', CommentSchema);
-var Post = mongoose.model('Post', PostSchema);
-var User = mongoose.model('User', UserSchema);
-
 //create_user({u_name: "Kasper Rynning-Tønnesen", image: "qowihe", facebook_id: "rynningtoennesen"});
 //create_post({title: "testing", description: "testing2", facebook_id: "rynningtoennesen"});
 //create_comment({description: "testing", facebook_id: "rynningtoennesen", title: "testing"});
-find_user();
-find_post();
-find_comment();
+//find_user();
+//find_post();
+//find_comment();
 
 process.on('uncaughtException', function(error){
   if(error.code == "EACCES"){
@@ -113,7 +72,6 @@ function create_post(obj){
 function create_comment(obj){
 
   Post.findOne({title: obj.title}, function(error, post){
-    console.log(post);
     User.findOne({facebook_id: obj.facebook_id}, function(error, user){
       var new_comment = new Comment({
         description: obj.description,
