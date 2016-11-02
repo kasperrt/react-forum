@@ -6,14 +6,17 @@
 .post {
   margin: 10px 0;
   border-bottom: 1px solid black;
+  display: flex;
+  justify-content: space-between;
 }
+
 .postTitle, .commentAuthor{
   text-decoration: none;
-  font-size: 1.3rem;
-  text-transform: uppercase;
+  font-weight: bold;
   color: black;
 }
 
+/*Write a new post*/
 .new_post{
   min-height:100px;
   display: flex;
@@ -58,7 +61,7 @@
  }
 
  .comment{
-   background-color: lightgray;
+   border-bottom: 1px solid black;
    margin: 20px 0 20px 0;
    padding: 10px;
  }

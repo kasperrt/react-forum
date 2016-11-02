@@ -27,7 +27,7 @@ const Comments = ({changeSorting, comments}) => (
         <Link className="commentAuthor" to={"user/" + comment.author}>
         {comment.author}
         </Link>
-        <div className={comment.comment_text}>
+        <div className="commentText">
           {comment.comment_text}
         </div>
         <div className="commentPosted">
