@@ -10,7 +10,11 @@ router.use(function(req, res, next) {
 
 router.route('/posts')
     .post(function(req, res){
-
+      /**
+       *
+       *  Function for creating a new post, and checking if the user is authenticated.
+       *
+       */
     })
 
     .get(function(req, res){
@@ -28,7 +32,24 @@ router.route('/posts/:post_id')
         });
     });
 
+router.route('/comments/:post_id')
+    .post(function(req, res){
+      /**
+       *
+       *  Function for creating a new user, and checking if the user is authenticated.
+       *
+       */
+    });
+
 router.route('/users/:user_id')
+    .post(function(req, res){
+      /**
+       *
+       *  Function for creating a new user, and checking if the user is authenticated.
+       *
+       */
+    })
+
     .get(function(req, res){
         User.findOne({_id: new ObjectId(req.params.user_id)}).populate('posts').populate('comments').exec(function(err, user){
             if(err) res.send(err);
@@ -73,8 +94,8 @@ function create_post(obj){
 }
 
 function create_comment(obj){
-  Post.findOne({title: obj.title}, function(error, post){
-    User.findOne({_id: new ObjectId(obj.id)}, function(error, user){
+  Post.findOne({_id: new ObjectId(obj.post_id)}, function(error, post){
+    User.findOne({_id: new ObjectId(obj.user_id)}, function(error, user){
       var new_comment = new Comment({
         description: obj.description,
         posted_date: new Date,
