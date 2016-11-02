@@ -6,9 +6,9 @@ var posts = [
     time_posted: "2016-11-02T12:32:44+01:00",
     author_id: "u3",
     comments: [
-      {id: "comment_hash1", comment_text: "This is a comment", time_posted: "11. jan", author: "bob poopmaster"},
-      {id: "comment_hash2", comment_text: "This is also a comment", time_posted: "11. jan", author: "travis scott"},
-      {id: "comment_hash3", comment_text: "This is not a comment", time_posted: "12. jan", author: "bob poopmaster"}
+      {id: "comment_hash1", comment_text: "This is a comment", time_posted: "2016-11-02T12:32:44+01:00", author: "bob poopmaster"},
+      {id: "comment_hash2", comment_text: "This is also a comment", time_posted: "2016-11-02T12:32:44+01:00", author: "travis scott"},
+      {id: "comment_hash3", comment_text: "This is not a comment", time_posted: "2016-11-02T12:32:44+01:00", author: "bob poopmaster"}
     ]
   },
   {
@@ -18,7 +18,7 @@ var posts = [
     time_posted: "2016-12-02T12:32:44+01:00",
     author_id: "u2",
     comments: [
-      {id: "comment_hash1", comment_text: "This is a comment", time_posted: "11. jan", author: "bob poopmaster"}
+      {id: "comment_hash1", comment_text: "This is a comment", time_posted: "2016-11-02T12:32:44+01:00", author: "bob poopmaster"}
     ]
   }
 ];

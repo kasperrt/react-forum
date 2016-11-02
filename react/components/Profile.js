@@ -1,6 +1,9 @@
 import React from 'react';
 import ReactRouter, {Link} from 'react-router';
 import GraphContainer from '../containers/GraphContainer'
+import Moment from 'moment';
+
+Moment.locale('nb');
 
 const Profile = ({loggOutButton, name, date, posts, comments}) => (
   <div className="content">
@@ -15,7 +18,7 @@ const Profile = ({loggOutButton, name, date, posts, comments}) => (
 
       <div className="layerDiv">
         <p>Navn: {name}</p>
-        <p>Bruker opprettet: {date}</p>
+        <p>Bruker opprettet: {Moment(date).fromNow()}</p>
         <br/>
         <p>Antall innlegg skrevet: {posts}</p>
         <p>Antall kommentarer skrevet: {comments}</p>
