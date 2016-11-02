@@ -4,8 +4,8 @@ const NewPost = ({posted, showPost, addNewPost, handleTitleChange, handleDescrip
   <div id="new_post">
     {showPost && !posted ?
       <div className="new_post">
-        <input type="text" name="title" placeholder="Title of post" onChange={handleTitleChange} />
-        <textarea className="new_post_text" placeholder="Description.." onChange={handleDescriptionChange}>
+        <input type="text" name="title" className="newPostTitle" placeholder="Title" onChange={handleTitleChange} />
+        <textarea className="new_post_text" placeholder="What's on your mind?" onChange={handleDescriptionChange}>
         </textarea>
       </div>
       : null}

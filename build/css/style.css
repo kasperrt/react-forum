@@ -1,8 +1,8 @@
-/* Style posts */
 * {
   font-family: 'Roboto', Helvetica, Arial, sans-serif;
 }
 
+/* Style posts */
 .post {
   margin: 10px 0;
   border-bottom: 1px solid black;
@@ -16,6 +16,13 @@
   color: black;
 }
 
+/*Style comments*/
+.comment{
+  border-bottom: 1px solid black;
+  margin: 20px 0 20px 0;
+  padding: 10px;
+}
+
 /*Write a new post*/
 .new_post{
   min-height:100px;
@@ -23,15 +30,8 @@
   flex-direction: column;
 }
 
-.new_post textarea{
-  margin: 0px;
-  width: 400px;
-  height: 100px;
-  font-size: 1.5rem;
-}
-
-.before_posted{
-  padding-top:100px;
+.newPostTitle {
+  font-size: 24px;
 }
 
 .postAuthorContainer, .postPosted, .postComments, .commentPosted, .postInformation{
@@ -55,13 +55,3 @@
 .postDescriptionContainer{
   width: 75%;
 }
-
- .newCommentContainer{
-   margin-top: 30px;
- }
-
- .comment{
-   border-bottom: 1px solid black;
-   margin: 20px 0 20px 0;
-   padding: 10px;
- }
