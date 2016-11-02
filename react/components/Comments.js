@@ -1,11 +1,14 @@
 import React from 'react';
 import ReactRouter, {Link} from 'react-router';
+import Moment from 'moment';
+
+Moment.locale('nb');
 
 const Comments = ({changeSorting, comments}) => (
   <div>
     <div className="commentSorter">
       Sorter på
-      <select onChange={() => changeSorting()}> 
+      <select onChange={() => changeSorting()}>
         <option value="1">nyeste først</option>
         <option value="-1">eldste først</option>
       </select>
@@ -28,7 +31,7 @@ const Comments = ({changeSorting, comments}) => (
           {comment.comment_text}
         </div>
         <div className="commentPosted">
-          Publisert {comment.time_posted}
+          Publisert {Moment(comment.time_posted).fromNow()}
         </div>
       </div>
     )
