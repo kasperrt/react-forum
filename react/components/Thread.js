@@ -10,14 +10,14 @@ const Thread = ({post}) => (
       </div>
       <div className="postInformation">
         <span>
-          Skrevet av <Link to={"user/"+post.author}>
-            {post.author}
+          Skrevet av <Link to={"user/"+post._author._id}>
+            {post._author.name}
           </Link><br/>
         </span>
         <span>
-          {post.comments.length} kommentarer<br/>
+          {post.comment_length} kommentarer<br/>
         </span>
-        Publisert {post.time_posted} 
+        Publisert {post.posted_date}
       </div>
     </div>
   </div>

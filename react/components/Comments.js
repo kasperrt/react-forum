@@ -23,15 +23,15 @@ const Comments = ({changeSorting, comments}) => (
       </Link>
     </div>
     {comments.map((comment) => (
-      <div id={comment.id} key={comment.id} className="comment">
-        <Link className="commentAuthor" to={"user/" + comment.author}>
-        {comment.author}
+      <div id={comment._id} key={comment._id} className="comment">
+        <Link className="commentAuthor" to={"user/" + comment._author._id}>
+        {comment._author.name}
         </Link>
-        <div className={comment.comment_text}>
-          {comment.comment_text}
+        <div className={comment.description}>
+          {comment.description}
         </div>
         <div className="commentPosted">
-          Publisert {Moment(comment.time_posted).fromNow()}
+          Publisert {Moment(comment.posted_date).fromNow()}
         </div>
       </div>
     )

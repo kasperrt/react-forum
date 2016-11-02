@@ -4,29 +4,27 @@ import ReactRouter, { Link } from 'react-router';
 
 Moment.locale('nb');
 
-const Posts = ({posts, all_users}) => (
+const Posts = ({posts}) => (
   <div>
     {console.log(posts)}
     {posts.map((post)=>(
-      <div key={post.id} className="post">
-        <Link className="postTitle" to={"posts/" + post.id}>
+      <div key={post._id} className="post">
+        <Link className="postTitle" to={"posts/" + post._id}>
           {post.title}
         </Link>
         <div className="postDescription">{post.description}</div>
         <div className="postAuthorContainer">
           Skrevet av &nbsp;
-          <Link className="postAuthor" to={"user/" + post.author_id}>
+          <Link className="postAuthor" to={"user/" + post._author._id}>
             {
-              all_users.filter(( obj ) => (
-                 post.author_id == obj.userid
-              ))[0].name
+              post._author.name
             }
           </Link>
         </div>
         <div className="postComments">
-          {post.comments.length} kommentarer
+          {post.comment_length} kommentarer
         </div>
-        <div className="postPosted">Publisert {Moment(post.time_posted).fromNow()}</div>
+        <div className="postPosted">Publisert {Moment(post.posted_date).fromNow()}</div>
       </div>
       )
     )}

@@ -17,6 +17,7 @@
   "license": "ISC",
   "homepage": "https://bitbucket.org/trondaal/it2810-19-oppgave-3#readme",
   "dependencies": {
+    "axios": "^0.15.2",
     "babel-core": "^6.18.0",
     "babel-loader": "^6.2.7",
     "babel-polyfill": "^6.16.0",

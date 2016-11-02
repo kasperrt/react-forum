@@ -5,7 +5,7 @@ import Moment from 'moment';
 
 Moment.locale('nb');
 
-const Profile = ({loggOutButton, name, date, posts, comments}) => (
+const Profile = ({loggOutButton, name, date, posts, comments, image}) => (
   <div className="content">
     <div id="layer1" className="layers">
       <ul>
@@ -14,7 +14,7 @@ const Profile = ({loggOutButton, name, date, posts, comments}) => (
       </ul>
     </div>
     <div id="layer2" className="layers">
-      <img src="http://madmobilenews.com/wp-content/uploads/2013/01/generic_user_image.jpg" alt="Profile"/>
+      <img src={image} alt="Profile"/>
 
       <div className="layerDiv">
         <p>Navn: {name}</p>

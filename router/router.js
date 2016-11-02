@@ -3,6 +3,7 @@ var router = express.Router();
 var ObjectId = require('mongoose').Types.ObjectId;
 var Post = require('../models/post.js');
 var User = require('../models/user.js');
+var Comment = require('../models/comment.js');
 
 router.use(function(req, res, next) {
     next(); // make sure we go to the next routes and don't stop here
@@ -18,15 +19,25 @@ router.route('/posts')
     })
 
     .get(function(req, res){
-        Post.find(function(error, posts){
-            if(error) res.send(error);
+        Post.find({}).populate('_author').exec(function(err, posts){
+            if(err) res.send(err);
             res.json(posts);
-        })
+        });
     });
 
 router.route('/posts/:post_id')
     .get(function(req, res){
-        Post.findOne({_id: new ObjectId(req.params.post_id)}).populate('comments').exec(function(err, post){
+        Post.findOne({_id: new ObjectId(req.params.post_id)})
+        .lean()
+        .populate({
+          path: "comments",
+          populate: {
+            path: "_author",
+            model: "User"
+          }
+        })
+        .populate('_author')
+        .exec(function(err, post){
             if(err) res.send(err);
             res.json(post);
         });
@@ -51,7 +62,10 @@ router.route('/users/:user_id')
     })
 
     .get(function(req, res){
-        User.findOne({_id: new ObjectId(req.params.user_id)}).populate('posts').populate('comments').exec(function(err, user){
+        User.findOne({_id: new ObjectId(req.params.user_id)})
+        .populate('posts')
+        .populate('comments')
+        .exec(function(err, user){
             if(err) res.send(err);
             res.json(user);
         })
