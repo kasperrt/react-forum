@@ -1,5 +1,8 @@
 import React from 'react';
+import Moment from 'moment';
 import ReactRouter, { Link } from 'react-router';
+
+Moment.locale('nb');
 
 const Posts = ({posts, all_users}) => (
   <div>
@@ -23,7 +26,7 @@ const Posts = ({posts, all_users}) => (
         <div className="postComments">
           {post.comments.length} kommentarer
         </div>
-        <div className="postPosted">Publisert {post.time_posted}</div>
+        <div className="postPosted">Publisert {Moment(post.time_posted).fromNow()}</div>
       </div>
       )
     )}
