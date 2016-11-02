@@ -7,23 +7,32 @@ Moment.locale('nb');
 
 const Profile = ({loggOutButton, name, date, posts, comments}) => (
   <div className="content">
-    <div id="layer1" className="layers">
-      <ul>
-        <li><h2>Min side</h2></li>
-        {loggOutButton ? <li id="rightLi" style={{float: "right"}}><Link to="/" className="btnRed"><span>Logg ut</span></Link></li> : null}
-      </ul>
+    <div className="title">
+        <h2>Min side</h2>
     </div>
-    <div id="layer2" className="layers">
-      <img src="http://madmobilenews.com/wp-content/uploads/2013/01/generic_user_image.jpg" alt="Profile"/>
 
-      <div className="layerDiv">
-        <p>Navn: {name}</p>
-        <p>Bruker opprettet: {Moment(date).fromNow()}</p>
-        <br/>
-        <p>Antall innlegg skrevet: {posts}</p>
-        <p>Antall kommentarer skrevet: {comments}</p>
+    <div className="personalInfoContainer">
+      <div className="personalInfo">
+
+        <div className="profilePicture">
+          <img src="http://madmobilenews.com/wp-content/uploads/2013/01/generic_user_image.jpg" alt="Profile"/>
+        </div>
+
+        <div className="information">
+          <p>Navn: {name}</p>
+          <p>Bruker opprettet: {Moment(date).fromNow()}</p>
+          <br/>
+          <p>Antall innlegg skrevet: {posts}</p>
+          <p>Antall kommentarer skrevet: {comments}</p>
+        </div>
+        
+      </div>
+
+      <div className="logout">
+        {loggOutButton ? <Link to="/"><div className="logoutButton">Logg ut</div></Link> : null}
       </div>
     </div>
+
     <div id="layer3" className="layers">
       <div className="layerDiv">
         <h2>Sist besøkte innlegg</h2>
