@@ -3,9 +3,6 @@ var app = express();
 var default_port = 3000;
 var mongoose = require('mongoose');
 var mpromise = require('mpromise');
-var Comment = require('./models/comment.js');
-var User = require('./models/user.js');
-var Post = require('./models/post.js');
 var router = require('./router/router.js');
 
 const assert = require('assert');
