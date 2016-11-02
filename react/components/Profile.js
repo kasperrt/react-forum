@@ -5,7 +5,7 @@ import Moment from 'moment';
 
 Moment.locale('nb');
 
-const Profile = ({loggOutButton, name, date, posts, comments, image}) => (
+const Profile = ({loggOutButton, name, date, posts, comments, image, last_visited}) => (
   <div className="content">
     <div id="layer1" className="layers">
       <ul>
@@ -28,8 +28,11 @@ const Profile = ({loggOutButton, name, date, posts, comments, image}) => (
       <div className="layerDiv">
         <h2>Sist besøkte innlegg</h2>
         <ul className="lastUl">
-          <li><Link to="/posts/post_hash1"><span>IRONING</span></Link></li>
-          <li><Link to="/posts/post_hash2"><span>PARENTING</span></Link></li>
+        {console.log(last_visited)}
+          {last_visited.map((last)=>(
+            <li key={last._id}><Link to={"/posts/" + last._id}><span>{last.title}</span></Link></li>
+            )
+          )}
         </ul>
       </div>
 

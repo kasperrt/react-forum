@@ -6,7 +6,6 @@ Moment.locale('nb');
 
 const Posts = ({posts}) => (
   <div>
-    {console.log(posts)}
     {posts.map((post)=>(
       <div key={post._id} className="post">
         <Link className="postTitle" to={"posts/" + post._id}>
@@ -22,7 +21,7 @@ const Posts = ({posts}) => (
           </Link>
         </div>
         <div className="postComments">
-          {post.comment_length} kommentarer
+          {post.comments.length} kommentarer
         </div>
         <div className="postPosted">Publisert {Moment(post.posted_date).fromNow()}</div>
       </div>

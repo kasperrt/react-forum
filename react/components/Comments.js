@@ -4,23 +4,23 @@ import Moment from 'moment';
 
 Moment.locale('nb');
 
-const Comments = ({changeSorting, comments}) => (
+const Comments = ({changeSorting, comments, handleDescriptionChange, addNewComment}) => (
   <div>
     <div className="commentSorter">
       Sorter på
       <select onChange={() => changeSorting()}>
-        <option value="1">nyeste først</option>
-        <option value="-1">eldste først</option>
+        <option value="1">eldste først</option>
+        <option value="-1">nyeste først</option>
       </select>
     </div>
     <div className="newCommentContainer">
       <div>
-        <textarea rows="10" cols="80" placeholder="Skriv inn kommentar her" className="newCommentTextArea">
+        <textarea rows="10" cols="80" placeholder="Skriv inn kommentar her" className="newCommentTextArea" onChange={handleDescriptionChange}>
         </textarea>
       </div>
-      <Link className="newCommentButton" to={"createComment"}>
+      <button className="newCommentButton" onClick={() => addNewComment()}>
           <span>Publiser</span>
-      </Link>
+      </button>
     </div>
     {comments.map((comment) => (
       <div id={comment._id} key={comment._id} className="comment">

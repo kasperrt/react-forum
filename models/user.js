@@ -2,9 +2,9 @@ var mongoose = require('mongoose');
 
 var UserSchema = mongoose.Schema({
   name: String,
-  created: Date,
+  created: { type: Date, default: Date.now },
   last_visited: [{
-    type: Number,
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'Post'
   }],
   image: String,

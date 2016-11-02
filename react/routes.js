@@ -22,8 +22,14 @@ module.exports = (
       <Route path="/" component={App}>
         <IndexRoute component={FrontpageContainer} />
       </Route>
+      <Route path="/_=_" component={App}>
+        <IndexRoute component={FrontpageContainer} />
+      </Route>
       <Route path="/posts/:post_hash" component={App} >
         <IndexRoute component={ThreadContainer} />
+      </Route>
+      <Route path="/user" component={App} >
+        <IndexRoute component={ProfileContainer} />
       </Route>
       <Route path="/user/:userId" component={App} >
         <IndexRoute component={ProfileContainer} />

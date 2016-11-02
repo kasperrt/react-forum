@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import NewPost from '../components/newPost';
+import axios from 'axios';
 
 class NewPostContainer extends Component {
   constructor(props) {
@@ -16,14 +17,25 @@ class NewPostContainer extends Component {
   };
 
   newPost() {
+    var that = this;
     if(!this.showPost){
       this.showPost = true;
     } else {
-      this.posted = true;
-      this.props.posts.unshift({id: "post_hash" + this.curr_number, title: this.state.title, description: this.state.description, time_posted: (new Date()).toString(), author_id: "u1", comments: []});
-      this.curr_number = this.curr_number + 1;
-      this.posted = false;
-      this.showPost = false;
+      axios.post('/api/posts', {
+        title: this.state.title,
+        description: this.state.description
+      })
+      .then(function (response) {
+        console.log(this);
+        this.posted = true;
+        //this.props.posts.unshift({id: "post_hash" + this.curr_number, title: this.state.title, description: this.state.description, time_posted: (new Date()).toString(), author_id: "u1", comments: []});
+        //this.curr_number = this.curr_number + 1;
+        this.posted = false;
+        this.showPost = false;
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
     }
   }
 
@@ -40,7 +52,7 @@ class NewPostContainer extends Component {
   }
 
   render() {
-    return (              
+    return (
       <NewPost
           posted={this.posted}
           showPost={this.showPost}

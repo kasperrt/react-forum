@@ -4,3 +4,4 @@ web/
 npm-debug.log
 data/
 build/main.js
+config/facebook.js

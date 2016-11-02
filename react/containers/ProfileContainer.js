@@ -9,12 +9,15 @@ class ProfileContainer extends Component {
     this.loggOutButton = false;
     this.state = {
       user_id: this.props.params.userId,
-      user: {}
+      user: { last_visited: []}
     }
   }
 
   componentDidMount() {
-    axios.get(`http://localhost:3000/api/users/` + this.state.user_id)
+    var id = this.state.user_id;
+    console.log(id);
+    if(id == undefined) id = "";
+    axios.get(`http://localhost:3000/api/users/` + id)
       .then(res => {
         const user = res.data;
         user.posts = user.posts.length;
@@ -36,6 +39,7 @@ class ProfileContainer extends Component {
         posts={this.state.user.posts}
         comments={this.state.user.comments}
         image={this.state.user.image}
+        last_visited={this.state.user.last_visited}
       />
     )
   }

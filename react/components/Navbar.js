@@ -11,7 +11,7 @@ const Navbar = ({currentUserId}) => (
 
       <ul className="navbarElement">
         <li><input type="text" placeholder="Søk..."/></li>
-        <li><Link to={"/user/" + currentUserId} className="btn"><span>Min side</span></Link></li>
+        <li><Link to={"/user/"} className="btn"><span>Min side</span></Link></li>
       </ul>
     </div>
   </div>

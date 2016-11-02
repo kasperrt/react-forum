@@ -1,5 +1,8 @@
 import React from 'react';
 import ReactRouter, {Link} from 'react-router';
+import Moment from 'moment';
+
+Moment.locale('nb');
 
 const Thread = ({post}) => (
   <div>
@@ -17,7 +20,7 @@ const Thread = ({post}) => (
         <span>
           {post.comment_length} kommentarer<br/>
         </span>
-        Publisert {post.posted_date}
+        Publisert {Moment(post.posted_date).fromNow()}
       </div>
     </div>
   </div>
