@@ -1,9 +1,11 @@
-.post{
-  background-color: lightgray;
-  margin: 20px 0 20px 0;
-  padding: 10px;
+/* Posts view */
+* {
+  font-family: 'Roboto', Helvetica, Arial, sans-serif;
 }
-
+.post {
+  background-color: lightgray;
+  margin: 10px 0 10px 0;
+}
 .postTitle, .commentAuthor{
   text-decoration: none;
   font-size: 1.3rem;
