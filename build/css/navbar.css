@@ -1,51 +1,40 @@
 #navbar{
-	width: 100%;
-	height: 56px;
-	margin-bottom: 10px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-wrap: wrap;
 }
 
-#content{
-	width: 80%;
-	margin: auto;
+.navbarRight {
+	display: flex;
+	align-items: baseline;
+	flex-wrap: wrap;
 }
 
-.navbarElement{
-	list-style: none;
-	overflow: hidden;
-	margin: 0;
-	padding: 0;
-	float: right;
-}
-
-#navbarLeft{
-	float: left;
-}
-
-.navbarElement li{
-	display: inline-block;
-	text-decoration: none;
-	padding: 14px 16px;
-	font-size: 24px;
+.navbarLeft #logo{
+	font-style: italic;
+	font-weight: lighter;
+	font-size: 32px;
+	color: black;
 	text-transform: uppercase;
-}
-
-.navbarElement li a{
 	text-decoration: none;
-	color: white;
 }
 
-#navbarLeft li a{
-	color: #111;
-	font-size: 30px;
-}
-
-.btn{
+.myProfileButton{
 	padding: 10px 16px;
 	background-color: green;
-	color: white;
+	font-size: 16px;
 }
 
-input{
-	height: 40px;
-	font-size: 25px;
+.myProfileButton a{
+	color: white;
+	text-decoration: none;
+	font-weight: lighter;
+	text-transform: uppercase;
+	font-size: 16px;
+}
+
+.search input {
+	font-size: 14px;
+	height: 36px;
 }

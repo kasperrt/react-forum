@@ -7,33 +7,42 @@ Moment.locale('nb');
 
 const Profile = ({loggOutButton, name, date, posts, comments}) => (
   <div className="content">
-    <div id="layer1" className="layers">
-      <ul>
-        <li><h2>Min side</h2></li>
-        {loggOutButton ? <li id="rightLi" style={{float: "right"}}><Link to="/" className="btnRed"><span>Logg ut</span></Link></li> : null}
-      </ul>
+    <div className="title">
+        <h2>Min side</h2>
     </div>
-    <div id="layer2" className="layers">
-      <img src="http://madmobilenews.com/wp-content/uploads/2013/01/generic_user_image.jpg" alt="Profile"/>
 
-      <div className="layerDiv">
-        <p>Navn: {name}</p>
-        <p>Bruker opprettet: {Moment(date).fromNow()}</p>
-        <br/>
-        <p>Antall innlegg skrevet: {posts}</p>
-        <p>Antall kommentarer skrevet: {comments}</p>
+    <div className="personalInfoContainer">
+      <div className="personalInfo">
+
+        <div className="profilePicture">
+          <img src="http://madmobilenews.com/wp-content/uploads/2013/01/generic_user_image.jpg" alt="Profile"/>
+        </div>
+
+        <div className="information">
+          <p>Navn: {name}</p>
+          <p>Bruker opprettet: {Moment(date).fromNow()}</p>
+          <br/>
+          <p>Antall innlegg skrevet: {posts}</p>
+          <p>Antall kommentarer skrevet: {comments}</p>
+        </div>
+
+      </div>
+
+      <div className="logout">
+        {loggOutButton ? <Link to="/"><div className="logoutButton">Logg ut</div></Link> : null}
       </div>
     </div>
-    <div id="layer3" className="layers">
-      <div className="layerDiv">
+
+    <div className="stats">
+      <div className="lastVisited">
         <h2>Sist besøkte innlegg</h2>
-        <ul className="lastUl">
-          <li><Link to="/posts/post_hash1"><span>IRONING</span></Link></li>
-          <li><Link to="/posts/post_hash2"><span>PARENTING</span></Link></li>
+        <ul className="lastVisitedList">
+          <li><Link to="/posts/post_hash1">Ironing</Link></li>
+          <li><Link to="/posts/post_hash2">Parenting</Link></li>
         </ul>
       </div>
 
-      <div className="layerDiv">
+      <div className="contributionGraph">
         <h2>Bidrag per måned</h2>
         <GraphContainer />
       </div>
