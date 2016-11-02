@@ -22,7 +22,6 @@ class ThreadContainer extends Component {
   };
 
   componentDidMount() {
-    console.log("asd");
     axios.get(`http://localhost:3000/api/posts/` + this.props.params.post_hash)
       .then(res => {
         const posts = res.data;

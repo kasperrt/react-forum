@@ -20,8 +20,8 @@ var url = 'mongodb://localhost/howto';
 mongoose.connect(url);
 
 passport.use(new FacebookStrategy({
-    clientID: "1121925854528288",
-    clientSecret: "adf029090f2301781da1595f05e8ab4d",
+    clientID: config.clientID,
+    clientSecret: config.clientSecret,
     callbackURL: "http://localhost:3000/auth/facebook/callback",
     profileFields: ['id', 'displayName', 'picture', 'email']
   },
