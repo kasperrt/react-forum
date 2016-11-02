@@ -37,7 +37,7 @@ const Profile = ({loggOutButton, name, date, posts, comments}) => (
       <div className="lastVisited">
         <h2>Sist besøkte innlegg</h2>
         <ul className="lastVisitedList">
-          <li><Link to="/posts/post_hash1">Ironing</Link></li> <!--TODO: Fetch list from database-->
+          <li><Link to="/posts/post_hash1">Ironing</Link></li>
           <li><Link to="/posts/post_hash2">Parenting</Link></li>
         </ul>
       </div>

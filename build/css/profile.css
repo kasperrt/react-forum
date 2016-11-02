@@ -28,13 +28,15 @@
 
 .stats {
 	display: flex;
+	flex-wrap: wrap;
 }
 
 .lastVisited {
 	margin-right: 64px;
 }
 
-.lastVisitedList {
+.lastVisitedList li {
 	list-style-type: none;
 	color: black;
+	text-decoration: none;
 }
