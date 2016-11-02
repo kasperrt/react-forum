@@ -25,7 +25,7 @@ const Profile = ({loggOutButton, name, date, posts, comments}) => (
           <p>Antall innlegg skrevet: {posts}</p>
           <p>Antall kommentarer skrevet: {comments}</p>
         </div>
-        
+
       </div>
 
       <div className="logout">
@@ -33,16 +33,16 @@ const Profile = ({loggOutButton, name, date, posts, comments}) => (
       </div>
     </div>
 
-    <div id="layer3" className="layers">
-      <div className="layerDiv">
+    <div className="stats">
+      <div className="lastVisited">
         <h2>Sist besøkte innlegg</h2>
-        <ul className="lastUl">
-          <li><Link to="/posts/post_hash1"><span>IRONING</span></Link></li>
-          <li><Link to="/posts/post_hash2"><span>PARENTING</span></Link></li>
+        <ul className="lastVisitedList">
+          <li><Link to="/posts/post_hash1">Ironing</Link></li> <!--TODO: Fetch list from database-->
+          <li><Link to="/posts/post_hash2">Parenting</Link></li>
         </ul>
       </div>
 
-      <div className="layerDiv">
+      <div className="contributionGraph">
         <h2>Bidrag per måned</h2>
         <GraphContainer />
       </div>
