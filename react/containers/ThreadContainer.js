@@ -16,7 +16,9 @@ class ThreadContainer extends Component {
         },
       comments: []},
       description: "",
-      response: undefined
+      response: undefined,
+      currentPage: 0,
+      morePages: false
     };
     this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
 
@@ -24,12 +26,13 @@ class ThreadContainer extends Component {
 
   componentDidMount() {
     var self = this;
-    axios.get(`/api/posts/` + this.props.params.post_hash)
+    axios.get(`/api/posts/` + this.state.currentPage + '/' + this.props.params.post_hash)
       .then(res => {
-        const posts = res.data;
+        const posts = res.data.post;
         const response = true;
+        const morePages = res.data.morePages;
         posts.comment_length = posts.comments.length;
-        this.setState({ posts, response });
+        this.setState({ posts, response, morePages });
       }).catch(err => {
         self.context.router.push("404")
       });
@@ -66,6 +69,18 @@ class ThreadContainer extends Component {
     }
   }
 
+  nextPage() {
+    this.state.currentPage = this.state.currentPage + 1;
+    this.componentDidMount();
+  }
+
+  previousPage(){
+    if(this.state.currentPage > 0){
+      this.state.currentPage = this.state.currentPage - 1;
+      this.componentDidMount();
+    }
+  }
+
   render() {
     if ( !this.state.response ) {
          return <div></div>
@@ -79,7 +94,13 @@ class ThreadContainer extends Component {
               changeSorting={this.changeSorting.bind(this)}
               comments={this.state.posts.comments}
               handleDescriptionChange={this.handleDescriptionChange}
-              addNewComment={this.newComment.bind(this)} />
+              addNewComment={this.newComment.bind(this)}
+              value={this.state.description}
+              nextPage={this.nextPage.bind(this)}
+              previousPage={this.previousPage.bind(this)}
+              currentPage={this.state.currentPage + 1}
+              morePages={this.state.morePages}
+               />
           </div>
         </div>
       )

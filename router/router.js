@@ -4,6 +4,7 @@ var ObjectId = require('mongoose').Types.ObjectId;
 var Post = require('../models/post.js');
 var User = require('../models/user.js');
 var Comment = require('../models/comment.js');
+var limit = 10;
 
 router.use(function(req, res, next) {
     next(); // make sure we go to the next routes and don't stop here
@@ -42,64 +43,81 @@ router.route('/posts')
        } else {
          res.sendStatus(500);
        }
-    })
+   });
 
+router.route('/posts/p/:page')
     .get(function(req, res){
-        Post.find({}).sort({posted_date: -1}).populate('_author').exec(function(err, posts){
-            if(err) res.send(err);
-            res.json(posts);
+        var skip = req.params.page * limit;
+        Post.count({}, function(err, count){
+           Post.find({}).limit(limit).skip(skip).sort({posted_date: -1}).populate('_author').exec(function(err, posts){
+               if(err) res.send(err);
+               var more = (skip + posts.length) != count;
+               res.json({posts: posts, morePages: more});
+           });
         });
     });
 
-router.route('/search/:query')
+router.route('/search/:page/:query')
     .get(function(req, res){
-        Post.find({title: new RegExp(req.params.query, 'i')})
-        .populate("_author")
-        .sort({posted_date: 1})
-        .exec(function(err, posts){
-            res.json(posts);
-        });
+      var skip = req.params.page * limit;
+      Post.count({title: new RegExp(req.params.query, 'i')}, function(err, count){
+         Post.find({title: new RegExp(req.params.query, 'i')})
+         .populate("_author")
+         .limit(limit)
+         .skip(skip)
+         .sort({posted_date: 1})
+         .exec(function(err, posts){
+             var more = (skip + posts.length) != count;
+             res.json({posts: posts, morePages: more});
+         });
+      })
     });
 
-router.route('/posts/:post_id')
+router.route('/posts/:page/:post_id')
     .get(function(req, res){
         try{
             var id = new ObjectId(req.params.post_id)
-            Post.findOne({_id: id})
-            .lean()
-            .populate({
-              path: "comments",
-              options: {
-                  sort: {
-                      posted_date: -1
-                  }
-              },
-              populate: {
-                path: "_author",
-                model: "User"
-              }
-            })
-            .populate('_author')
-            .exec(function(err, post){
-                if(req.user){
-                    try{
-                        var id = new ObjectId(req.user._id);
-                        User.findOne({_id: id})
-                        .exec(function(err, user){
-                            if(user.last_visited.indexOf(post._id) == -1 || user.last_visited.length == 0){
-                                if(user.last_visited.length >= 3) user.last_visited.pop();
-                                user.last_visited.unshift(post);
-                            }
-                            res.json(post);
-                            user.save()
-                        });
-                    } catch(error){
-                        res.sendStatus(404);
-                    }
-                } else {
-                    if(err) res.sendStatus(404);
-                    res.json(post);
+            var skip = req.params.page * limit;
+            Comment.count({_post: id}, function(err, count){
+              Post.findOne({_id: id})
+              .lean()
+              .populate({
+                path: "comments",
+                options: {
+                    sort: {
+                        posted_date: -1
+                    },
+                    limit: limit,
+                    skip: skip
+                },
+                populate: {
+                  path: "_author",
+                  model: "User"
                 }
+              })
+              .populate('_author')
+              .exec(function(err, post){
+                  var more = (skip + post.comments.length) != count;
+                  if(req.user){
+                      try{
+                          var id = new ObjectId(req.user._id);
+                          User.findOne({_id: id})
+                          .exec(function(err, user){
+                              if(user.last_visited.indexOf(post._id) == -1 || user.last_visited.length == 0){
+                                  if(user.last_visited.length >= 3) user.last_visited.pop();
+                                  user.last_visited.unshift(post);
+                              }
+                              res.json({post: post, morePages: more});
+                              user.save()
+                          });
+                      } catch(error){
+                          res.sendStatus(404);
+                      }
+                  } else {
+                      if(err) res.sendStatus(404);
+                      res.json({post: post, morePages: more});
+                  }
+              });
             });
         } catch(err){
             res.sendStatus(404);
