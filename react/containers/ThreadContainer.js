@@ -79,7 +79,8 @@ class ThreadContainer extends Component {
               changeSorting={this.changeSorting.bind(this)}
               comments={this.state.posts.comments}
               handleDescriptionChange={this.handleDescriptionChange}
-              addNewComment={this.newComment.bind(this)} />
+              addNewComment={this.newComment.bind(this)}
+              value={this.state.description} />
           </div>
         </div>
       )

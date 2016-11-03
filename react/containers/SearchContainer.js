@@ -11,9 +11,11 @@ class SearchContainer extends Component{
   }
 
   componentDidMount() {
+    console.log(this.props.params.query);
     axios.get(`/api/search/` + this.props.params.query)
       .then(res => {
         const posts = res.data;
+        console.log(posts);
         this.setState({ posts });
       });
   }

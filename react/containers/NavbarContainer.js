@@ -15,7 +15,7 @@ class NavbarContainer extends Component {
     var val = this.state.value;
     this.state.value = "";
     this.context.router.push("search/" + val);
-    this.forceUpdate();
+
   }
 
   handleChange(e){
@@ -30,6 +30,7 @@ class NavbarContainer extends Component {
         currentUserId = {this.props.currentUserId}
         search = {this.search.bind(this)}
         handleChange={this.handleChange}
+        value={this.state.value}
       />
     )
   }

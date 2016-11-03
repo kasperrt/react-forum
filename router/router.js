@@ -42,12 +42,18 @@ router.route('/posts')
        } else {
          res.sendStatus(500);
        }
-    })
+   });
 
+router.route('/posts/p/:page')
     .get(function(req, res){
-        Post.find({}).sort({posted_date: -1}).populate('_author').exec(function(err, posts){
-            if(err) res.send(err);
-            res.json(posts);
+        var limit = 10;
+        var skip = req.params.page * 3;
+        Post.count({}, function(err, count){
+           Post.find({}).limit(limit).skip(skip).sort({posted_date: -1}).populate('_author').exec(function(err, posts){
+               if(err) res.send(err);
+               var more = (skip + posts.length) != count;
+               res.json({posts: posts, morePages: more});
+           });
         });
     });
 

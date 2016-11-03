@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactRouter, {Link} from 'react-router';
 
-const Navbar = ({currentUserId, search, handleChange}) => (
+const Navbar = ({currentUserId, search, handleChange, value}) => (
   <div id="navbar">
 
     <div className="navbarLeft">
@@ -11,7 +11,7 @@ const Navbar = ({currentUserId, search, handleChange}) => (
     <div className="navbarRight">
       <div className="search">
         <form className="searchForm" onSubmit={search}>
-          <input type="text" onChange={handleChange} placeholder="Søk..." />
+          <input type="text" value={value} onChange={handleChange} placeholder="Søk..." />
         </form>
       </div>
       <div className="myProfileButton">

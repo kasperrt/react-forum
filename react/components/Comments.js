@@ -4,7 +4,7 @@ import Moment from 'moment';
 
 Moment.locale('nb');
 
-const Comments = ({changeSorting, comments, handleDescriptionChange, addNewComment}) => (
+const Comments = ({changeSorting, comments, handleDescriptionChange, addNewComment, value}) => (
   <div>
     <div className="commentSorter">
       Sorter på
@@ -15,7 +15,7 @@ const Comments = ({changeSorting, comments, handleDescriptionChange, addNewComme
     </div>
     <div className="newCommentContainer">
       <div>
-        <textarea rows="10" cols="80" placeholder="Skriv inn kommentar her" className="newCommentTextArea" onChange={handleDescriptionChange}>
+        <textarea rows="10" cols="80" placeholder="Skriv inn kommentar her" className="newCommentTextArea" value={value} onChange={handleDescriptionChange}>
         </textarea>
       </div>
       <button className="newCommentButton" onClick={() => addNewComment()}>
