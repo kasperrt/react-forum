@@ -19,7 +19,7 @@ class ProfileContainer extends Component {
     var id = this.state.user_id;
     if(id == undefined) id = "";
     self = this;
-    axios.get(`http://localhost:3000/api/users/` + id)
+    axios.get(`/api/users/` + id)
       .then(res => {
         const user = res.data.user;
         user.posts = user.posts.length;

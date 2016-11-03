@@ -11,7 +11,7 @@ class FrontpageContainer extends Component{
   }
 
   componentDidMount() {
-    axios.get(`http://localhost:3000/api/posts/`)
+    axios.get(`/api/posts/`)
       .then(res => {
         const posts = res.data;
         this.setState({ posts });
