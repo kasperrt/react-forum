@@ -22,7 +22,7 @@ mongoose.connect(url);
 passport.use(new FacebookStrategy({
     clientID: config.clientID,
     clientSecret: config.clientSecret,
-    callbackURL: "http://localhost:3000/auth/facebook/callback",
+    callbackURL: "/auth/facebook/callback",
     profileFields: ['id', 'displayName', 'picture', 'email']
   },
   function(accessToken, refreshToken, profile, cb) {
