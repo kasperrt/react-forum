@@ -26,10 +26,6 @@ const Profile = ({loggOutButton, name, date, posts, comments, image, last_visite
         </div>
 
       </div>
-
-      <div className="logout">
-        {loggOutButton ? <Link to="/"><div className="logoutButton">Logg ut</div></Link> : null}
-      </div>
     </div>
 
     <div className="stats">

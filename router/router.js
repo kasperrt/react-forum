@@ -45,6 +45,12 @@ router.route('/posts')
        }
    });
 
+router.route('/loggout')
+   .get(function(req, res){
+      req.logout();
+      res.sendStatus(200);
+   });
+
 router.route('/posts/p/:page')
     .get(function(req, res){
         var skip = req.params.page * limit;

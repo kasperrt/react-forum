@@ -1,13 +1,12 @@
 import React from 'react';
 import ReactRouter, {Link} from 'react-router';
+import cookie from 'react-cookie';
 
-const Navbar = ({currentUserId, search, handleChange, value}) => (
+const Navbar = ({currentUserId, search, handleChange, value, loggout}) => (
   <div id="navbar">
-
     <div className="navbarLeft">
       <Link to="/"><div id="logo">How to: adult</div></Link>
     </div>
-
     <div className="navbarRight">
       <div className="search">
         <form className="searchForm" onSubmit={search}>
@@ -15,7 +14,10 @@ const Navbar = ({currentUserId, search, handleChange, value}) => (
         </form>
       </div>
       <div className="myProfileButton">
-        <Link to={"/user/"}>Min side</Link>
+        {cookie.load('user') ? <Link to={"/user/"}>Min side</Link> : <a href="/profile">Min side</a>}
+      </div>
+      <div className="logout">
+        {cookie.load('user') ? <button className="logoutButton" onClick={() => loggout()}>Logg ut</button> : null}
       </div>
     </div>
 

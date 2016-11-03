@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Frontpage from '../components/frontpage';
 import axios from 'axios';
+import cookie from 'react-cookie';
 
 class FrontpageContainer extends Component{
   constructor(props) {

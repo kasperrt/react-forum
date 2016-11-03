@@ -7,8 +7,10 @@ var router = require('./router/router.js');
 var passport = require('passport');
 var FacebookStrategy = require('passport-facebook').Strategy;
 var bodyParser = require('body-parser');
+var Cookies = require('cookies');
 //var json = require('express-json');
 var session = require('express-session');
+
 var User = require('./models/user.js');
 var ObjectId = require('mongoose').Types.ObjectId;
 var config = require('./config/facebook.js');
@@ -49,7 +51,6 @@ passport.deserializeUser(function(id, done) {
   });
 });
 
-app.use(express.static('build/'));
 app.use(bodyParser());
 app.use(session({
   secret: 'a4f8071f-c873-4447-8ee2',
@@ -64,17 +65,30 @@ app.use(session({
       expire: 86400 // optional
   })
 }));
-
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(function (req, res, next) {
+  var cookies = new Cookies( req, res )
+  var cookie = cookies.get('user');
+  if (cookie === undefined && req.user) {
+    cookies.set('user', req.user.facebook_id, {
+      httpOnly: false,
+      maxAge: 0
+    });
+
+    console.log('cookie created successfully');
+  }
+  next();
+});
 app.use('/api', router);
 app.get('/auth/facebook',
   passport.authenticate('facebook'));
 
 app.get('/profile', function(req, res){
   if(req.user){
-    res.redirect("/user/" + req.user._id);
+    res.redirect("/#/user/" + req.user._id);
   } else {
+    req.session.last_url = "/#/user/";
     res.redirect("/auth/facebook");
   }
 });
@@ -83,8 +97,16 @@ app.get('/auth/facebook/callback',
   passport.authenticate('facebook', { failureRedirect: '/' }),
   function(req, res) {
     // Successful authentication, redirect home.
-    res.redirect('/');
+    if(req.session.last_url){
+      var tmp = req.session.last_url;
+      delete req.session.last_url;
+      res.redirect(tmp);
+    } else {
+      res.redirect('/');
+    }
   });
+
+app.use(express.static('build/'));
 
 process.on('uncaughtException', function(error){
   if(error.code == "EACCES"){
