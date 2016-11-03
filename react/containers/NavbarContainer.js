@@ -14,8 +14,7 @@ class NavbarContainer extends Component {
     e.preventDefault();
     var val = this.state.value;
     this.state.value = "";
-    this.context.router.push("search/" + val);
-
+    this.context.router.replace("search/" + val);
   }
 
   handleChange(e){

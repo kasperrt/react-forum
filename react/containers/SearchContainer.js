@@ -6,18 +6,25 @@ class SearchContainer extends Component{
   constructor(props) {
     super(props);
     this.state = {
-      posts: []
+      posts: [],
+      update: true
     }
   }
 
-  componentDidMount() {
-    console.log(this.props.params.query);
+  componentDidMount(){
     axios.get(`/api/search/` + this.props.params.query)
       .then(res => {
         const posts = res.data;
-        console.log(posts);
         this.setState({ posts });
       });
+  }
+
+  shouldComponentUpdate(){
+    this.state.update = !this.state.update;
+    if(this.state.update){
+      this.componentDidMount()
+    }
+    return true;
   }
 
   render() {
