@@ -16,7 +16,7 @@ router.route('/posts')
        *  Function for creating a new post, and checking if the user is authenticated.
        *
        */
-       if(req.user){
+       if(req.user && req.body.title !== "" && req.body.description !== ""){
          var obj = {
            id: req.user._id,
            title: req.body.title,
@@ -63,33 +63,47 @@ router.route('/search/:query')
 
 router.route('/posts/:post_id')
     .get(function(req, res){
-        Post.findOne({_id: new ObjectId(req.params.post_id)})
-        .lean()
-        .populate({
-          path: "comments",
-          populate: {
-            path: "_author",
-            model: "User"
-          }
-        })
-        .populate('_author')
-        .exec(function(err, post){
-            if(req.user){
-                User.findOne({_id: new ObjectId(req.user._id)})
-                .exec(function(err, user){
-                    if(user.last_visited.indexOf(post._id) == -1){
-                        if(user.last_visited.length >= 3) user.last_visited.pop();
-                        user.last_visited.push(post);
+        try{
+            var id = new ObjectId(req.params.post_id)
+            Post.findOne({_id: id})
+            .lean()
+            .populate({
+              path: "comments",
+              options: {
+                  sort: {
+                      posted_date: -1
+                  }
+              },
+              populate: {
+                path: "_author",
+                model: "User"
+              }
+            })
+            .populate('_author')
+            .exec(function(err, post){
+                if(req.user && post.length > 0){
+                    try{
+                        var id = new ObjectId(req.user._id);
+                        User.findOne({_id: id})
+                        .exec(function(err, user){
+                            if(user.last_visited.indexOf(post._id) == -1){
+                                if(user.last_visited.length >= 3) user.last_visited.pop();
+                                user.last_visited.push(post);
+                            }
+                            res.json(post);
+                            user.save()
+                        });
+                    } catch(error){
+                        res.sendStatus(404);
                     }
+                } else {
+                    if(err || post.length == 0) res.sendStatus(404);
                     res.json(post);
-                    user.save()
-                });
-
-            } else {
-                if(err) res.send(err);
-                res.json(post);
-            }
-        });
+                }
+            });
+        } catch(err){
+            res.sendStatus(404);
+        }
     });
 
 router.route('/comments/:post_id')
@@ -99,7 +113,7 @@ router.route('/comments/:post_id')
        *  Function for creating a new user, and checking if the user is authenticated.
        *
        */
-       if(req.user){
+       if(req.user && req.body.description !== ""){
          var obj = {
            user_id: req.user._id,
            post_id: req.params.post_id,
@@ -130,27 +144,34 @@ router.route('/comments/:post_id')
            });
          });
        } else {
-         res.sendStatus(200);
+         res.sendStatus(500);
        }
     });
 
 router.route('/users/:user_id')
 
     .get(function(req, res){
-        User.findOne({_id: new ObjectId(req.params.user_id)})
-        .populate('posts')
-        .populate('comments')
-        .populate('last_visited')
-        .exec(function(err, user){
-            if(err) res.send(err);
-            var logged_in;
-            if(req.user._id == req.params.user_id){
-                logged_in = true;
-            } else {
-                logged_in = false;
-            }
-            res.json({user: user, logged_in: logged_in});
-        })
+        try{
+            var id = new ObjectId(req.params.user_id);
+
+            User.findOne({_id: id})
+            .populate('posts')
+            .populate('comments')
+            .populate('last_visited')
+            .exec(function(err, user){
+                if(err) res.send(err);
+                var logged_in;
+                if(req.user._id == req.params.user_id){
+                    logged_in = true;
+                } else {
+                    logged_in = false;
+                }
+                res.json({user: user, logged_in: logged_in});
+            });
+        } catch(err){
+            res.sendStatus(500);
+        }
+
     });
 
 router.get('/', function(req, res) {

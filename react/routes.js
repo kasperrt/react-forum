@@ -5,6 +5,7 @@ import NavbarContainer from './containers/NavbarContainer.js';
 import FrontpageContainer from './containers/FrontpageContainer.js';
 import ProfileContainer from './containers/ProfileContainer.js';
 import ThreadContainer from './containers/ThreadContainer.js';
+import NotFound from './components/NotFound.js';
 
 var App = React.createClass({         //"Top-level" class, contains Navbar and every element being sent into it
   render: function() {
@@ -24,6 +25,9 @@ module.exports = (
       </Route>
       <Route path="/_=_" component={App}>
         <IndexRoute component={FrontpageContainer} />
+      </Route>
+      <Route path="/404" component={App}>
+        <IndexRoute component={NotFound} />
       </Route>
       <Route path="/posts/:post_hash" component={App} >
         <IndexRoute component={ThreadContainer} />
