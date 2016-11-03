@@ -22,7 +22,7 @@ class NewPostContainer extends Component {
     var self = this;
     if(!this.state.showPost){
       this.state.showPost = true;
-    } else {
+    } else if(this.state.title !== "" && this.state.description !== ""){
       axios.post('/api/posts', {
         title: this.state.title,
         description: this.state.description
