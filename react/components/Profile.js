@@ -5,8 +5,7 @@ import Moment from 'moment';
 
 Moment.locale('nb');
 
-const Profile = ({loggOutButton, name, date, posts, comments}) => (
-  <div className="content">
+const Profile = ({loggOutButton, name, date, posts, comments, image, last_visited}) => (  <div className="content">
     <div className="title">
         <h2>Min side</h2>
     </div>
@@ -15,7 +14,7 @@ const Profile = ({loggOutButton, name, date, posts, comments}) => (
       <div className="personalInfo">
 
         <div className="profilePicture">
-          <img src="http://madmobilenews.com/wp-content/uploads/2013/01/generic_user_image.jpg" alt="Profile"/>
+          <img src={image} alt="Profile"/>
         </div>
 
         <div className="information">
@@ -37,8 +36,10 @@ const Profile = ({loggOutButton, name, date, posts, comments}) => (
       <div className="lastVisited">
         <h2>Sist besøkte innlegg</h2>
         <ul className="lastVisitedList">
-          <li><Link to="/posts/post_hash1">Ironing</Link></li>
-          <li><Link to="/posts/post_hash2">Parenting</Link></li>
+        {last_visited.map((last)=>(
+          <li key={last._id}><Link to={"/posts/" + last._id}><span>{last.title}</span></Link></li>
+          )
+        )}
         </ul>
       </div>
 

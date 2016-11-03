@@ -6,11 +6,10 @@ Moment.locale('nb');
 
 const Posts = ({posts, all_users}) => (
   <div>
-    {console.log(posts)}
     {posts.map((post)=>(
-      <div key={post.id} className="post">
+      <div key={post._id} className="post">
         <div className="postContent">
-          <Link className="postTitle" to={"posts/" + post.id}>
+          <Link className="postTitle" to={"posts/" + post._id}>
             {post.title}
           </Link>
           <div className="postDescription">{post.description}</div>
@@ -19,12 +18,8 @@ const Posts = ({posts, all_users}) => (
         <div className="postMetadata">
           <div className="postAuthorContainer">
             Skrevet av &nbsp;
-            <Link className="postAuthor" to={"user/" + post.author_id}>
-              {
-                all_users.filter(( obj ) => (
-                   post.author_id == obj.userid
-                ))[0].name
-              }
+            <Link className="postAuthor" to={"user/" + post._author._id}>
+              {post._author.name}
             </Link>
           </div>
           <div className="postComments">

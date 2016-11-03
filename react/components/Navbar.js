@@ -13,7 +13,7 @@ const Navbar = ({currentUserId}) => (
         <input type="text" placeholder="Søk..."/>
       </div>
       <div className="myProfileButton">
-        <Link to={"/user/" + currentUserId}>Min side</Link>
+        <Link to={"/user/"}>Min side</Link>
       </div>
     </div>
 

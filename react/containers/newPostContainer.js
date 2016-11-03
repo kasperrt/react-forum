@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import NewPost from '../components/newPost';
+import axios from 'axios';
 
 class NewPostContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
       title: '',
-      description: ''
+      description: '',
+      showPost: false,
+      posted: false
     };
     this.showPost = false;
     this.posted = false;
@@ -16,14 +19,25 @@ class NewPostContainer extends Component {
   };
 
   newPost() {
-    if(!this.showPost){
-      this.showPost = true;
+    var self = this;
+    if(!this.state.showPost){
+      this.state.showPost = true;
     } else {
-      this.posted = true;
-      this.props.posts.unshift({id: "post_hash" + this.curr_number, title: this.state.title, description: this.state.description, time_posted: (new Date()).toString(), author_id: "u1", comments: []});
-      this.curr_number = this.curr_number + 1;
-      this.posted = false;
-      this.showPost = false;
+      axios.post('/api/posts', {
+        title: this.state.title,
+        description: this.state.description
+      })
+      .then(function (response) {
+        //this.props.posts.unshift({id: "post_hash" + this.curr_number, title: this.state.title, description: this.state.description, time_posted: (new Date()).toString(), author_id: "u1", comments: []});
+        //this.curr_number = this.curr_number + 1;
+        const posted = false;
+        const showPost = false;
+        self.setState({posted, showPost});
+        self.props.remount();
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
     }
   }
 
@@ -40,10 +54,10 @@ class NewPostContainer extends Component {
   }
 
   render() {
-    return (              
+    return (
       <NewPost
-          posted={this.posted}
-          showPost={this.showPost}
+          posted={this.state.posted}
+          showPost={this.state.showPost}
           addNewPost={this.newPost.bind(this)}
           handleTitleChange={this.handleTitleChange}
           handleDescriptionChange={this.handleDescriptionChange} />

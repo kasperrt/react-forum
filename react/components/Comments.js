@@ -4,7 +4,7 @@ import Moment from 'moment';
 
 Moment.locale('nb');
 
-const Comments = ({changeSorting, comments}) => (
+const Comments = ({changeSorting, comments, handleDescriptionChange, addNewComment}) => (
   <div>
     <div className="commentSorter">
       Sorter på
@@ -15,23 +15,23 @@ const Comments = ({changeSorting, comments}) => (
     </div>
     <div className="newCommentContainer">
       <div>
-        <textarea rows="10" cols="80" placeholder="Skriv inn kommentar her" className="newCommentTextArea">
+        <textarea rows="10" cols="80" placeholder="Skriv inn kommentar her" className="newCommentTextArea" onChange={handleDescriptionChange}>
         </textarea>
       </div>
-      <Link className="newCommentButton" to={"createComment"}>
+      <button className="newCommentButton" onClick={() => addNewComment()}>
           <span>Publiser</span>
-      </Link>
+      </button>
     </div>
     {comments.map((comment) => (
-      <div id={comment.id} key={comment.id} className="comment">
-        <Link className="commentAuthor" to={"user/" + comment.author}>
-        {comment.author}
+      <div id={comment._id} key={comment._id} className="comment">
+        <Link className="commentAuthor" to={"user/" + comment._author._id}>
+        {comment._author.name}
         </Link>
         <div className="commentText">
-          {comment.comment_text}
+          {comment.description}
         </div>
         <div className="commentPosted">
-          Publisert {Moment(comment.time_posted).fromNow()}
+          Publisert {Moment(comment.posted_date).fromNow()}
         </div>
       </div>
     )

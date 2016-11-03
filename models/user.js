@@ -2,10 +2,11 @@ var mongoose = require('mongoose');
 
 var UserSchema = mongoose.Schema({
   name: String,
-  created: Date,
+  created: { type: Date, default: Date.now },
   last_visited: [{
-    type: Number,
-    ref: 'Post'
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Post',
+    unique: true
   }],
   image: String,
   posts: [{
@@ -16,7 +17,10 @@ var UserSchema = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Comment'
   }],
-  facebook_id: String
+  facebook_id: {
+    type: String,
+    unique: true
+  }
 });
 
 module.exports = mongoose.model('User', UserSchema);
