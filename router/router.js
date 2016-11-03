@@ -81,14 +81,14 @@ router.route('/posts/:post_id')
             })
             .populate('_author')
             .exec(function(err, post){
-                if(req.user && post.length > 0){
+                if(req.user){
                     try{
                         var id = new ObjectId(req.user._id);
                         User.findOne({_id: id})
                         .exec(function(err, user){
-                            if(user.last_visited.indexOf(post._id) == -1){
+                            if(user.last_visited.indexOf(post._id) == -1 || user.last_visited.length == 0){
                                 if(user.last_visited.length >= 3) user.last_visited.pop();
-                                user.last_visited.push(post);
+                                user.last_visited.unshift(post);
                             }
                             res.json(post);
                             user.save()
@@ -97,7 +97,7 @@ router.route('/posts/:post_id')
                         res.sendStatus(404);
                     }
                 } else {
-                    if(err || post.length == 0) res.sendStatus(404);
+                    if(err) res.sendStatus(404);
                     res.json(post);
                 }
             });
