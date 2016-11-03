@@ -4,6 +4,7 @@ var ObjectId = require('mongoose').Types.ObjectId;
 var Post = require('../models/post.js');
 var User = require('../models/user.js');
 var Comment = require('../models/comment.js');
+var limit = 10;
 
 router.use(function(req, res, next) {
     next(); // make sure we go to the next routes and don't stop here
@@ -46,8 +47,7 @@ router.route('/posts')
 
 router.route('/posts/p/:page')
     .get(function(req, res){
-        var limit = 10;
-        var skip = req.params.page * 3;
+        var skip = req.params.page * limit;
         Post.count({}, function(err, count){
            Post.find({}).limit(limit).skip(skip).sort({posted_date: -1}).populate('_author').exec(function(err, posts){
                if(err) res.send(err);

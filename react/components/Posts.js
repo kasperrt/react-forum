@@ -25,7 +25,7 @@ const Posts = ({posts}) => (
           <div className="postComments">
             {post.comments.length} kommentarer
           </div>
-          <div className="postPosted">Publisert {Moment(post.time_posted).fromNow()}</div>
+          <div className="postPosted">Publisert {Moment(post.posted_date).fromNow()}</div>
         </div>
       </div>
       )
