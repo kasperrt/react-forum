@@ -9,7 +9,8 @@ class ProfileContainer extends Component {
     this.loggOutButton = false;
     this.state = {
       user_id: this.props.params.userId,
-      user: { last_visited: []}
+      user: { last_visited: []},
+      logged_in: false
     }
   }
 
@@ -18,16 +19,17 @@ class ProfileContainer extends Component {
     if(id == undefined) id = "";
     axios.get(`http://localhost:3000/api/users/` + id)
       .then(res => {
-        const user = res.data;
+        const user = res.data.user;
         user.posts = user.posts.length;
         user.comments = user.comments.length;
-        this.setState({ user });
+        const logged_in = res.data.logged_in;
+        this.setState({ user, logged_in });
       });
   }
 
   render() {
 
-		if(this.state.user_id == "u1"){
+		if(this.state.logged_in){
 			this.loggOutButton = true;
 		}
     return (

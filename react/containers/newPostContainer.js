@@ -7,7 +7,9 @@ class NewPostContainer extends Component {
     super(props);
     this.state = {
       title: '',
-      description: ''
+      description: '',
+      showPost: false,
+      posted: false
     };
     this.showPost = false;
     this.posted = false;
@@ -17,21 +19,20 @@ class NewPostContainer extends Component {
   };
 
   newPost() {
-    var that = this;
-    if(!this.showPost){
-      this.showPost = true;
+    var self = this;
+    if(!this.state.showPost){
+      this.state.showPost = true;
     } else {
       axios.post('/api/posts', {
         title: this.state.title,
         description: this.state.description
       })
       .then(function (response) {
-        console.log(this);
-        this.posted = true;
         //this.props.posts.unshift({id: "post_hash" + this.curr_number, title: this.state.title, description: this.state.description, time_posted: (new Date()).toString(), author_id: "u1", comments: []});
         //this.curr_number = this.curr_number + 1;
-        this.posted = false;
-        this.showPost = false;
+        const posted = false;
+        const showPost = false;
+        self.setState({posted, showPost});
       })
       .catch(function (error) {
         console.log(error);
@@ -54,8 +55,8 @@ class NewPostContainer extends Component {
   render() {
     return (
       <NewPost
-          posted={this.posted}
-          showPost={this.showPost}
+          posted={this.state.posted}
+          showPost={this.state.showPost}
           addNewPost={this.newPost.bind(this)}
           handleTitleChange={this.handleTitleChange}
           handleDescriptionChange={this.handleDescriptionChange} />

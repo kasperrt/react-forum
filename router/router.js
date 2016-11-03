@@ -78,7 +78,9 @@ router.route('/posts/:post_id')
                 User.findOne({_id: new ObjectId(req.user._id)})
                 .exec(function(err, user){
                     if(user.last_visited.length >= 3) user.last_visited.pop();
-                    user.last_visited.push(post);
+                    if(user.last_visited.indexOf(post._id) == -1){
+                        user.last_visited.push(post);
+                    }
                     res.json(post);
                     user.save()
                 });
@@ -141,7 +143,13 @@ router.route('/users/:user_id')
         .populate('last_visited')
         .exec(function(err, user){
             if(err) res.send(err);
-            res.json(user);
+            var logged_in;
+            if(req.user._id == req.params.user_id){
+                logged_in = true;
+            } else {
+                logged_in = false;
+            }
+            res.json({user: user, logged_in: logged_in});
         })
     });
 
@@ -159,12 +167,11 @@ router.route('/users/')
             .populate('last_visited')
             .exec(function(err, user){
                 if(err) res.send(err);
-                res.json(user);
+                res.json({user: user, logged_in: true});
             })
         } else {
             res.redirect("/auth/facebook");
         }
     });
-
 
 module.exports = router;
