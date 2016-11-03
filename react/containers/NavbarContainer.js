@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import Navbar from '../components/Navbar.js';
+import axios from 'axios';
+import cookie from 'react-cookie';
 
 class NavbarContainer extends Component {
   constructor(props) {
@@ -8,6 +10,14 @@ class NavbarContainer extends Component {
       value: ""
     }
     this.handleChange = this.handleChange.bind(this);
+  }
+
+  loggout(){
+    axios.get(`/api/loggout/`)
+      .then(res => {
+        cookie.remove('user');
+        this.context.router.replace("/");
+      });
   }
 
   search(e){
@@ -30,6 +40,7 @@ class NavbarContainer extends Component {
         search = {this.search.bind(this)}
         handleChange={this.handleChange}
         value={this.state.value}
+        loggout={this.loggout.bind(this)}
       />
     )
   }
