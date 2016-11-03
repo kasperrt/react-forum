@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import Frontpage from '../components/frontpage';
+import Posts from '../components/Posts';
 import axios from 'axios';
 
-class FrontpageContainer extends Component{
+class SearchContainer extends Component{
   constructor(props) {
     super(props);
     this.state = {
@@ -11,8 +11,7 @@ class FrontpageContainer extends Component{
   }
 
   componentDidMount() {
-    console.log(this.props.params.query);
-    axios.get(`/api/posts/`)
+    axios.get(`/api/search/` + this.props.params.query)
       .then(res => {
         const posts = res.data;
         this.setState({ posts });
@@ -21,12 +20,11 @@ class FrontpageContainer extends Component{
 
   render() {
     return (
-      <Frontpage
+      <Posts
         posts = {this.state.posts}
-        reMount={this.componentDidMount.bind(this)}
       />
     )
   }
 }
 
-export default FrontpageContainer;
+export default SearchContainer;

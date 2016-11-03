@@ -4,7 +4,7 @@ import ReactRouter, { Link } from 'react-router';
 
 Moment.locale('nb');
 
-const Posts = ({posts, all_users}) => (
+const Posts = ({posts}) => (
   <div>
     {posts.map((post)=>(
       <div key={post._id} className="post">
