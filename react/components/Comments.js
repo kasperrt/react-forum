@@ -4,7 +4,7 @@ import Moment from 'moment';
 
 Moment.locale('nb');
 
-const Comments = ({changeSorting, comments, handleDescriptionChange, addNewComment, value}) => (
+const Comments = ({changeSorting, comments, handleDescriptionChange, addNewComment, value, nextPage, previousPage, currentPage, morePages}) => (
   <div>
     <div className="commentSorter">
       Sorter på
@@ -36,6 +36,15 @@ const Comments = ({changeSorting, comments, handleDescriptionChange, addNewComme
       </div>
     )
   )}
+  {currentPage > 1 ? <button onClick={() => previousPage()}>
+    previous page
+    </button> : null}
+  page {currentPage}
+  {morePages ?
+    <button onClick={() => nextPage()}>
+      next page
+    </button>
+  : null}
   </div>
 );
 

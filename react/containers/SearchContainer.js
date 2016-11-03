@@ -7,31 +7,58 @@ class SearchContainer extends Component{
     super(props);
     this.state = {
       posts: [],
-      update: true
+      update: "",
+      currentPage: 0,
+      morePages: false
     }
   }
 
   componentDidMount(){
-    axios.get(`/api/search/` + this.props.params.query)
+    var self = this;
+    axios.get(`/api/search/` + this.state.currentPage + '/' + this.props.params.query)
       .then(res => {
-        const posts = res.data;
-        this.setState({ posts });
+        const posts = res.data.posts;
+        const morePages = res.data.morePages;
+        const update = this.props.params.query;
+        self.setState({ posts, morePages, update });
       });
   }
 
-  shouldComponentUpdate(){
-    this.state.update = !this.state.update;
-    if(this.state.update){
-      this.componentDidMount()
+  shouldComponentUpdate(nextProps, nextState){
+    if(this.props.params.query != nextState.update){
+      this.componentDidMount();
     }
     return true;
   }
 
+  nextPage() {
+    this.state.currentPage = this.state.currentPage + 1;
+    this.componentDidMount();
+  }
+
+  previousPage(){
+    if(this.state.currentPage > 0){
+      this.state.currentPage = this.state.currentPage - 1;
+      this.componentDidMount();
+    }
+  }
+
   render() {
     return (
-      <Posts
-        posts = {this.state.posts}
-      />
+      <div>
+        <Posts
+          posts = {this.state.posts}
+        />
+        {this.state.currentPage > 1 ? <button onClick={() => this.previousPage()}>
+          previous page
+          </button> : null}
+        page {this.state.currentPage + 1}
+        {this.state.morePages ?
+          <button onClick={() => this.nextPage()}>
+            next page
+          </button>
+        : null}
+      </div>
     )
   }
 }
