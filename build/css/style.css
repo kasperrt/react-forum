@@ -39,11 +39,14 @@
 }
 
 .new_post_button, .newCommentButton{
-  background: green;
+  background-color: green;
+  font-size: 16px;
   padding: 10px 16px;
-  margin-top: 16px;
-  width: 115px;
-
+  border: none;
+	font-weight: lighter;
+	color: white;
+	text-transform: uppercase;
+  cursor:pointer;
   text-transform: uppercase;
   color: white;
   font-weight: lighter;
