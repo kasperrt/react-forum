@@ -28,15 +28,9 @@ class NewPostContainer extends Component {
         description: this.state.description
       })
       .then(function (response) {
-        //this.props.posts.unshift({id: "post_hash" + this.curr_number, title: this.state.title, description: this.state.description, time_posted: (new Date()).toString(), author_id: "u1", comments: []});
-        //this.curr_number = this.curr_number + 1;
-        const posted = false;
-        const showPost = false;
-        self.setState({posted, showPost});
-        self.props.remount();
+        self.context.router.push("posts/" + response.data.posted);
       })
       .catch(function (error) {
-        console.log(error);
       });
     }
   }
@@ -63,6 +57,10 @@ class NewPostContainer extends Component {
           handleDescriptionChange={this.handleDescriptionChange} />
     )
   }
+};
+
+NewPostContainer.contextTypes = {
+    router: React.PropTypes.object.isRequired
 };
 
 export default NewPostContainer;

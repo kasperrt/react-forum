@@ -36,7 +36,7 @@ router.route('/posts')
                 user.posts.push(new_post);
                 user.save(function(error, doc){
                      if(error) res.sendStatus(500);
-                     res.sendStatus(200);
+                     res.json({posted: posted_doc._id});
                 });
            })
          });
@@ -51,11 +51,29 @@ router.route('/loggout')
       res.sendStatus(200);
    });
 
-router.route('/posts/p/:page')
+router.route('/posts/p/:page/:sort_type/:sort_way')
     .get(function(req, res){
         var skip = req.params.page * limit;
+        var sort = {};
+        var type;
+        switch(req.params.sort_type){
+            case "title":
+               type = "title";
+               break;
+            case "date":
+               type = "posted_date";
+               break;
+        }
+        switch(req.params.sort_way){
+            case "desc":
+               sort[type] = -1;
+               break;
+            case "asc":
+               sort[type] = 1;
+               break;
+        }
         Post.count({}, function(err, count){
-           Post.find({}).limit(limit).skip(skip).sort({posted_date: -1}).populate('_author').exec(function(err, posts){
+           Post.find({}).limit(limit).skip(skip).sort(sort).populate('_author').exec(function(err, posts){
                if(err) res.send(err);
                var more = (skip + posts.length) != count;
                res.json({posts: posts, morePages: more});
@@ -63,15 +81,33 @@ router.route('/posts/p/:page')
         });
     });
 
-router.route('/search/:page/:query')
+router.route('/search/:page/:query/:sort_type/:sort_way')
     .get(function(req, res){
       var skip = req.params.page * limit;
+      var sort = {};
+      var type;
+      switch(req.params.sort_type){
+          case "title":
+             type = "title";
+             break;
+          case "date":
+             type = "posted_date";
+             break;
+      }
+      switch(req.params.sort_way){
+          case "desc":
+             sort[type] = -1;
+             break;
+          case "asc":
+             sort[type] = 1;
+             break;
+      }
       Post.count({title: new RegExp(req.params.query, 'i')}, function(err, count){
          Post.find({title: new RegExp(req.params.query, 'i')})
          .populate("_author")
          .limit(limit)
          .skip(skip)
-         .sort({posted_date: 1})
+         .sort(sort)
          .exec(function(err, posts){
              var more = (skip + posts.length) != count;
              res.json({posts: posts, morePages: more});
@@ -79,20 +115,28 @@ router.route('/search/:page/:query')
       })
     });
 
-router.route('/posts/:page/:post_id')
+router.route('/posts/:page/:post_id/:sort_way')
     .get(function(req, res){
         try{
             var id = new ObjectId(req.params.post_id)
             var skip = req.params.page * limit;
+            var sort = {};
+            var type = "posted_date";
+            switch(req.params.sort_way){
+                case "desc":
+                   sort[type] = -1;
+                   break;
+                case "asc":
+                   sort[type] = 1;
+                   break;
+            }
             Comment.count({_post: id}, function(err, count){
               Post.findOne({_id: id})
               .lean()
               .populate({
                 path: "comments",
                 options: {
-                    sort: {
-                        posted_date: -1
-                    },
+                    sort: sort,
                     limit: limit,
                     skip: skip
                 },
@@ -130,11 +174,11 @@ router.route('/posts/:page/:post_id')
         }
     });
 
-router.route('/comments/:post_id')
+router.route('/comments/:post_id/')
     .post(function(req, res){
       /**
        *
-       *  Function for creating a new user, and checking if the user is authenticated.
+       *  Function for creating new comment
        *
        */
        if(req.user && req.body.description !== ""){
