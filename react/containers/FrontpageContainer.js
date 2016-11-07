@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Frontpage from '../components/frontpage';
 import axios from 'axios';
 import cookie from 'react-cookie';
+import PageNavigation from '../components/PageNavigation';
 
 class FrontpageContainer extends Component{
   constructor(props) {
@@ -9,12 +10,14 @@ class FrontpageContainer extends Component{
     this.state = {
       posts: [],
       page: 0,
-      morePages: false
+      morePages: false,
+      type: "date",
+      way: "desc"
     }
   }
 
   componentDidMount() {
-    axios.get(`/api/posts/p/` + this.state.page)
+    axios.get(`/api/posts/p/` + this.state.page + "/" + this.state.type + "/" + this.state.way)
       .then(res => {
         const posts = res.data.posts;
         const morePages = res.data.morePages;
@@ -34,16 +37,33 @@ class FrontpageContainer extends Component{
     }
   }
 
+  handleTypeChange(e){
+    this.state.type = e.target.value;
+    this.setState({type: e.target.value});
+    this.componentDidMount();
+  }
+
+  handleWayChange(e){
+    this.state.way = e.target.value;
+    this.setState({way: e.target.value});
+    this.componentDidMount();
+  }
+
   render() {
     return (
-      <Frontpage
-        posts = {this.state.posts}
-        reMount={this.componentDidMount.bind(this)}
-        nextPage={this.nextPage.bind(this)}
-        previousPage={this.previousPage.bind(this)}
-        currentPage={this.state.page + 1}
-        morePages={this.state.morePages}
-      />
+      <div>
+        <Frontpage
+          posts = {this.state.posts}
+          reMount={this.componentDidMount.bind(this)}
+          type={this.state.type}
+          way={this.state.way}
+          handleTypeChange={this.handleTypeChange.bind(this)}
+          handleWayChange={this.handleWayChange.bind(this)} />
+        <PageNavigation currentPage={this.state.page + 1}
+          previousPage={this.previousPage.bind(this)}
+          nextPage={this.nextPage.bind(this)}
+          morePages={this.state.morePages} />
+      </div>
     )
   }
 }

@@ -3,6 +3,7 @@ import ReactRouter from 'react-router';
 import Thread from '../components/Thread.js';
 import Comments from '../components/Comments.js';
 import axios from 'axios';
+import PageNavigation from '../components/PageNavigation';
 
 class ThreadContainer extends Component {
   constructor(props) {
@@ -18,7 +19,9 @@ class ThreadContainer extends Component {
       description: "",
       response: undefined,
       currentPage: 0,
-      morePages: false
+      morePages: false,
+      type: "hide",
+      way: "asc"
     };
     this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
 
@@ -26,7 +29,7 @@ class ThreadContainer extends Component {
 
   componentDidMount() {
     var self = this;
-    axios.get(`/api/posts/` + this.state.currentPage + '/' + this.props.params.post_hash)
+    axios.get(`/api/posts/` + this.state.currentPage + '/' + this.props.params.post_hash  + "/" + this.state.way)
       .then(res => {
         const posts = res.data.post;
         const response = true;
@@ -81,6 +84,18 @@ class ThreadContainer extends Component {
     }
   }
 
+  handleTypeChange(e){
+    this.state.type = e.target.value;
+    this.setState({type: e.target.value});
+    this.componentDidMount();
+  }
+
+  handleWayChange(e){
+    this.state.way = e.target.value;
+    this.setState({way: e.target.value});
+    this.componentDidMount();
+  }
+
   render() {
     if ( !this.state.response ) {
          return <div></div>
@@ -91,17 +106,19 @@ class ThreadContainer extends Component {
           <hr/>
           <div className="thread_comments">
             <Comments
-              changeSorting={this.changeSorting.bind(this)}
               comments={this.state.posts.comments}
               handleDescriptionChange={this.handleDescriptionChange}
               addNewComment={this.newComment.bind(this)}
               value={this.state.description}
-              nextPage={this.nextPage.bind(this)}
-              previousPage={this.previousPage.bind(this)}
-              currentPage={this.state.currentPage + 1}
-              morePages={this.state.morePages}
-               />
-          </div>
+              type="hide"
+              way={this.state.way}
+              handleTypeChange={this.handleTypeChange.bind(this)}
+              handleWayChange={this.handleWayChange.bind(this)} />
+              </div>
+            <PageNavigation currentPage={this.state.currentPage + 1}
+               previousPage={this.previousPage.bind(this)}
+               nextPage={this.nextPage.bind(this)}
+               morePages={this.state.morePages} />
         </div>
       )
     }

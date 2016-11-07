@@ -75,8 +75,6 @@ app.use(function (req, res, next) {
       httpOnly: false,
       maxAge: 0
     });
-
-    console.log('cookie created successfully');
   }
   next();
 });

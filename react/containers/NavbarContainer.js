@@ -16,7 +16,7 @@ class NavbarContainer extends Component {
     axios.get(`/api/loggout/`)
       .then(res => {
         cookie.remove('user');
-        this.context.router.replace("/");
+        this.context.router.push("/");
       });
   }
 
@@ -24,7 +24,7 @@ class NavbarContainer extends Component {
     e.preventDefault();
     var val = this.state.value;
     this.state.value = "";
-    this.context.router.replace("search/" + val);
+    this.context.router.push("search/" + val);
   }
 
   handleChange(e){

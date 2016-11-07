@@ -1,18 +1,17 @@
 import React from 'react';
 import ReactRouter, {Link} from 'react-router';
 import Moment from 'moment';
+import Sorting from './Sorting';
 
 Moment.locale('nb');
 
-const Comments = ({changeSorting, comments, handleDescriptionChange, addNewComment, value, nextPage, previousPage, currentPage, morePages}) => (
+const Comments = ({comments, handleDescriptionChange, addNewComment, value, type, way, handleTypeChange, handleWayChange}) => (
   <div>
-    <div className="commentSorter">
-      Sorter på
-      <select onChange={() => changeSorting()}>
-        <option value="1">nyeste først</option>
-        <option value="-1">eldste først</option>
-      </select>
-    </div>
+    <Sorting type={type}
+      way={way}
+      handleTypeChange={handleTypeChange}
+      handleWayChange={handleWayChange}
+      type_hide={true} />
     <div className="newCommentContainer">
       <div>
         <textarea rows="10" cols="80" placeholder="Skriv inn kommentar her" className="newCommentTextArea" value={value} onChange={handleDescriptionChange}>
@@ -36,15 +35,6 @@ const Comments = ({changeSorting, comments, handleDescriptionChange, addNewComme
       </div>
     )
   )}
-  {currentPage > 1 ? <button onClick={() => previousPage()}>
-    previous page
-    </button> : null}
-  page {currentPage}
-  {morePages ?
-    <button onClick={() => nextPage()}>
-      next page
-    </button>
-  : null}
   </div>
 );
 

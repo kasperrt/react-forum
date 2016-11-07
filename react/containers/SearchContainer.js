@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import Posts from '../components/Posts';
 import axios from 'axios';
+import Sorting from '../components/Sorting';
+import PageNavigation from '../components/PageNavigation';
 
 class SearchContainer extends Component{
   constructor(props) {
@@ -9,13 +11,15 @@ class SearchContainer extends Component{
       posts: [],
       update: "",
       currentPage: 0,
-      morePages: false
+      morePages: false,
+      type: "date",
+      way: "desc"
     }
   }
 
   componentDidMount(){
     var self = this;
-    axios.get(`/api/search/` + this.state.currentPage + '/' + this.props.params.query)
+    axios.get(`/api/search/` + this.state.currentPage + '/' + this.props.params.query + "/" + this.state.type + "/" + this.state.way)
       .then(res => {
         const posts = res.data.posts;
         const morePages = res.data.morePages;
@@ -43,21 +47,33 @@ class SearchContainer extends Component{
     }
   }
 
+  handleTypeChange(e){
+    this.state.type = e.target.value;
+    this.setState({type: e.target.value});
+    this.componentDidMount();
+  }
+
+  handleWayChange(e){
+    this.state.way = e.target.value;
+    this.setState({way: e.target.value});
+    this.componentDidMount();
+  }
+
   render() {
     return (
       <div>
+        <Sorting type={this.state.type}
+          way={this.state.way}
+          handleTypeChange={this.handleTypeChange.bind(this)}
+          handleWayChange={this.handleWayChange.bind(this)}
+          type_hide={false} />
         <Posts
           posts = {this.state.posts}
         />
-        {this.state.currentPage > 1 ? <button onClick={() => this.previousPage()}>
-          previous page
-          </button> : null}
-        page {this.state.currentPage + 1}
-        {this.state.morePages ?
-          <button onClick={() => this.nextPage()}>
-            next page
-          </button>
-        : null}
+        <PageNavigation currentPage={this.state.currentPage + 1}
+          previousPage={this.previousPage.bind(this)}
+          nextPage={this.nextPage.bind(this)}
+          morePages={this.state.morePages} />
       </div>
     )
   }
