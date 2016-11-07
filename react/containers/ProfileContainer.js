@@ -22,8 +22,8 @@ class ProfileContainer extends Component {
     axios.get(`/api/users/` + id)
       .then(res => {
         const user = res.data.user;
-        user.posts = user.posts.length;
-        user.comments = user.comments.length;
+        user.posts = user.posts;
+        user.comments = user.comments;
         const logged_in = res.data.logged_in;
         const response = true;
         this.setState({ user, logged_in, response });

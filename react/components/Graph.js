@@ -1,14 +1,16 @@
 import React from 'react';
-import {VictoryChart, VictoryLine} from 'victory';
+import {VictoryChart, VictoryLine, VictoryTheme} from 'victory';
 
 const Graph = ({posts, comments}) => (
-	<svg >
-      <VictoryChart 
+      <VictoryChart
+            width={500}
+            height={300}
+            theme={VictoryTheme.material}
       	scale={{
 			x: "time"
 		}}>
-		
-        <VictoryLine 
+
+        <VictoryLine
         	label="Posts"
         	interpolation="monotoneX"
         	style={{
@@ -18,7 +20,7 @@ const Graph = ({posts, comments}) => (
         	}}
         	data={posts}/>
 
-        <VictoryLine 
+        <VictoryLine
         	label="Comments"
         	interpolation="monotoneX"
         	style={{
@@ -29,7 +31,6 @@ const Graph = ({posts, comments}) => (
         	data={comments}/>
 
       </VictoryChart>
-	</svg>
 );
 
 export default Graph
