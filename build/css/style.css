@@ -55,6 +55,10 @@
   display: flex;
 }
 
+.new_post_button{
+  width: 115px;
+}
+
 .postDescriptionContainer{
   width: 75%;
 }
