@@ -21,17 +21,30 @@
 }
 
 .myProfileButton{
-	padding: 10px 16px;
 	background-color: green;
 	font-size: 16px;
+	margin:0 10px;
 }
 
 .myProfileButton a{
+  padding: 10px 16px;
+  background: green;
 	color: white;
 	text-decoration: none;
 	font-weight: lighter;
 	text-transform: uppercase;
 	font-size: 16px;
+}
+
+.logoutButton{
+	cursor:pointer;
+	background-color: red;
+  font-size: 16px;
+  padding: 10px 16px;
+  border: none;
+	font-weight: lighter;
+	color: white;
+	text-transform: uppercase;
 }
 
 .search input {
