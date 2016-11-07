@@ -2,6 +2,10 @@
   font-family: 'Roboto', Helvetica, Arial, sans-serif;
 }
 
+.sorting_container{
+  margin-top: 40px;
+}
+
 /* Style posts */
 .post {
   margin: 10px 0;
