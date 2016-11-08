@@ -17,7 +17,7 @@ var config = require('./config/facebook.js');
 
 const assert = require('assert');
 
-mongoose.Promise = global.Promise;
+/*mongoose.Promise = global.Promise;
 var url = 'mongodb://localhost/howto';
 mongoose.connect(url);
 
@@ -35,7 +35,6 @@ passport.use(new FacebookStrategy({
         image: profile.photos[0].value
       }
     }, {upsert: true, new: true}, function(err, user) {
-
        return cb(null, user);
     });
   }
@@ -65,6 +64,13 @@ app.use(session({
       expire: 86400 // optional
   })
 }));
+
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  next();
+});
+
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(function (req, res, next) {
@@ -81,7 +87,7 @@ app.use(function (req, res, next) {
 app.use('/api', router);
 app.get('/auth/facebook',
   passport.authenticate('facebook'));
-
+*/
 app.get('/profile', function(req, res){
   if(req.user){
     res.redirect("/#/user/" + req.user._id);
@@ -90,7 +96,7 @@ app.get('/profile', function(req, res){
     res.redirect("/auth/facebook");
   }
 });
-
+/*
 app.get('/auth/facebook/callback',
   passport.authenticate('facebook', { failureRedirect: '/' }),
   function(req, res) {
@@ -102,7 +108,7 @@ app.get('/auth/facebook/callback',
     } else {
       res.redirect('/');
     }
-  });
+  });*/
 
 app.use(express.static('build/'));
 

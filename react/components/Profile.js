@@ -5,7 +5,7 @@ import Moment from 'moment';
 
 Moment.locale('nb');
 
-const Profile = ({loggOutButton, name, date, posts, comments, image, last_visited}) => (  <div className="content">
+const Profile = ({name, date, posts, comments, image, last_visited}) => (  <div className="content">
     <div className="title">
         <h2>Min side</h2>
     </div>
