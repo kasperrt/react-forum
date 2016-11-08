@@ -17,7 +17,7 @@ class FrontpageContainer extends Component{
   }
 
   componentDidMount() {
-    axios.get(`/api/posts/p/` + this.state.page + "/" + this.state.type + "/" + this.state.way)
+    axios.get(`http://it2810-19.idi.ntnu.no:3000/api/posts/p/` + this.state.page + "/" + this.state.type + "/" + this.state.way)
       .then(res => {
         const posts = res.data.posts;
         const morePages = res.data.morePages;

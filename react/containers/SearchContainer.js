@@ -19,7 +19,7 @@ class SearchContainer extends Component{
 
   componentDidMount(){
     var self = this;
-    axios.get(`/api/search/` + this.state.currentPage + '/' + this.props.params.query + "/" + this.state.type + "/" + this.state.way)
+    axios.get(`http://it2810-19.idi.ntnu.no:3000/api/search/` + this.state.currentPage + '/' + this.props.params.query + "/" + this.state.type + "/" + this.state.way)
       .then(res => {
         const posts = res.data.posts;
         const morePages = res.data.morePages;

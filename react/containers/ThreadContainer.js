@@ -29,7 +29,7 @@ class ThreadContainer extends Component {
 
   componentDidMount() {
     var self = this;
-    axios.get(`/api/posts/` + this.state.currentPage + '/' + this.props.params.post_hash  + "/" + this.state.way)
+    axios.get(`http://it2810-19.idi.ntnu.no:3000/api/posts/` + this.state.currentPage + '/' + this.props.params.post_hash  + "/" + this.state.way)
       .then(res => {
         const posts = res.data.post;
         const response = true;
@@ -56,7 +56,7 @@ class ThreadContainer extends Component {
   newComment(){
     if(this.state.description !== ""){
       var self = this;
-      axios.post('/api/comments/' + this.props.params.post_hash, {
+      axios.post('http://it2810-19.idi.ntnu.no:3000/api/comments/' + this.props.params.post_hash, {
         description: this.state.description
       })
       .then(function (response) {

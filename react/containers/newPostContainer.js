@@ -23,7 +23,7 @@ class NewPostContainer extends Component {
     if(!this.state.showPost){
       this.state.showPost = true;
     } else if(this.state.title !== "" && this.state.description !== ""){
-      axios.post('/api/posts', {
+      axios.post('http://it2810-19.idi.ntnu.no:3000/api/posts', {
         title: this.state.title,
         description: this.state.description
       })
