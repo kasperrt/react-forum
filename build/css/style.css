@@ -20,6 +20,17 @@
   color: black;
 }
 
+/*Style post filtering*/
+select {
+  border: 1px solid #111;
+  background: transparent;
+  width: 150px;
+  padding: 5px 30px 5px 5px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  height: 30px;
+}
+
 /*Style comments*/
 .comment{
   border-bottom: 1px solid black;
