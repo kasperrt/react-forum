@@ -5,7 +5,7 @@ const PageNavigation = ({currentPage, previousPage, nextPage, morePages}) => (
     {currentPage > 1 ?
       <img onClick={() => previousPage()} src="http://image.flaticon.com/icons/svg/60/60573.svg" alt="Next page" height="10px"></img>
       : null}
-    page {currentPage}
+    Side {currentPage}
     {morePages ?
       <img onClick={() => nextPage()} src="http://image.flaticon.com/icons/svg/60/60758.svg" alt="Next page" height="10px"></img>
     : null}
