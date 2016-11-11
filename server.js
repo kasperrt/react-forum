@@ -32,10 +32,9 @@ passport.use(new FacebookStrategy({
       $set:{
         name: profile.displayName,
         facebook_id: profile.id,
-        image: profile.photos[0].value
+        image: "http://graph.facebook.com/" + profile.id + "/picture?height=400"
       }
     }, {upsert: true, new: true}, function(err, user) {
-
        return cb(null, user);
     });
   }
@@ -65,6 +64,13 @@ app.use(session({
       expire: 86400 // optional
   })
 }));
+
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  next();
+});
+
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(function (req, res, next) {
@@ -79,8 +85,7 @@ app.use(function (req, res, next) {
   next();
 });
 app.use('/api', router);
-app.get('/auth/facebook',
-  passport.authenticate('facebook'));
+app.get('/auth/facebook', passport.authenticate('facebook'));
 
 app.get('/profile', function(req, res){
   if(req.user){
@@ -104,6 +109,10 @@ app.get('/auth/facebook/callback',
     }
   });
 
+
+app.use("/external_css/react-datepicker.css", function(req, res){
+  res.sendFile(__dirname + "/node_modules/react-datepicker/dist/react-datepicker.min.css");
+});
 app.use(express.static('build/'));
 
 process.on('uncaughtException', function(error){

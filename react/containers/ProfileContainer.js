@@ -6,11 +6,9 @@ import axios from 'axios';
 class ProfileContainer extends Component {
   constructor(props, context) {
     super(props, context);
-    this.loggOutButton = false;
     this.state = {
       user_id: this.props.params.userId,
       user: { last_visited: []},
-      logged_in: false,
       response: undefined
     }
   }
@@ -22,27 +20,21 @@ class ProfileContainer extends Component {
     axios.get(`/api/users/` + id)
       .then(res => {
         const user = res.data.user;
-        user.posts = user.posts.length;
-        user.comments = user.comments.length;
-        const logged_in = res.data.logged_in;
+        user.posts = user.posts;
+        user.comments = user.comments;
         const response = true;
-        this.setState({ user, logged_in, response });
+        this.setState({ user, response });
       }).catch(res => {
         self.context.router.push("404")
       });
   }
 
   render() {
-
-		if(this.state.logged_in){
-			this.loggOutButton = true;
-		}
     if ( !this.state.response ) {
          return <div></div>
     } else {
       return (
         <Profile
-          loggOutButton={this.loggOutButton}
           name={this.state.user.name}
           date={this.state.user.created}
           posts={this.state.user.posts}

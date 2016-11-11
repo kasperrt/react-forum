@@ -3,6 +3,8 @@ import Posts from '../components/Posts';
 import axios from 'axios';
 import Sorting from '../components/Sorting';
 import PageNavigation from '../components/PageNavigation';
+import FilterContainer from '../containers/FilterContainer.js';
+
 
 class SearchContainer extends Component{
   constructor(props) {
@@ -19,7 +21,7 @@ class SearchContainer extends Component{
 
   componentDidMount(){
     var self = this;
-    axios.get(`/api/search/` + this.state.currentPage + '/' + this.props.params.query + "/" + this.state.type + "/" + this.state.way)
+    axios.get(`/api/search/` + this.state.currentPage + '/' + this.props.params.query + "/" + this.state.type + "/" + this.state.way + "/0")
       .then(res => {
         const posts = res.data.posts;
         const morePages = res.data.morePages;
@@ -59,6 +61,19 @@ class SearchContainer extends Component{
     this.componentDidMount();
   }
 
+  reMountDate(date){
+    if(!date){
+      this.componentDidMount();
+    } else {
+      axios.get(`/api/search/` + this.state.currentPage + '/' + this.props.params.query + "/" + this.state.type + "/" + this.state.way + "/" + date.toDate())
+        .then(res => {
+          const posts = res.data.posts;
+          const morePages = res.data.morePages;
+          this.setState({ posts, morePages });
+        });
+    }
+  }
+
   render() {
     return (
       <div>
@@ -67,6 +82,7 @@ class SearchContainer extends Component{
           handleTypeChange={this.handleTypeChange.bind(this)}
           handleWayChange={this.handleWayChange.bind(this)}
           type_hide={false} />
+        <FilterContainer reMountDate={this.reMountDate.bind(this)} />
         <Posts
           posts = {this.state.posts}
         />

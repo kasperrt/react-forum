@@ -5,7 +5,7 @@ import Moment from 'moment';
 
 Moment.locale('nb');
 
-const Profile = ({loggOutButton, name, date, posts, comments, image, last_visited}) => (  <div className="content">
+const Profile = ({name, date, posts, comments, image, last_visited}) => (  <div className="content">
     <div className="title">
         <h2>Min side</h2>
     </div>
@@ -21,8 +21,8 @@ const Profile = ({loggOutButton, name, date, posts, comments, image, last_visite
           <p>Navn: {name}</p>
           <p>Bruker opprettet: {Moment(date).fromNow()}</p>
           <br/>
-          <p>Antall innlegg skrevet: {posts}</p>
-          <p>Antall kommentarer skrevet: {comments}</p>
+          <p>Antall innlegg skrevet: {posts.length}</p>
+          <p>Antall kommentarer skrevet: {comments.length}</p>
         </div>
 
       </div>
@@ -41,7 +41,7 @@ const Profile = ({loggOutButton, name, date, posts, comments, image, last_visite
 
       <div className="contributionGraph">
         <h2>Bidrag per måned</h2>
-        <GraphContainer />
+        <GraphContainer posts={posts} comments={comments} />
       </div>
     </div>
   </div>

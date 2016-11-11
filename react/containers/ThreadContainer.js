@@ -29,7 +29,7 @@ class ThreadContainer extends Component {
 
   componentDidMount() {
     var self = this;
-    axios.get(`/api/posts/` + this.state.currentPage + '/' + this.props.params.post_hash  + "/" + this.state.way)
+    axios.get(`/api/posts/` + this.state.currentPage + '/' + this.props.params.post_hash  + "/" + this.state.way + "/0")
       .then(res => {
         const posts = res.data.post;
         const response = true;
@@ -39,6 +39,23 @@ class ThreadContainer extends Component {
       }).catch(err => {
         self.context.router.push("404")
       });
+  }
+
+  reMountDate(date){
+    if(!date){
+      this.componentDidMount();
+    } else {
+      axios.get(`/api/posts/` + this.state.currentPage + '/' + this.props.params.post_hash  + "/" + this.state.way + "/" + date.toDate())
+      .then(res => {
+        const posts = res.data.post;
+        const response = true;
+        const morePages = res.data.morePages;
+        posts.comment_length = posts.comments.length;
+        this.setState({ posts, response, morePages });
+      }).catch(err => {
+        self.context.router.push("404")
+      });
+    }
   }
 
   changeSorting(e){
@@ -113,7 +130,8 @@ class ThreadContainer extends Component {
               type="hide"
               way={this.state.way}
               handleTypeChange={this.handleTypeChange.bind(this)}
-              handleWayChange={this.handleWayChange.bind(this)} />
+              handleWayChange={this.handleWayChange.bind(this)}
+              reMountDate={this.reMountDate.bind(this)}/>
               </div>
             <PageNavigation currentPage={this.state.currentPage + 1}
                previousPage={this.previousPage.bind(this)}

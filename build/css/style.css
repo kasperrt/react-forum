@@ -7,7 +7,93 @@
 }
 
 /* Style posts */
+.post {* {
+  font-family: 'Roboto', Helvetica, Arial, sans-serif;
+}
+
+.sorting_container{
+  margin-top: 40px;
+}
+
+/* Style posts */
 .post {
+  margin: 10px 0;
+  border-bottom: 1px solid black;
+  display: flex;
+  justify-content: space-between;
+}
+
+.postTitle, .commentAuthor{
+  text-decoration: none;
+  font-weight: bold;
+  color: black;
+}
+
+/*Style comments*/
+.comment{
+  border-bottom: 1px solid black;
+  margin: 20px 0 20px 0;
+  padding: 10px;
+}
+
+/*Write a new post*/
+#new_post{
+  width: 50%;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.new_post{
+  min-height:100px;
+  display: flex;
+  flex-direction: column;
+}
+
+.newPostTitle, .new_post_text{
+  font-size:18px;
+  margin-bottom:5px;
+}
+
+.new_post_text{
+  height:150px;
+}
+
+.postAuthorContainer, .postPosted, .postComments, .commentPosted, .postInformation{
+  text-align: right;
+}
+
+.new_post_button, .newCommentButton{
+  background-color: green;
+  font-size: 16px;
+  padding: 10px 16px;
+  border: none;
+	font-weight: lighter;
+	color: white;
+	text-transform: uppercase;
+  cursor:pointer;
+  text-transform: uppercase;
+  color: white;
+  font-weight: lighter;
+  text-decoration: none;
+
+  display: flex;
+}
+
+.newCommentTextArea{
+  font-size:18px;
+}
+
+.new_post_button{
+  width: 115px;
+}
+
+.postDescriptionContainer{
+  width: 75%;
+}
+
+.navigation_div{
+  text-align: center;
+}
   margin: 10px 0;
   border-bottom: 1px solid black;
   display: flex;
@@ -95,4 +181,30 @@ select {
 
 .navigation_div{
   text-align: center;
+}
+
+.filter_div{
+  padding:5px 0 10px;
+}
+
+.filter_button{
+  cursor:pointer;
+  padding: 10px 16px;
+  background: green;
+  color: white;
+  text-decoration: none;
+  font-weight: lighter;
+  text-transform: uppercase;
+  font-size: 16px;
+  border:none;
+}
+
+.navigation_arrow{
+  cursor: pointer;
+}
+
+.react-datepicker__input-container input{
+  font-size: 16px;
+  padding: 5px;
+  margin-left: 5px;
 }
