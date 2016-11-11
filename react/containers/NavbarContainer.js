@@ -13,7 +13,7 @@ class NavbarContainer extends Component {
   }
 
   loggout(){
-    axios.get(`http://it2810-19.idi.ntnu.no:3000/api/loggout/`)
+    axios.get(`/api/loggout/`)
       .then(res => {
         cookie.remove('user');
         this.context.router.push("/");

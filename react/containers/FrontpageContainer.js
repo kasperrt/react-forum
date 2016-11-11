@@ -17,7 +17,7 @@ class FrontpageContainer extends Component{
   }
 
   componentDidMount() {
-    axios.get(`http://it2810-19.idi.ntnu.no:3000/api/posts/p/` + this.state.page + "/" + this.state.type + "/" + this.state.way)
+    axios.get(`/api/posts/p/` + this.state.page + "/" + this.state.type + "/" + this.state.way + "/0")
       .then(res => {
         const posts = res.data.posts;
         const morePages = res.data.morePages;
@@ -49,6 +49,19 @@ class FrontpageContainer extends Component{
     this.componentDidMount();
   }
 
+  reMountDate(date){
+    if(!date){
+      this.componentDidMount();
+    } else {
+      axios.get(`/api/posts/p/` + this.state.page + "/" + this.state.type + "/" + this.state.way + "/" + date.toDate())
+        .then(res => {
+          const posts = res.data.posts;
+          const morePages = res.data.morePages;
+          this.setState({ posts, morePages });
+        });
+    }
+  }
+
   render() {
     return (
       <div>
@@ -58,7 +71,8 @@ class FrontpageContainer extends Component{
           type={this.state.type}
           way={this.state.way}
           handleTypeChange={this.handleTypeChange.bind(this)}
-          handleWayChange={this.handleWayChange.bind(this)} />
+          handleWayChange={this.handleWayChange.bind(this)}
+          reMountDate={this.reMountDate.bind(this)} />
         <PageNavigation currentPage={this.state.page + 1}
           previousPage={this.previousPage.bind(this)}
           nextPage={this.nextPage.bind(this)}

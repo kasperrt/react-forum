@@ -17,7 +17,7 @@ var config = require('./config/facebook.js');
 
 const assert = require('assert');
 
-/*mongoose.Promise = global.Promise;
+mongoose.Promise = global.Promise;
 var url = 'mongodb://localhost/howto';
 mongoose.connect(url);
 
@@ -32,7 +32,7 @@ passport.use(new FacebookStrategy({
       $set:{
         name: profile.displayName,
         facebook_id: profile.id,
-        image: profile.photos[0].value
+        image: "http://graph.facebook.com/" + profile.id + "/picture?height=400"
       }
     }, {upsert: true, new: true}, function(err, user) {
        return cb(null, user);
@@ -85,9 +85,8 @@ app.use(function (req, res, next) {
   next();
 });
 app.use('/api', router);
-app.get('/auth/facebook',
-  passport.authenticate('facebook'));
-*/
+app.get('/auth/facebook', passport.authenticate('facebook'));
+
 app.get('/profile', function(req, res){
   if(req.user){
     res.redirect("/#/user/" + req.user._id);
@@ -96,7 +95,7 @@ app.get('/profile', function(req, res){
     res.redirect("/auth/facebook");
   }
 });
-/*
+
 app.get('/auth/facebook/callback',
   passport.authenticate('facebook', { failureRedirect: '/' }),
   function(req, res) {
@@ -108,8 +107,12 @@ app.get('/auth/facebook/callback',
     } else {
       res.redirect('/');
     }
-  });*/
+  });
 
+
+app.use("/external_css/react-datepicker.css", function(req, res){
+  res.sendFile(__dirname + "/node_modules/react-datepicker/dist/react-datepicker.min.css");
+});
 app.use(express.static('build/'));
 
 process.on('uncaughtException', function(error){

@@ -2,16 +2,18 @@ import React from 'react';
 import ReactRouter, {Link} from 'react-router';
 import Moment from 'moment';
 import Sorting from './Sorting';
+import FilterContainer from '../containers/FilterContainer.js';
 
 Moment.locale('nb');
 
-const Comments = ({comments, handleDescriptionChange, addNewComment, value, type, way, handleTypeChange, handleWayChange}) => (
+const Comments = ({comments, handleDescriptionChange, addNewComment, value, type, way, handleTypeChange, handleWayChange, reMountDate}) => (
   <div>
     <Sorting type={type}
       way={way}
       handleTypeChange={handleTypeChange}
       handleWayChange={handleWayChange}
       type_hide={true} />
+    <FilterContainer reMountDate={reMountDate} />
     <div className="newCommentContainer">
       <div>
         <textarea rows="10" cols="80" placeholder="Skriv inn kommentar her" className="newCommentTextArea" value={value} onChange={handleDescriptionChange}>

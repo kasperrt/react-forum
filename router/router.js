@@ -51,7 +51,7 @@ router.route('/loggout')
       res.sendStatus(200);
    });
 
-router.route('/posts/p/:page/:sort_type/:sort_way')
+router.route('/posts/p/:page/:sort_type/:sort_way/:date')
     .get(function(req, res){
         var skip = req.params.page * limit;
         var sort = {};
@@ -72,8 +72,18 @@ router.route('/posts/p/:page/:sort_type/:sort_way')
                sort[type] = 1;
                break;
         }
-        Post.count({}, function(err, count){
-           Post.find({}).limit(limit).skip(skip).sort(sort).populate('_author').exec(function(err, posts){
+        var filter;
+        if(req.params.date === "0"){
+           filter = {};
+        } else {
+           var date = new Date(req.params.date);
+           date.setHours(0,0,0);
+           var less_than = new Date(date);
+           less_than = new Date(less_than.setDate(less_than.getDate() + 1));
+           filter = {posted_date: {"$gte": date, "$lte": less_than}};
+        }
+        Post.count(filter, function(err, count){
+           Post.find(filter).limit(limit).skip(skip).sort(sort).populate('_author').exec(function(err, posts){
                if(err) res.send(err);
                var more = (skip + posts.length) != count;
                res.json({posts: posts, morePages: more});
@@ -81,7 +91,7 @@ router.route('/posts/p/:page/:sort_type/:sort_way')
         });
     });
 
-router.route('/search/:page/:query/:sort_type/:sort_way')
+router.route('/search/:page/:query/:sort_type/:sort_way/:date')
     .get(function(req, res){
       var skip = req.params.page * limit;
       var sort = {};
@@ -102,8 +112,18 @@ router.route('/search/:page/:query/:sort_type/:sort_way')
              sort[type] = 1;
              break;
       }
-      Post.count({title: new RegExp(req.params.query, 'i')}, function(err, count){
-         Post.find({title: new RegExp(req.params.query, 'i')})
+      var filter;
+      if(req.params.date === "0"){
+         filter = {title: new RegExp(req.params.query, 'i')};
+      } else {
+         var date = new Date(req.params.date);
+         date.setHours(0,0,0);
+         var less_than = new Date(date);
+         less_than = new Date(less_than.setDate(less_than.getDate() + 1));
+         filter = {title: new RegExp(req.params.query, 'i'), posted_date: {"$gte": date, "$lte": less_than}};
+      }
+      Post.count(filter, function(err, count){
+         Post.find(filter)
          .populate("_author")
          .limit(limit)
          .skip(skip)
@@ -115,7 +135,7 @@ router.route('/search/:page/:query/:sort_type/:sort_way')
       })
     });
 
-router.route('/posts/:page/:post_id/:sort_way')
+router.route('/posts/:page/:post_id/:sort_way/:date')
     .get(function(req, res){
         try{
             var id = new ObjectId(req.params.post_id)
@@ -130,11 +150,22 @@ router.route('/posts/:page/:post_id/:sort_way')
                    sort[type] = 1;
                    break;
             }
-            Comment.count({_post: id}, function(err, count){
+            var filter;
+            if(req.params.date === "0"){
+               filter = {_post: id};
+            } else {
+               var date = new Date(req.params.date);
+               date.setHours(0,0,0);
+               var less_than = new Date(date);
+               less_than = new Date(less_than.setDate(less_than.getDate() + 1));
+               filter = {_post: id, posted_date: {"$gte": date, "$lte": less_than}};
+            }
+            Comment.count(filter, function(err, count){
               Post.findOne({_id: id})
               .lean()
               .populate({
                 path: "comments",
+                match: filter,
                 options: {
                     sort: sort,
                     limit: limit,
