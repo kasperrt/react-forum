@@ -130,4 +130,4 @@ function start_listening(port){
   });
 }
 
-start_listening(default_port);
+start_listening(80);
