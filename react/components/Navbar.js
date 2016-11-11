@@ -5,7 +5,7 @@ import cookie from 'react-cookie';
 const Navbar = ({currentUserId, search, handleChange, value, loggout}) => (
   <div id="navbar">
     <div className="navbarLeft">
-      <Link to="/"><div id="logo">How to: adult</div></Link>
+      <Link to="/" id="logo"><div>How to: adult</div></Link>
     </div>
     <div className="navbarRight">
       <div className="search">
