@@ -12,6 +12,10 @@ class FilterContainer extends Component {
     };
   };
 
+  /*
+   * On first show, don't filter, and on hide, remove the filtering.
+   */
+
   showHideFunction(){
     const show = !this.state.show;
     if(show && this.state.startDate != null){

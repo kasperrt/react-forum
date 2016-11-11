@@ -3,7 +3,7 @@ import Posts from '../components/Posts';
 import axios from 'axios';
 import Sorting from '../components/Sorting';
 import PageNavigation from '../components/PageNavigation';
-import FilterContainer from '../containers/FilterContainer.js';
+import FilterContainer from '../containers/FilterContainer';
 
 
 class SearchContainer extends Component{
@@ -29,6 +29,13 @@ class SearchContainer extends Component{
         self.setState({ posts, morePages, update });
       });
   }
+
+  /*
+   *
+   *  Used for checking whether the site should update regarding a new
+   *  search-query.
+   *
+   */
 
   shouldComponentUpdate(nextProps, nextState){
     if(this.props.params.query != nextState.update){

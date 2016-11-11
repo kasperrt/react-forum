@@ -2,7 +2,7 @@ import React from 'react';
 import ReactRouter, {Link} from 'react-router';
 import Moment from 'moment';
 import Sorting from './Sorting';
-import FilterContainer from '../containers/FilterContainer.js';
+import FilterContainer from '../containers/FilterContainer';
 
 Moment.locale('nb');
 

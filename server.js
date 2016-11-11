@@ -21,6 +21,10 @@ mongoose.Promise = global.Promise;
 var url = 'mongodb://localhost/howto';
 mongoose.connect(url);
 
+/*
+ * Find and update user on every login, to handle profile-picture/namechanges
+ */
+
 passport.use(new FacebookStrategy({
     clientID: config.clientID,
     clientSecret: config.clientSecret,
@@ -51,25 +55,43 @@ passport.deserializeUser(function(id, done) {
 });
 
 app.use(bodyParser());
+
+/*
+ * Connecting sessions with mongoDB to keep sessions more persistend, and not
+ * volume dependend. Makes it easier to containerbase app.
+ */
+
 app.use(session({
   secret: 'a4f8071f-c873-4447-8ee2',
   cookie: { maxAge: 2628000000 },
   store: new (require('express-sessions'))({
       storage: 'mongodb',
-      instance: mongoose, // optional
-      host: 'localhost', // optional
-      port: 27017, // optional
-      db: 'howto', // optional
-      collection: 'sessions', // optional
-      expire: 86400 // optional
+      instance: mongoose,
+      host: 'localhost',
+      port: 27017,
+      db: 'howto',
+      collection: 'sessions',
+      expire: 86400
   })
 }));
+
+/*
+ * Allows access from outside connections.
+ */
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "X-Requested-With");
   next();
 });
+
+/*
+ *
+ * Function for initializing passport, and initializing session for passport.
+ * Bottom function is for creating httpOnly: false cookie, for allowing frontend
+ * to access and see cookie-object.
+ *
+ */
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -84,8 +106,18 @@ app.use(function (req, res, next) {
   }
   next();
 });
+
+/*
+ * Implements use of seperate file for routing.
+ */
 app.use('/api', router);
+
 app.get('/auth/facebook', passport.authenticate('facebook'));
+
+/*
+ * "Static" link to profile, used for checking whether the user is logged in, or
+ * not.
+ */
 
 app.get('/profile', function(req, res){
   if(req.user){
@@ -95,6 +127,10 @@ app.get('/profile', function(req, res){
     res.redirect("/auth/facebook");
   }
 });
+
+/*
+ * Handler for facebook-callback
+ */
 
 app.get('/auth/facebook/callback',
   passport.authenticate('facebook', { failureRedirect: '/' }),
@@ -109,11 +145,16 @@ app.get('/auth/facebook/callback',
     }
   });
 
-
 app.use("/external_css/react-datepicker.css", function(req, res){
   res.sendFile(__dirname + "/node_modules/react-datepicker/dist/react-datepicker.min.css");
 });
 app.use(express.static('build/'));
+
+/**
+ *
+ *  Failsafe for port not available, and reverting to default port.
+ *
+ */
 
 process.on('uncaughtException', function(error){
   if(error.code == "EACCES"){

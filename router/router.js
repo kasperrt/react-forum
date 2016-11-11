@@ -14,7 +14,12 @@ router.route('/posts')
     .post(function(req, res){
       /**
        *
-       *  Function for creating a new post, and checking if the user is authenticated.
+       *  Function for creating a new post, and checking if the user is
+       *  authenticated. Saves post in user object, and in the posts
+       *  document. This helps "simulate" a relation-database.
+       *
+       *  Error-codes sent doesn't quite reflect the error that happens, is
+       *  mostly to just tell that an error has occured.
        *
        */
        if(req.user && req.body.title !== "" && req.body.description !== ""){
@@ -45,11 +50,23 @@ router.route('/posts')
        }
    });
 
+/*
+ * Logs the user out
+ */
+
 router.route('/loggout')
    .get(function(req, res){
       req.logout();
       res.sendStatus(200);
    });
+
+/*
+ *
+ *  RESTApi for fetching all the posts. :page is for what page to show,
+ *  :sort_type is what type to sort on, :sort_way is either asc or desc.
+ *  :date is for filtering on posted date. If 0, don't filter on date.
+ *
+ */
 
 router.route('/posts/p/:page/:sort_type/:sort_way/:date')
     .get(function(req, res){
@@ -90,6 +107,15 @@ router.route('/posts/p/:page/:sort_type/:sort_way/:date')
            });
         });
     });
+
+ /*
+  *
+  *  RESTApi for searching through all the posts. :page is for what page to
+  *  show, :query is the search query, :sort_type is what type to sort on,
+  *  :sort_way is either asc or desc. :date is for filtering on posted date.
+  *  If 0, don't filter on date.
+  *
+  */
 
 router.route('/search/:page/:query/:sort_type/:sort_way/:date')
     .get(function(req, res){
@@ -134,6 +160,16 @@ router.route('/search/:page/:query/:sort_type/:sort_way/:date')
          });
       })
     });
+
+/*
+ *
+ *  RESTApi for fetching a specific post and its comments.
+ *  Parameters here are the same as all other endpoints, but here :date filters
+ *  on what comments to show.
+ *
+ *  Adds visited post to the recently visited column in user collection.
+ *
+ */
 
 router.route('/posts/:page/:post_id/:sort_way/:date')
     .get(function(req, res){
@@ -209,7 +245,8 @@ router.route('/comments/:post_id/')
     .post(function(req, res){
       /**
        *
-       *  Function for creating new comment
+       *  Function for creating new comment. Links comment to both post
+       *  and user object.
        *
        */
        if(req.user && req.body.description !== ""){
@@ -247,6 +284,10 @@ router.route('/comments/:post_id/')
        }
     });
 
+/*
+ * Endpoint to fetch specific user.
+ */
+
 router.route('/users/:user_id')
 
     .get(function(req, res){
@@ -276,6 +317,10 @@ router.route('/users/:user_id')
 router.get('/', function(req, res) {
     res.json({ message: 'hooray! welcome to our api!' });
 });
+
+/*
+ *  Endpoint to fetch logged in user.
+ */
 
 router.route('/users/')
 

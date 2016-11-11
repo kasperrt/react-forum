@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import NewPost from '../components/newPost';
+import NewPost from '../components/NewPost';
 import axios from 'axios';
 
 class NewPostContainer extends Component {
@@ -58,6 +58,10 @@ class NewPostContainer extends Component {
     )
   }
 };
+
+/*
+ *  Allows for pushing to history.
+ */
 
 NewPostContainer.contextTypes = {
     router: React.PropTypes.object.isRequired

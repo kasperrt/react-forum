@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Frontpage from '../components/frontpage';
+import Frontpage from '../components/Frontpage';
 import axios from 'axios';
 import cookie from 'react-cookie';
 import PageNavigation from '../components/PageNavigation';

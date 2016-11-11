@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactRouter from 'react-router';
-import Thread from '../components/Thread.js';
-import Comments from '../components/Comments.js';
+import Thread from '../components/Thread';
+import Comments from '../components/Comments';
 import axios from 'axios';
 import PageNavigation from '../components/PageNavigation';
 

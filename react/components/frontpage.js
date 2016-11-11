@@ -1,8 +1,8 @@
 import React from 'react';
 import Posts from './Posts';
-import NewPostContainer from '../containers/newPostContainer.js';
+import NewPostContainer from '../containers/NewPostContainer';
 import Sorting from './Sorting';
-import FilterContainer from '../containers/FilterContainer.js';
+import FilterContainer from '../containers/FilterContainer';
 
 const Frontpage = ({posts, reMount, type, way, handleTypeChange, handleWayChange, reMountDate}) => (
   <div>
