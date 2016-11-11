@@ -2,6 +2,10 @@
   font-family: 'Roboto', Helvetica, Arial, sans-serif;
 }
 
+.sorting_container{
+  margin-top: 40px;
+}
+
 /* Style posts */
 .post {
   margin: 10px 0;
@@ -16,6 +20,17 @@
   color: black;
 }
 
+/*Style post filtering*/
+select {
+  border: 1px solid #111;
+  background: transparent;
+  width: 150px;
+  padding: 5px 30px 5px 5px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  height: 30px;
+}
+
 /*Style comments*/
 .comment{
   border-bottom: 1px solid black;
@@ -24,14 +39,25 @@
 }
 
 /*Write a new post*/
+#new_post{
+  width: 50%;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
 .new_post{
   min-height:100px;
   display: flex;
   flex-direction: column;
 }
 
-.newPostTitle {
-  font-size: 24px;
+.newPostTitle, .new_post_text{
+  font-size:18px;
+  margin-bottom:5px;
+}
+
+.new_post_text{
+  height:150px;
 }
 
 .postAuthorContainer, .postPosted, .postComments, .commentPosted, .postInformation{
@@ -39,11 +65,14 @@
 }
 
 .new_post_button, .newCommentButton{
-  background: green;
+  background-color: green;
+  font-size: 16px;
   padding: 10px 16px;
-  margin-top: 16px;
-  width: 115px;
-
+  border: none;
+	font-weight: lighter;
+	color: white;
+	text-transform: uppercase;
+  cursor:pointer;
   text-transform: uppercase;
   color: white;
   font-weight: lighter;
@@ -52,6 +81,18 @@
   display: flex;
 }
 
+.newCommentTextArea{
+  font-size:18px;
+}
+
+.new_post_button{
+  width: 115px;
+}
+
 .postDescriptionContainer{
   width: 75%;
+}
+
+.navigation_div{
+  text-align: center;
 }
