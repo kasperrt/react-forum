@@ -44,6 +44,7 @@
     "react-redux": "^4.4.5",
     "react-router": "^2.8.1",
     "redux": "^3.6.0",
+    "session": "^0.1.0",
     "style-loader": "^0.13.1",
     "victory": "^0.13.3",
     "webpack": "^1.13.2",
