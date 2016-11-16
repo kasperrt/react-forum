@@ -127,3 +127,14 @@ select {
   padding: 5px;
   margin-left: 5px;
 }
+
+.sorting_container select{
+  margin-left: 5px;
+}
+
+.postDescription{
+  width: 250px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
